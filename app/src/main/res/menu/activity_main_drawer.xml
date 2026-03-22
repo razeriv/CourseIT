@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_text_info"
+            android:title="Text Info"
+            android:icon="@android:drawable/ic_menu_info_details" />
+
+        <item
+            android:id="@+id/nav_transform"
+            android:title="@string/menu_transform"
+            android:icon="@android:drawable/ic_menu_manage" />
+
+        <item
+            android:id="@+id/nav_reflow"
+            android:title="@string/menu_reflow"
+            android:icon="@android:drawable/ic_menu_rotate" />
+
+        <item
+            android:id="@+id/nav_slideshow"
+            android:title="@string/menu_slideshow"
+            android:icon="@android:drawable/ic_menu_gallery" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:title="@string/menu_settings"
+            android:icon="@android:drawable/ic_menu_preferences" />
+
+    </group>
+
+</menu>

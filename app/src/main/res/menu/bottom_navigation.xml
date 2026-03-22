@@ -1,0 +1,32 @@
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_news"
+        android:title="Новости"
+        android:icon="@drawable/newspaper" />
+
+    <item
+        android:id="@+id/nav_projects"
+        android:title="Проекты"
+        android:icon="@drawable/projects" />
+
+    <item
+        android:id="@+id/nav_menu"
+        android:title="Меню"
+        android:iconTint="@color/black"
+        android:icon="@android:drawable/ic_menu_sort_by_size" />
+
+    <item
+        android:id="@+id/nav_chats"
+        android:title="Чаты"
+        android:iconTint="@color/black"
+        android:icon="@android:drawable/ic_menu_send"
+        tools:targetApi="26" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Профиль"
+        android:icon="@drawable/account_circle" />
+
+</menu>
