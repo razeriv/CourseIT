@@ -1,4 +1,5 @@
 package com.example.myapplication.ui.projects;
+
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,16 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.myapplication.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ProjectViewHolder> {
 
-    private List<String> projectList;
-    private List<String> projectListFull;
+    private List<Project> projectList;
+    private List<Project> projectListFull;
+    private OnProjectClickListener listener;
 
     public ProjectsAdapter() {
         this.projectList = new ArrayList<>();
@@ -31,10 +31,10 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
-        String projectTitle = projectList.get(position);
-        holder.ProjectTitle.setText(projectTitle);
-        holder.ProjectDescription.setText("Описание для " + projectTitle);
-        holder.ProjectInstructor.setText("Преподаватель: Хуесос Хуесосович");
+        Project project = projectList.get(position);
+        holder.ProjectTitle.setText(project.getTitle());
+        holder.ProjectDescription.setText(project.getDescription());
+        holder.ProjectInstructor.setText("Преподаватель: " + project.getInstructor());
     }
 
     @Override
@@ -43,12 +43,13 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setData(List<String> newList) {
+    public void setData(List<Project> newList) {
         this.projectList = new ArrayList<>(newList);
         this.projectListFull = new ArrayList<>(newList);
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void filter(String query) {
         query = query.toLowerCase();
         projectList.clear();
@@ -56,8 +57,8 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
         if (query.isEmpty()) {
             projectList.addAll(projectListFull);
         } else {
-            for (String project : projectListFull) {
-                if (project.toLowerCase().contains(query)) {
+            for (Project project : projectListFull) {
+                if (project.getTitle().toLowerCase().contains(query)) {
                     projectList.add(project);
                 }
             }
@@ -65,7 +66,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
         notifyDataSetChanged();
     }
 
-    public static class ProjectViewHolder extends RecyclerView.ViewHolder {
+    public class ProjectViewHolder extends RecyclerView.ViewHolder {
         TextView ProjectTitle;
         TextView ProjectDescription;
         TextView ProjectInstructor;
@@ -75,6 +76,24 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
             ProjectTitle = itemView.findViewById(R.id.ProjectTitle);
             ProjectDescription = itemView.findViewById(R.id.ProjectDescription);
             ProjectInstructor = itemView.findViewById(R.id.ProjectInstructor);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        listener.onProjectClick(projectList.get(position));
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnProjectClickListener {
+        void onProjectClick(Project project);
+    }
+
+    public void setOnProjectClickListener(OnProjectClickListener listener) {
+        this.listener = listener;
     }
 }
