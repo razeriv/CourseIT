@@ -1,8 +1,7 @@
 package com.example.myapplication.ui.projects;
 
-import androidx.recyclerview.widget.LinearLayoutManager; // Важно!
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.Arrays;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import java.util.ArrayList;
 import java.util.List;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
@@ -16,6 +15,9 @@ import android.app.AlertDialog;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
@@ -37,23 +39,17 @@ public class ProjectsFragment extends Fragment {
 
         this.adapter = new ProjectsAdapter();
         binding.recyclerViewProjects.setAdapter(adapter);
-
         this.editTextSearch = binding.editTextSearch;
 
         final GestureDetector gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-                float x = e.getX();
-
                 Drawable[] drawables = editTextSearch.getCompoundDrawables();
                 if (drawables[2] == null) return false;
-
                 int iconWidth = drawables[2].getBounds().width();
                 int iconPadding = editTextSearch.getPaddingEnd();
-
                 float iconStartPos = editTextSearch.getRight() - iconPadding - iconWidth;
-
-                if (x >= iconStartPos) {
+                if (e.getX() >= iconStartPos) {
                     performSearch();
                     return true;
                 }
@@ -63,9 +59,7 @@ public class ProjectsFragment extends Fragment {
 
         editTextSearch.setOnTouchListener((v, event) -> {
             boolean isIconClicked = gestureDetector.onTouchEvent(event);
-            if (isIconClicked) {
-                return true;
-            }
+            if (isIconClicked) return true;
             return editTextSearch.onTouchEvent(event);
         });
 
@@ -74,24 +68,21 @@ public class ProjectsFragment extends Fragment {
 
         binding.recyclerViewProjects.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        List<String> dummyData = Arrays.asList(
-                "Проект 1: Новое приложение",
-                "Проект 2: Редизайн сайта",
-                "Проект 3: Оптимизация БД",
-                "Проект 4: Мобильная игра",
-                "Проект 5: Интеграция API",
-                "Проект 6: Еще один длинный проект для проверки переноса строк"
-        );
+        List<Project> dummyData = new ArrayList<>();
+        dummyData.add(new Project("Проект 1: Новое приложение", "Создание мобильного приложения для учета финансов.", "Детали: Требуется интеграция с API банка, разработка дизайна.", "Иванов И.И."));
+        dummyData.add(new Project("Проект 2: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
 
-        this.adapter.setData(dummyData);
+        adapter.setData(dummyData);
+
+        adapter.setOnProjectClickListener(this::showProjectDetailsDialog);
 
         return view;
     }
 
     private void showFilterDialog() {
+        // Ваш код фильтра (без изменений)
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Фильтры");
-
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_filters, null);
         builder.setView(dialogView);
@@ -99,9 +90,7 @@ public class ProjectsFragment extends Fragment {
         final AlertDialog dialog = builder.create();
 
         Button btnApply = dialogView.findViewById(R.id.btnApply);
-        btnApply.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
+        btnApply.setOnClickListener(v -> dialog.dismiss());
 
         Button btnCancel = dialogView.findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(v -> dialog.dismiss());
@@ -113,6 +102,32 @@ public class ProjectsFragment extends Fragment {
         String query = editTextSearch.getText().toString().trim();
         adapter.filter(query);
         editTextSearch.clearFocus();
+    }
+
+    private void showProjectDetailsDialog(Project project) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_project_details, null);
+
+        TextView tvTitle = dialogView.findViewById(R.id.textViewTitle);
+        TextView tvDetails = dialogView.findViewById(R.id.textViewDetails);
+
+        tvTitle.setText(project.getTitle());
+        tvDetails.setText(project.getDetails());
+
+        builder.setView(dialogView)
+                .setPositiveButton("Закрыть", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+
+        Button btnRespond = dialogView.findViewById(R.id.btnRespond);
+        btnRespond.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Отклик отправлен на: " + project.getTitle(), Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     @Override
