@@ -104,17 +104,20 @@ public class ProjectsFragment extends Fragment {
         editTextSearch.clearFocus();
     }
 
+    @SuppressLint("SetTextI18n")
     private void showProjectDetailsDialog(Project project) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_project_details, null);
 
-        TextView tvTitle = dialogView.findViewById(R.id.textViewTitle);
-        TextView tvDetails = dialogView.findViewById(R.id.textViewDetails);
+        TextView tvTitle = dialogView.findViewById(R.id.project_title);
+        TextView tvDetails = dialogView.findViewById(R.id.project_description);
+        TextView tvInstructor = dialogView.findViewById(R.id.project_instructor);
 
         tvTitle.setText(project.getTitle());
         tvDetails.setText(project.getDetails());
+        tvInstructor.setText("Преподаватель: " + project.getInstructor());
 
         builder.setView(dialogView)
                 .setPositiveButton("Закрыть", (dialog, which) -> dialog.dismiss());
