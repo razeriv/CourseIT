@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -24,7 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Срок" />
+                android:text="Срок"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/ProjectComplexity"
@@ -32,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Сложность" />
+                android:text="Сложность"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <TextView
@@ -41,7 +44,8 @@
             android:layout_height="wrap_content"
             android:text="Название проекта"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/ProjectDescription"
@@ -49,7 +53,8 @@
             android:layout_height="wrap_content"
             android:text="Краткое описание проекта..."
             android:textSize="14sp"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/ProjectInstructor"
@@ -58,7 +63,8 @@
             android:layout_marginTop="8dp"
             android:text="Преподаватель"
             android:textColor="#555555"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

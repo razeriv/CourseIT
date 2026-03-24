@@ -19,7 +19,9 @@
             android:id="@+id/NewsImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:contentDescription="TODO"
+            tools:srcCompat="@tools:sample/avatars"
+            tools:ignore="ContentDescription,HardcodedText" />
 
         <TextView
             android:id="@+id/NewsTitle"
@@ -27,7 +29,8 @@
             android:layout_height="wrap_content"
             android:text="Название новости"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/NewsDescription"
@@ -35,7 +38,8 @@
             android:layout_height="wrap_content"
             android:text="Краткое описание новостей..."
             android:textSize="14sp"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/NewsData"
@@ -44,7 +48,8 @@
             android:layout_marginTop="8dp"
             android:text="Дата"
             android:textColor="#555555"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

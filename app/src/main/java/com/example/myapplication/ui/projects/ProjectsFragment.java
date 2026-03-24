@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.projects;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ProjectsFragment extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentProjectsBinding.inflate(inflater, container, false);
@@ -43,7 +44,7 @@ public class ProjectsFragment extends Fragment {
 
         final GestureDetector gestureDetector = new GestureDetector(requireContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onSingleTapConfirmed(MotionEvent e) {
+            public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
                 Drawable[] drawables = editTextSearch.getCompoundDrawables();
                 if (drawables[2] == null) return false;
                 int iconWidth = drawables[2].getBounds().width();

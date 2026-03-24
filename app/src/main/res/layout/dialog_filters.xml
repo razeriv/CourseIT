@@ -1,5 +1,6 @@
 <!-- res/layout/dialog_filters.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -12,28 +13,31 @@
         android:text="Тема"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:paddingBottom="8dp"/>
+        android:paddingBottom="8dp"
+        tools:ignore="HardcodedText" />
 
     <CheckBox
         android:id="@+id/checkboxWeb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Web-разработка"/>
+        android:text="Web-разработка"
+        tools:ignore="HardcodedText" />
 
     <CheckBox
         android:id="@+id/checkboxAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Администрирование"/>
+        android:text="Администрирование"
+        tools:ignore="HardcodedText" />
 
     <CheckBox
         android:id="@+id/checkboxAndroid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Android-разработка"/>
+        android:text="Android-разработка"
+        tools:ignore="HardcodedText" />
 
 
-    <!-- Вкладка 2: Сложность (RadioButton) -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +45,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingTop="16dp"
-        android:paddingBottom="8dp"/>
+        android:paddingBottom="8dp"
+        tools:ignore="HardcodedText" />
 
     <RadioGroup
         android:id="@+id/radioGroupDifficulty"
@@ -52,23 +57,24 @@
             android:id="@+id/radioEasy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Легкий"/>
+            android:text="Легкий"
+            tools:ignore="HardcodedText" />
 
         <RadioButton
             android:id="@+id/radioMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Средний"/>
+            android:text="Средний"
+            tools:ignore="HardcodedText" />
 
         <RadioButton
             android:id="@+id/radioHard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Сложный"/>
+            android:text="Сложный"
+            tools:ignore="HardcodedText" />
     </RadioGroup>
 
-
-    <!-- Вкладка 3: Срок (EditText) -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,7 +82,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingTop="16dp"
-        android:paddingBottom="8dp"/>
+        android:paddingBottom="8dp"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,7 +96,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="От">
+            android:hint="От"
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextDateFrom"
@@ -108,7 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="До">
+            android:hint="До"
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextDateTo"
@@ -119,7 +128,6 @@
 
     </LinearLayout>
 
-    <!-- Кнопки действия -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -131,7 +139,8 @@
             android:id="@+id/btnCancel"
             android:text="Отмена"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:layout_width="wrap_content"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="8dp"
@@ -141,7 +150,8 @@
             android:id="@+id/btnApply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Применить"/>
+            android:text="Применить"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 </LinearLayout>

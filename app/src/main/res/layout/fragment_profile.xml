@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_width="match_parent"
@@ -15,7 +16,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@mipmap/ic_launcher_round"
+            tools:ignore="ContentDescription" />
     </androidx.cardview.widget.CardView>
     <TextView
         android:id="@+id/profileName"
@@ -23,14 +25,16 @@
         android:textSize="20sp"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/profileRating"
         android:text="Рейтинг"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/countprojects"
@@ -39,25 +43,29 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="30dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btnAbout"
         style="@style/CustomButtonStyle"
         android:layout_width="match_parent"
-        android:text="О себе" />
+        android:text="О себе"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btnPortfolio"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:text="Портфолио"
-        style="@style/CustomButtonStyle" />
+        style="@style/CustomButtonStyle"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btnReviews"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:text="Отзывы"
-        style="@style/CustomButtonStyle"/>
+        style="@style/CustomButtonStyle"
+        tools:ignore="HardcodedText" />
 </LinearLayout>

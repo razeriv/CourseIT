@@ -36,7 +36,8 @@
                     android:text="Название проекта"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="@android:color/black"
-                    tools:text="Название проекта" />
+                    tools:text="Название проекта"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/project_description"
@@ -46,7 +47,8 @@
                     android:text="Описание:"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="@android:color/black"
-                    tools:text="Описание:" />
+                    tools:text="Описание:"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/project_requirement"
@@ -56,7 +58,8 @@
                     android:text="Требования задачи..."
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="@android:color/black"
-                    tools:text="Требования задачи..." />
+                    tools:text="Требования задачи..."
+                    tools:ignore="HardcodedText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -72,7 +75,8 @@
                         android:text="Сложность:"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:textColor="@android:color/black"
-                        tools:text="Сложность:" />
+                        tools:text="Сложность:"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -82,7 +86,8 @@
                         android:text="Срок:"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:textColor="@android:color/black"
-                        tools:text="Срок:" />
+                        tools:text="Срок:"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
                 </LinearLayout>
 
                 <TextView
@@ -93,7 +98,8 @@
                     android:text="Задание оставлено 25 минут назад"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="@android:color/black"
-                    tools:text="Задание оставлено 25 минут назад" />
+                    tools:text="Задание оставлено 25 минут назад"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/project_instructor"
@@ -103,7 +109,8 @@
                     android:text="Преподаватель:"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="@android:color/black"
-                    tools:text="Преподаватель:" />
+                    tools:text="Преподаватель:"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -117,7 +124,8 @@
             android:textColor="@android:color/black"
             app:layout_constraintTop_toBottomOf="@id/card_project_info"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="HardcodedText" />
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
@@ -175,9 +183,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Написать преподавателю"
+            android:text="Написать"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Строка поиска и фильтра -->
     <LinearLayout
         android:id="@+id/searchFilterBar"
         android:layout_width="0dp"
@@ -33,7 +33,8 @@
                 android:drawableEnd="@drawable/search"
                 android:drawablePadding="8dp"
                 android:hint="Поиск..."
-                android:imeOptions="actionSearch" />
+                android:imeOptions="actionSearch"
+                tools:ignore="HardcodedText" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
@@ -43,10 +44,10 @@
             android:layout_marginStart="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Открыть фильтры"
-            android:src="@drawable/filter_menu" />
+            android:src="@drawable/filter_menu"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
-    <!-- Список проектов -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProjects"
         android:layout_width="0dp"

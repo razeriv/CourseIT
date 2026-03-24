@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="180dp"
     android:background="@drawable/side_nav_bar"
@@ -20,12 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
-        android:text="Имя" />
+        android:text="Имя"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
-        android:text="Рейтинг" />
+        android:text="Рейтинг"
+        tools:ignore="HardcodedText" />
 </LinearLayout>
