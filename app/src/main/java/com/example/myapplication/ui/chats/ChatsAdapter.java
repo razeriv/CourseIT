@@ -14,21 +14,21 @@ import java.util.List;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder> {
 
-    private List<ChatItem> chats;
-
-    public ChatsAdapter(List<ChatItem> chats) {
+    private final List<ChatItem> chats;
+    private final OnChatClickListener listener;
+    public ChatsAdapter(List<ChatItem> chats, OnChatClickListener listener) {
         this.chats = chats;
+        this.listener = listener;
     }
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder {
-        TextView name, project, message, status;
-
+        TextView name, project, message, unreadCount;
         public ChatViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.name);
             project = view.findViewById(R.id.project);
             message = view.findViewById(R.id.message);
-            status = view.findViewById(R.id.status);
+            unreadCount = view.findViewById(R.id.unreadCount);
         }
     }
 
@@ -49,17 +49,22 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
         holder.message.setText(chat.lastMessage);
 
         if (chat.unreadCount > 0) {
-            holder.status.setText(String.valueOf(chat.unreadCount));
-            holder.status.setVisibility(View.VISIBLE);
+            holder.unreadCount.setText(String.valueOf(chat.unreadCount));
+            holder.unreadCount.setVisibility(View.VISIBLE);
         } else {
-            holder.status.setVisibility(View.GONE);
+            holder.unreadCount.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> {
-            Log.d("CHAT", "Clicked: " + chat.name);
+            if (listener != null) {
+                listener.onChatClick(chat);
+            }
         });
     }
 
+    public interface OnChatClickListener {
+        void onChatClick(ChatItem chat);
+    }
     @Override
     public int getItemCount() {
         return chats != null ? chats.size() : 0;

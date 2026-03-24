@@ -10,40 +10,51 @@
         android:id="@+id/recyclerMessages"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/inputLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/inputLayout"
-        android:orientation="horizontal"
-        android:padding="8dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#EEEEEE"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_add"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
-        <EditText
-            android:id="@+id/editMessage"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:hint="написать сообщение"
-            android:layout_height="wrap_content"
-            tools:ignore="HardcodedText" />
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_add" />
 
-        <ImageView
-            android:id="@+id/sendButton"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_send"/>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/editMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Сообщение..."
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/sendButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_send" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
