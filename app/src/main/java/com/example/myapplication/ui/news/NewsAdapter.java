@@ -16,7 +16,7 @@ import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
-    private List<NewsItem> newsList;
+    private final List<NewsItem> newsList;
 
     public NewsAdapter() {
         this.newsList = new ArrayList<>();

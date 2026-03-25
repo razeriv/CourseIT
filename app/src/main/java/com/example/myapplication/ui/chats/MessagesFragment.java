@@ -27,11 +27,19 @@ public class MessagesFragment extends Fragment {
         binding = FragmentMessagesBinding.inflate(inflater, container, false);
 
         adapter = new MessageAdapter(messageList);
-        binding.recyclerMessages.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerMessages.setLayoutManager(
+                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true)
+        );
         binding.recyclerMessages.setAdapter(adapter);
 
         messageList.add(new Message("Привет", false));
         messageList.add(new Message("Здравствуйте!", true));
+
+        binding.recyclerMessages.scrollToPosition(0);
+
+        binding.backButton.setOnClickListener(v -> {
+            requireActivity().onBackPressed();
+        });
 
         adapter.notifyDataSetChanged();
 

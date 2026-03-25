@@ -128,6 +128,7 @@ public class ProjectsFragment extends Fragment {
         Button btnRespond = dialogView.findViewById(R.id.btnRespond);
         btnRespond.setOnClickListener(v -> {
             Toast.makeText(requireContext(), "Отклик отправлен на: " + project.getTitle(), Toast.LENGTH_SHORT).show();
+
             dialog.dismiss();
         });
 

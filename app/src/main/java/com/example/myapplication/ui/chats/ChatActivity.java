@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,10 +28,22 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_messages);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        TextView chatName = findViewById(R.id.chatName);
+        TextView chatStatus = findViewById(R.id.chatStatus);
+        ImageView backButton = findViewById(R.id.backButton);
+
         String name = getIntent().getStringExtra("name");
         if (name != null) {
-            setTitle(name);
+            chatName.setText(name);
         }
+
+        chatStatus.setText("в сети • сейчас");
+
+        backButton.setOnClickListener(v -> onBackPressed());
 
         recyclerView = findViewById(R.id.recyclerMessages);
         editMessage = findViewById(R.id.editMessage);
@@ -42,8 +55,14 @@ public class ChatActivity extends AppCompatActivity {
         messages.add(new Message("Здравствуйте 👋", true));
 
         adapter = new MessageAdapter(messages);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.setAdapter(adapter);
+
+        recyclerView.scrollToPosition(messages.size() - 1);
 
         sendButton.setOnClickListener(v -> sendMessage());
     }
@@ -57,7 +76,6 @@ public class ChatActivity extends AppCompatActivity {
         adapter.notifyItemInserted(messages.size() - 1);
 
         editMessage.setText("");
-
         recyclerView.scrollToPosition(messages.size() - 1);
 
         simulateReply();
