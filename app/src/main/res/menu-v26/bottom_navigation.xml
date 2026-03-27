@@ -13,13 +13,11 @@
     <item
         android:id="@+id/nav_menu"
         android:title="Меню"
-        android:iconTint="@color/white"
         android:icon="@android:drawable/ic_menu_sort_by_size" />
 
     <item
         android:id="@+id/nav_chats"
         android:title="Чаты"
-        android:iconTint="@color/white"
         android:icon="@android:drawable/ic_menu_send" />
 
     <item
