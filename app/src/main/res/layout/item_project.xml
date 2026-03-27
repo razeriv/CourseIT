@@ -2,12 +2,12 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_margin="12dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#2D4A9D">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,49 +22,51 @@
 
             <TextView
                 android:id="@+id/ProjectDeadline"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Срок"
-                tools:ignore="HardcodedText" />
+                android:text="23.03 - 27.03"
+                android:textColor="#B0C4FF"
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/ProjectComplexity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Сложность"
-                tools:ignore="HardcodedText" />
+                android:text="лёгкий"
+                android:textColor="#B0C4FF"
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/ProjectTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Название проекта"
+            android:text="Исследование нейронных..."
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+            android:textColor="@android:color/white"
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/ProjectDescription"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Краткое описание проекта..."
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
-            tools:ignore="HardcodedText" />
+            android:text="подробности"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"/>
 
         <TextView
             android:id="@+id/ProjectInstructor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Преподаватель"
-            android:textColor="#555555"
-            android:textSize="12sp"
-            tools:ignore="HardcodedText" />
+            android:layout_marginTop="12dp"
+            android:text="преподаватель: Мусаев А. А."
+            android:textColor="#B0C4FF"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

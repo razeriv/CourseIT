@@ -72,6 +72,10 @@ public class ProjectsFragment extends Fragment {
         List<Project> dummyData = new ArrayList<>();
         dummyData.add(new Project("Проект 1: Новое приложение", "Создание мобильного приложения для учета финансов.", "Детали: Требуется интеграция с API банка, разработка дизайна.", "Иванов И.И."));
         dummyData.add(new Project("Проект 2: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
+        dummyData.add(new Project("Проект 3: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
+        dummyData.add(new Project("Проект 4: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
+        dummyData.add(new Project("Проект 5: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
+        dummyData.add(new Project("Проект 6: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
 
         adapter.setData(dummyData);
 
@@ -81,7 +85,6 @@ public class ProjectsFragment extends Fragment {
     }
 
     private void showFilterDialog() {
-        // Ваш код фильтра (без изменений)
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Фильтры");
         LayoutInflater inflater = requireActivity().getLayoutInflater();
