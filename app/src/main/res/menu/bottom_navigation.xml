@@ -2,6 +2,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/home_fragment"
+        android:title="Home"
+        tools:ignore="HardcodedText" />
+
+    <item
         android:id="@+id/nav_news"
         android:title="Новости"
         android:icon="@drawable/newspaper"
@@ -18,7 +23,7 @@
         android:title="Меню"
         android:iconTint="@color/black"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,UnusedAttribute" />
 
     <item
         android:id="@+id/nav_chats"

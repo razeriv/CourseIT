@@ -2,14 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_news">
+    android:id="@+id/main_graph"
+    app:startDestination="@id/home_fragment">
 
     <fragment
-        android:id="@+id/nav_text_edit"
-        android:name="com.example.myapplication.ui.text.TextEditFragment"
-        android:label="Редактирование"
-        tools:layout="@layout/fragment_text_edit" />
+        android:id="@+id/home_fragment"
+        android:name="com.example.myapplication.ui.home.HomeFragment"
+        android:label="Главная"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_news"
@@ -24,12 +24,6 @@
         tools:layout="@layout/fragment_projects" />
 
     <fragment
-        android:id="@+id/nav_menu"
-        android:name="com.example.myapplication.ui.menu.MenuFragment"
-        android:label="Меню"
-        tools:layout="@layout/fragment_menu" />
-
-    <fragment
         android:id="@+id/nav_chats"
         android:name="com.example.myapplication.ui.chats.ChatsFragment"
         android:label="Чаты"
@@ -40,4 +34,17 @@
         android:name="com.example.myapplication.ui.profile.ProfileFragment"
         android:label="Профиль"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_menu"
+        android:name="com.example.myapplication.ui.menu.MenuFragment"
+        android:label="Меню"
+        tools:layout="@layout/fragment_menu" />
+
+    <fragment
+        android:id="@+id/nav_text_edit"
+        android:name="com.example.myapplication.ui.text.TextEditFragment"
+        android:label="Редактирование"
+        tools:layout="@layout/fragment_text_edit" />
+
 </navigation>
