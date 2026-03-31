@@ -36,6 +36,8 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
         holder.ProjectTitle.setText(project.getTitle());
         holder.ProjectDescription.setText(project.getDescription());
         holder.ProjectInstructor.setText("Преподаватель: " + project.getInstructor());
+        holder.ProjectDeadline.setText(project.getDeadline());
+        holder.ProjectDifficulty.setText(project.getDifficulty());
     }
 
     @Override
@@ -51,32 +53,76 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void filter(String query) {
+    public void applyFilters(
+            String query,
+            boolean web,
+            boolean admin,
+            boolean android,
+            String difficulty,
+            String dateFrom,
+            String dateTo
+    ) {
+
         query = query.toLowerCase();
+
         projectList.clear();
 
-        if (query.isEmpty()) {
-            projectList.addAll(projectListFull);
-        } else {
-            for (Project project : projectListFull) {
-                if (project.getTitle().toLowerCase().contains(query)) {
-                    projectList.add(project);
-                }
+        for (Project p : projectListFull) {
+
+            boolean matchesSearch =
+                    query.isEmpty()
+                            || p.getTitle().toLowerCase().contains(query);
+
+            boolean matchesTopic =
+                    (!web && !admin && !android)
+                            || (web && p.getTopic().equalsIgnoreCase("web"))
+                            || (admin && p.getTopic().equalsIgnoreCase("admin"))
+                            || (android && p.getTopic().equalsIgnoreCase("android"));
+
+            boolean matchesDifficulty =
+                    difficulty.isEmpty()
+                            || p.getDifficulty().equalsIgnoreCase(difficulty);
+
+            boolean matchesDate = true;
+
+            if (!dateFrom.isEmpty() || !dateTo.isEmpty()) {
+
+                String[] dates = p.getDeadline().split(" - ");
+
+                if (dates.length != 2)
+                    continue;
+
+                int projectStart = convertDate(dates[0]);
+                int projectEnd = convertDate(dates[1]);
+
+                int filterStart = dateFrom.isEmpty() ? 0 : convertDate(dateFrom);
+                int filterEnd = dateTo.isEmpty() ? 1231 : convertDate(dateTo);
+
+                matchesDate =
+                        projectEnd >= filterStart &&
+                                projectStart <= filterEnd;
             }
+
+            if (matchesSearch && matchesTopic && matchesDifficulty && matchesDate)
+                projectList.add(p);
         }
+
         notifyDataSetChanged();
     }
-
     public class ProjectViewHolder extends RecyclerView.ViewHolder {
         TextView ProjectTitle;
         TextView ProjectDescription;
         TextView ProjectInstructor;
+        TextView ProjectDeadline;
+        TextView ProjectDifficulty;
 
         public ProjectViewHolder(@NonNull View itemView) {
             super(itemView);
             ProjectTitle = itemView.findViewById(R.id.ProjectTitle);
             ProjectDescription = itemView.findViewById(R.id.ProjectDescription);
             ProjectInstructor = itemView.findViewById(R.id.ProjectInstructor);
+            ProjectDeadline = itemView.findViewById(R.id.ProjectDeadline);
+            ProjectDifficulty = itemView.findViewById(R.id.ProjectDifficulty);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,6 +136,15 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
         }
     }
 
+    private int convertDate(String date) {
+        date = date.trim();
+        String[] parts = date.split("\\.");
+
+        int day = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+
+        return month * 100 + day;
+    }
     public interface OnProjectClickListener {
         void onProjectClick(Project project);
     }

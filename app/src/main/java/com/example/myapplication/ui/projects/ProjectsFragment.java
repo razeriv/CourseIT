@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.app.AlertDialog;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,14 @@ public class ProjectsFragment extends Fragment {
     private FragmentProjectsBinding binding;
     private ProjectsAdapter adapter;
     private EditText editTextSearch;
+    private boolean filterWeb = false;
+    private boolean filterAdmin = false;
+    private boolean filterAndroid = false;
+
+    private String filterDifficulty = "";
+
+    private String filterDateFrom = "";
+    private String filterDateTo = "";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -70,41 +80,147 @@ public class ProjectsFragment extends Fragment {
         binding.recyclerViewProjects.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         List<Project> dummyData = new ArrayList<>();
-        dummyData.add(new Project("Проект 1: Новое приложение", "Создание мобильного приложения для учета финансов.", "Детали: Требуется интеграция с API банка, разработка дизайна.", "Иванов И.И."));
-        dummyData.add(new Project("Проект 2: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
-        dummyData.add(new Project("Проект 3: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
-        dummyData.add(new Project("Проект 4: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
-        dummyData.add(new Project("Проект 5: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
-        dummyData.add(new Project("Проект 6: Редизайн сайта", "Обновление визуальной части корпоративного сайта.", "Детали: Использование Figma, адаптивная верстка, оптимизация скорости загрузки.", "Петров П.П."));
 
+        dummyData.add(new Project(
+                "Финансовое приложение",
+                "Учет расходов",
+                "Интеграция API банка",
+                "Иванов И.И.",
+                "android",
+                "средний",
+                "01.04 - 15.05"
+        ));
+
+        dummyData.add(new Project(
+                "Корпоративный сайт",
+                "Редизайн",
+                "Figma + адаптив",
+                "Петров П.П.",
+                "web",
+                "лёгкий",
+                "10.03 - 01.04"
+        ));
+
+        dummyData.add(new Project(
+                "Серверная инфраструктура",
+                "Настройка Linux",
+                "Docker + nginx",
+                "Сидоров С.С.",
+                "admin",
+                "сложный",
+                "15.05 - 30.06"
+        ));
         adapter.setData(dummyData);
 
         adapter.setOnProjectClickListener(this::showProjectDetailsDialog);
 
         return view;
     }
+    private void applyFilters() {
+
+        String query = editTextSearch.getText().toString().trim();
+
+        adapter.applyFilters(
+                query,
+                filterWeb,
+                filterAdmin,
+                filterAndroid,
+                filterDifficulty,
+                filterDateFrom,
+                filterDateTo
+        );
+    }
 
     private void showFilterDialog() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Фильтры");
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_filters, null);
-        builder.setView(dialogView);
+        View view = getLayoutInflater().inflate(R.layout.dialog_filters, null);
 
-        final AlertDialog dialog = builder.create();
+        builder.setView(view);
 
-        Button btnApply = dialogView.findViewById(R.id.btnApply);
-        btnApply.setOnClickListener(v -> dialog.dismiss());
+        CheckBox web = view.findViewById(R.id.checkboxWeb);
+        CheckBox admin = view.findViewById(R.id.checkboxAdmin);
+        CheckBox android = view.findViewById(R.id.checkboxAndroid);
 
-        Button btnCancel = dialogView.findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(v -> dialog.dismiss());
+        RadioGroup difficultyGroup = view.findViewById(R.id.radioGroupDifficulty);
+
+        EditText dateFrom = view.findViewById(R.id.editTextDateFrom);
+        EditText dateTo = view.findViewById(R.id.editTextDateTo);
+
+        Button apply = view.findViewById(R.id.btnApply);
+        Button cancel = view.findViewById(R.id.btnCancel);
+        Button reset = view.findViewById(R.id.btnReset);
+
+        AlertDialog dialog = builder.create();
+
+        web.setChecked(filterWeb);
+        admin.setChecked(filterAdmin);
+        android.setChecked(filterAndroid);
+
+        dateFrom.setText(filterDateFrom);
+        dateTo.setText(filterDateTo);
+
+        if (filterDifficulty.equals("лёгкий"))
+            difficultyGroup.check(R.id.radioEasy);
+
+        else if (filterDifficulty.equals("средний"))
+            difficultyGroup.check(R.id.radioMedium);
+
+        else if (filterDifficulty.equals("сложный"))
+            difficultyGroup.check(R.id.radioHard);
+
+
+        apply.setOnClickListener(v -> {
+
+            filterWeb = web.isChecked();
+            filterAdmin = admin.isChecked();
+            filterAndroid = android.isChecked();
+
+            filterDateFrom = dateFrom.getText().toString();
+            filterDateTo = dateTo.getText().toString();
+
+            int selectedId = difficultyGroup.getCheckedRadioButtonId();
+
+            filterDifficulty = "";
+
+            if (selectedId == R.id.radioEasy)
+                filterDifficulty = "лёгкий";
+
+            else if (selectedId == R.id.radioMedium)
+                filterDifficulty = "средний";
+
+            else if (selectedId == R.id.radioHard)
+                filterDifficulty = "сложный";
+
+
+            applyFilters();
+
+            dialog.dismiss();
+        });
+
+
+        reset.setOnClickListener(v -> {
+
+            filterWeb = false;
+            filterAdmin = false;
+            filterAndroid = false;
+
+            filterDifficulty = "";
+            filterDateFrom = "";
+            filterDateTo = "";
+
+            applyFilters();
+            dialog.dismiss();
+        });
+
+
+        cancel.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
 
     private void performSearch() {
-        String query = editTextSearch.getText().toString().trim();
-        adapter.filter(query);
+        applyFilters();
         editTextSearch.clearFocus();
     }
 
@@ -125,16 +241,12 @@ public class ProjectsFragment extends Fragment {
 
         builder.setView(dialogView)
                 .setPositiveButton("Закрыть", (dialog, which) -> dialog.dismiss());
-
         AlertDialog dialog = builder.create();
-
         Button btnRespond = dialogView.findViewById(R.id.btnRespond);
         btnRespond.setOnClickListener(v -> {
             Toast.makeText(requireContext(), "Отклик отправлен на: " + project.getTitle(), Toast.LENGTH_SHORT).show();
-
             dialog.dismiss();
         });
-
         dialog.show();
     }
 

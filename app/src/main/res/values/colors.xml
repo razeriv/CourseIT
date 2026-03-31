@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="prblue">#2D4A9D</color>
+    <color name="primary">#2F4B9A</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="gray_light">#E0E0E0</color>
+    <color name="background">#F5F5F5</color>
 </resources>

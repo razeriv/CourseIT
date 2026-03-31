@@ -32,7 +32,7 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/ProjectComplexity"
+                android:id="@+id/ProjectDifficulty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="лёгкий"
