@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.chats;
 
 public class ChatItem {
+
     public String name;
     public String project;
     public String lastMessage;

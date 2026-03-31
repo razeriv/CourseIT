@@ -9,33 +9,29 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.myapplication.R;
-import com.example.myapplication.ui.news.NewsViewModel;
-import com.example.myapplication.ui.projects.ProjectsFragment;
 
 public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
-        NewsViewModel newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Button btnProject = rootView.findViewById(R.id.btnProjects);
-        btnProject.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.home_fragment, new ProjectsFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
+        Button btnProjects = root.findViewById(R.id.btnProjects);
 
-        return rootView;
-    }
+        NavController navController =
+                Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
 
-    private void navigateToNewsScreen() {
+        btnProjects.setOnClickListener(v ->
+                navController.navigate(R.id.nav_projects));
 
+        return root;
     }
 }

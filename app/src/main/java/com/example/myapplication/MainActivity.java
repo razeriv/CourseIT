@@ -80,14 +80,6 @@ public class MainActivity extends AppCompatActivity {
                     title.setText("Профиль");
             }
 
-            boolean isMainScreen =
-                    id == R.id.home_fragment ||
-                            id == R.id.nav_news ||
-                            id == R.id.nav_projects ||
-                            id == R.id.nav_chats ||
-                            id == R.id.nav_profile ||
-                            id == R.id.nav_menu;
-
             bottomNav.setVisibility(View.VISIBLE);
         });
 

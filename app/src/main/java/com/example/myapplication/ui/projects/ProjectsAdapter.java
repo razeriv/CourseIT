@@ -1,11 +1,15 @@
 package com.example.myapplication.ui.projects;
 
 import android.annotation.SuppressLint;
+import android.text.Layout;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import java.util.ArrayList;
@@ -38,6 +42,16 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
         holder.ProjectInstructor.setText("Преподаватель: " + project.getInstructor());
         holder.ProjectDeadline.setText(project.getDeadline());
         holder.ProjectDifficulty.setText(project.getDifficulty());
+        holder.expandableLayout.setVisibility(
+                project.isExpanded() ? View.VISIBLE : View.GONE
+        );
+
+        holder.itemView.setOnClickListener(v -> {
+            boolean willBeExpanded = !project.isExpanded();
+            project.setExpanded(willBeExpanded);
+
+            notifyItemChanged(position, "toggle_expand");
+        });
     }
 
     @Override
@@ -115,7 +129,8 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
         TextView ProjectInstructor;
         TextView ProjectDeadline;
         TextView ProjectDifficulty;
-
+        LinearLayout expandableLayout;
+        CardView cardView;
         public ProjectViewHolder(@NonNull View itemView) {
             super(itemView);
             ProjectTitle = itemView.findViewById(R.id.ProjectTitle);
@@ -123,7 +138,8 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
             ProjectInstructor = itemView.findViewById(R.id.ProjectInstructor);
             ProjectDeadline = itemView.findViewById(R.id.ProjectDeadline);
             ProjectDifficulty = itemView.findViewById(R.id.ProjectDifficulty);
-
+            expandableLayout = itemView.findViewById(R.id.expandableLayout);
+            cardView = itemView.findViewById(R.id.cardView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

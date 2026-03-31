@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
@@ -26,53 +26,65 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="23.03 - 27.03"
                 android:textColor="#B0C4FF"
-                android:textSize="12sp"
-                tools:ignore="HardcodedText" />
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/ProjectDifficulty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="лёгкий"
                 android:textColor="#B0C4FF"
-                android:textSize="12sp"
-                tools:ignore="HardcodedText" />
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/ProjectTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Исследование нейронных..."
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:layout_marginTop="8dp"
-            tools:ignore="HardcodedText" />
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/ProjectDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="подробности"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            tools:ignore="HardcodedText" />
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/ProjectInstructor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="преподаватель: Мусаев А. А."
             android:textColor="#B0C4FF"
-            android:textSize="12sp"
-            tools:ignore="HardcodedText" />
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:id="@+id/expandableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="12dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#88FFFFFF"/>
+
+            <TextView
+                android:id="@+id/ProjectDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="12dp"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
