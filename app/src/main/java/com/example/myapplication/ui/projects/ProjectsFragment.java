@@ -101,7 +101,6 @@ public class ProjectsFragment extends Fragment {
         return view;
     }
     private void applyFilters() {
-
         String query = editTextSearch.getText().toString().trim();
 
         adapter.applyFilters(

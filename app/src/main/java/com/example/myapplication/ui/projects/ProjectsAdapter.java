@@ -72,17 +72,17 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 
             boolean matchesSearch =
                     query.isEmpty()
-                            || p.getTitle().toLowerCase().contains(query);
+                        || p.getTitle().toLowerCase().contains(query);
 
             boolean matchesTopic =
                     (!web && !admin && !android)
-                            || (web && p.getTopic().equalsIgnoreCase("web"))
-                            || (admin && p.getTopic().equalsIgnoreCase("admin"))
-                            || (android && p.getTopic().equalsIgnoreCase("android"));
+                        || (web && p.getTopic().equalsIgnoreCase("web"))
+                        || (admin && p.getTopic().equalsIgnoreCase("admin"))
+                        || (android && p.getTopic().equalsIgnoreCase("android"));
 
             boolean matchesDifficulty =
                     difficulty.isEmpty()
-                            || p.getDifficulty().equalsIgnoreCase(difficulty);
+                        || p.getDifficulty().equalsIgnoreCase(difficulty);
 
             boolean matchesDate = true;
 
@@ -107,7 +107,6 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
             if (matchesSearch && matchesTopic && matchesDifficulty && matchesDate)
                 projectList.add(p);
         }
-
         notifyDataSetChanged();
     }
     public class ProjectViewHolder extends RecyclerView.ViewHolder {
