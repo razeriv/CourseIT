@@ -1,4 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:title="Главная"
+        android:icon="@android:drawable/ic_menu_sort_by_size" />
 
     <item
         android:id="@+id/nav_news"
@@ -6,19 +10,14 @@
         android:icon="@drawable/newspaper" />
 
     <item
-        android:id="@+id/nav_projects"
-        android:title="Проекты"
-        android:icon="@drawable/projects" />
-
-    <item
-        android:id="@+id/nav_menu"
-        android:title="Меню"
-        android:icon="@android:drawable/ic_menu_sort_by_size" />
-
-    <item
         android:id="@+id/nav_chats"
         android:title="Чаты"
         android:icon="@android:drawable/ic_menu_send" />
+
+    <item
+        android:id="@+id/nav_projects"
+        android:title="Проекты"
+        android:icon="@drawable/projects" />
 
     <item
         android:id="@+id/nav_profile"

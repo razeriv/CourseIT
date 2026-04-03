@@ -7,22 +7,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.databinding.FragmentNewsBinding;
-
-import java.util.List;
+import com.example.myapplication.ui.data.NewsViewModel;
 
 public class NewsFragment extends Fragment {
 
     private FragmentNewsBinding binding;
+    private NewsViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NewsViewModel viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
         binding = FragmentNewsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -30,18 +28,20 @@ public class NewsFragment extends Fragment {
         RecyclerView recyclerView = binding.recyclerView;
 
         NewsAdapter adapter = new NewsAdapter();
+
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(requireContext())
+        );
+
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        viewModel = new ViewModelProvider(requireActivity())
+                .get(NewsViewModel.class);
 
-        viewModel.getNewsList().observe(getViewLifecycleOwner(), new Observer<List<NewsItem>>() {
-            @Override
-            public void onChanged(List<NewsItem> newsItems) {
-                if (newsItems != null) {
-                    adapter.setData(newsItems);
-                }
-            }
+        viewModel.getNews().observe(getViewLifecycleOwner(), list -> {
+            adapter.setData(list);
         });
+
         return root;
     }
 

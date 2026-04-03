@@ -1,11 +1,12 @@
 package com.example.myapplication.ui.news;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,13 +17,11 @@ import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
-    private final List<NewsItem> newsList;
+    private List<Headline> newsList = new ArrayList<>();
 
-    public NewsAdapter() {
-        this.newsList = new ArrayList<>();
-    }
-    public NewsAdapter(List<NewsItem> initialNews) {
-        this.newsList = new ArrayList<>(initialNews);
+    public void setData(List<Headline> list) {
+        newsList = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -30,17 +29,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_news, parent, false);
+
         return new NewsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        NewsItem currentNews = newsList.get(position);
+        Headline news = newsList.get(position);
 
-        holder.newsTitle.setText(currentNews.getTitle());
-        holder.newsDescription.setText(currentNews.getDescription());
-        holder.newsDate.setText(currentNews.getDate());
-        holder.newsImage.setImageResource(currentNews.getImageResource());
+        holder.title.setText(news.getTitle());
+        holder.description.setText(news.getDescription());
+        holder.date.setText(news.getDate());
+        holder.image.setImageResource(news.getImageRes());
     }
 
     @Override
@@ -48,25 +48,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return newsList.size();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setData(List<NewsItem> newList) {
-        this.newsList.clear();
-        this.newsList.addAll(newList);
-        notifyDataSetChanged();
-    }
-
     public static class NewsViewHolder extends RecyclerView.ViewHolder {
-        TextView newsTitle;
-        TextView newsDescription;
-        TextView newsDate;
-        ImageView newsImage;
 
+        ImageView image;
+        TextView title;
+        TextView description;
+        TextView date;
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
-            newsTitle = itemView.findViewById(R.id.NewsTitle);
-            newsDescription = itemView.findViewById(R.id.NewsDescription);
-            newsDate = itemView.findViewById(R.id.NewsData);
-            newsImage = itemView.findViewById(R.id.NewsImage);
+
+            image = itemView.findViewById(R.id.NewsImage);
+            title = itemView.findViewById(R.id.NewsTitle);
+            description = itemView.findViewById(R.id.NewsDescription);
+            date = itemView.findViewById(R.id.NewsData);
         }
     }
 }

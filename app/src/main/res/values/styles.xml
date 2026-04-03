@@ -11,4 +11,43 @@
         <item name="android:gravity">top</item>
         <item name="android:backgroundTint">#D3D3D3</item>
     </style>
+    <color name="project_card">#2D4A8A</color>
+    <color name="project_text_secondary">#D0D8FF</color>
+    <color name="project_text_hint">#AAB6E0</color>
+    <color name="accent_yellow">#FFC107</color>
+
+    <style name="ProjectCard">
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">6dp</item>
+        <item name="cardBackgroundColor">@color/project_card</item>
+    </style>
+
+    <style name="ProjectTitle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ProjectText">
+        <item name="android:textColor">@color/project_text_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ProjectLabel">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ProjectButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/accent_yellow</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="cornerRadius">28dp</item>
+    </style>
+
+    <style name="ServiceButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">16dp</item>
+        <item name="strokeColor">#D0D7FF</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">#1E2F7A</item>
+    </style>
 </resources>

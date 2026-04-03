@@ -1,8 +1,10 @@
 package com.example.myapplication.ui.projects;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import java.util.ArrayList;
 import java.util.List;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
@@ -18,13 +20,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProjectsBinding;
+import com.example.myapplication.ui.data.ProjectsRepository;
+import com.example.myapplication.ui.data.ProjectsViewModel;
 
 public class ProjectsFragment extends Fragment {
 
@@ -39,6 +41,7 @@ public class ProjectsFragment extends Fragment {
 
     private String filterDateFrom = "";
     private String filterDateTo = "";
+    ProjectsViewModel viewModel;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -47,6 +50,7 @@ public class ProjectsFragment extends Fragment {
 
         binding = FragmentProjectsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        viewModel = new ViewModelProvider(requireActivity()).get(ProjectsViewModel.class);
 
         this.adapter = new ProjectsAdapter();
         binding.recyclerViewProjects.setAdapter(adapter);
@@ -78,41 +82,21 @@ public class ProjectsFragment extends Fragment {
         btnFilter.setOnClickListener(v -> showFilterDialog());
 
         binding.recyclerViewProjects.setLayoutManager(new LinearLayoutManager(requireContext()));
+        List<Project> data = ProjectsRepository.getProjects();
+        adapter.setData(data);
+        viewModel.setProjects(data);
 
-        List<Project> dummyData = new ArrayList<>();
+        adapter.setOnProjectClickListener(project -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("title", project.getTitle());
+            bundle.putString("details", project.getDetails());
+            bundle.putString("instructor", project.getInstructor());
+            bundle.putString("difficulty", project.getDifficulty());
+            bundle.putString("deadline", project.getDeadline());
 
-        dummyData.add(new Project(
-                "Финансовое приложение",
-                "Учет расходов",
-                "Интеграция API банка",
-                "Иванов И.И.",
-                "android",
-                "средний",
-                "01.04 - 15.05"
-        ));
-
-        dummyData.add(new Project(
-                "Корпоративный сайт",
-                "Редизайн",
-                "Figma + адаптив",
-                "Петров П.П.",
-                "web",
-                "лёгкий",
-                "10.03 - 01.04"
-        ));
-
-        dummyData.add(new Project(
-                "Серверная инфраструктура",
-                "Настройка Linux",
-                "Docker + nginx",
-                "Сидоров С.С.",
-                "admin",
-                "сложный",
-                "15.05 - 30.06"
-        ));
-        adapter.setData(dummyData);
-
-        adapter.setOnProjectClickListener(this::showProjectDetailsDialog);
+            NavController navController = NavHostFragment.findNavController(this);
+            navController.navigate(R.id.ProjectDetailsFragment, bundle);
+        });
 
         return view;
     }
@@ -222,32 +206,6 @@ public class ProjectsFragment extends Fragment {
     private void performSearch() {
         applyFilters();
         editTextSearch.clearFocus();
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void showProjectDetailsDialog(Project project) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_project_details, null);
-
-        TextView tvTitle = dialogView.findViewById(R.id.project_title);
-        TextView tvDetails = dialogView.findViewById(R.id.project_description);
-        TextView tvInstructor = dialogView.findViewById(R.id.project_instructor);
-
-        tvTitle.setText(project.getTitle());
-        tvDetails.setText(project.getDetails());
-        tvInstructor.setText("Преподаватель: " + project.getInstructor());
-
-        builder.setView(dialogView)
-                .setPositiveButton("Закрыть", (dialog, which) -> dialog.dismiss());
-        AlertDialog dialog = builder.create();
-        Button btnRespond = dialogView.findViewById(R.id.btnRespond);
-        btnRespond.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Отклик отправлен на: " + project.getTitle(), Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
-        });
-        dialog.show();
     }
 
     @Override

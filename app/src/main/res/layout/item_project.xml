@@ -62,29 +62,6 @@
             android:textColor="#B0C4FF"
             android:textSize="12sp"/>
 
-        <LinearLayout
-            android:id="@+id/expandableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_marginTop="12dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#88FFFFFF"/>
-
-            <TextView
-                android:id="@+id/ProjectDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="12dp"
-                android:textSize="14sp"/>
-
-        </LinearLayout>
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -10,15 +10,6 @@ public class Project {
     private final String topic;
     private final String difficulty;
     private final String deadline;
-    private boolean expanded;
-
-    public boolean isExpanded() {
-        return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
-    }
     public Project(String title,
                    String description,
                    String details,

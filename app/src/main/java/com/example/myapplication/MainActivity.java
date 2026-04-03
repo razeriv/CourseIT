@@ -43,31 +43,24 @@ public class MainActivity extends AppCompatActivity {
         TextView title = binding.appBarMain.toolbar.findViewById(R.id.toolbarTitle);
 
         btnBack.setOnClickListener(v ->
-                navController.navigate(R.id.home_fragment)
+                navController.navigate(R.id.nav_home)
         );
 
         navController.addOnDestinationChangedListener((controller, destination, args) -> {
 
             int id = destination.getId();
 
-            if (id == R.id.home_fragment) {
+            if (id == R.id.nav_home) {
 
                 btnBack.setVisibility(View.GONE);
                 title.setText("Главная");
-
-                for (int i = 0; i < bottomNav.getMenu().size(); i++) {
-                    bottomNav.getMenu().getItem(i).setChecked(false);
-                }
 
             }
             else {
 
                 btnBack.setVisibility(View.VISIBLE);
 
-                if (id == R.id.nav_menu)
-                    title.setText("Меню");
-
-                else if (id == R.id.nav_news)
+                if (id == R.id.nav_news)
                     title.setText("Новости");
 
                 else if (id == R.id.nav_projects)
@@ -78,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
                 else if (id == R.id.nav_profile)
                     title.setText("Профиль");
+
+                else if(id == R.id.ProjectDetailsFragment)
+                    title.setText("Проекты");
             }
 
             bottomNav.setVisibility(View.VISIBLE);
