@@ -60,7 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
-            android:paddingHorizontal="16dp" />
+            android:paddingHorizontal="16dp"
+            android:padding="12dp"/>
 
         <LinearLayout
             android:id="@+id/bottomLayout2"
