@@ -1,71 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="20dp"
+    android:background="#2E4593"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:cardCornerRadius="50dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/bg_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/profileImage"
+        <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher_round"
-            tools:ignore="ContentDescription" />
-    </androidx.cardview.widget.CardView>
-    <TextView
-        android:id="@+id/profileName"
-        android:text="Имя"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="HardcodedText" />
+            app:cardCornerRadius="25dp"
+            android:layout_marginBottom="12dp">
 
-    <TextView
-        android:id="@+id/profileRating"
-        android:text="Рейтинг"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="HardcodedText" />
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar_1"/>
+        </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/countprojects"
-        android:text="Количество проектов"
-        android:textSize="15sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/profileName"
+            android:text="Иванов Иван Иванович"
+            android:textSize="20sp"
+            android:textColor="#1E1E1E"
+            android:layout_marginBottom="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/btnAbout"
-        style="@style/CustomButtonStyle"
-        android:layout_width="match_parent"
-        android:text="О себе"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/profileInfo"
+            android:text="4.8 рейтинг | 12 проектов"
+            android:textSize="14sp"
+            android:textColor="#444"
+            android:layout_marginBottom="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/btnPortfolio"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:text="Портфолио"
-        style="@style/CustomButtonStyle"
-        tools:ignore="HardcodedText" />
+        <include
+            android:id="@+id/btnAbout"
+            layout="@layout/item_custom_button"
+            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="40dp"/>
 
-    <Button
-        android:id="@+id/btnReviews"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:text="Отзывы"
-        style="@style/CustomButtonStyle"
-        tools:ignore="HardcodedText" />
+        <include
+            android:id="@+id/btnProjects"
+            layout="@layout/item_custom_button"
+            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"/>
+
+        <include
+            android:id="@+id/btnReviews"
+            layout="@layout/item_custom_button"
+            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
 </LinearLayout>

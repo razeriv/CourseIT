@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_home) {
 
                 btnBack.setVisibility(View.GONE);
-                title.setText("Главная");
+                title.setText("");
 
             }
             else {

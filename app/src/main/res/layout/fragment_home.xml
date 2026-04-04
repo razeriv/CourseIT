@@ -80,38 +80,45 @@
                     android:layout_height="wrap_content"
                     android:columnCount="1">
 
-                    <Button
+                    <include
                         android:id="@+id/btnProjects"
+                        layout="@layout/item_custom_button"
+                        android:layout_height="60dp"
                         android:text="Проекты"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="4dp"
-                        android:textAlignment="textStart"/>
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:textAlignment="textStart"
+                        android:layout_columnWeight="1" />
 
-                    <Button
+                    <include
+                        android:id="@+id/btnInternShips"
+                        layout="@layout/item_custom_button"
+                        android:layout_height="60dp"
                         android:text="Стажировки"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="4dp"
-                        android:textAlignment="textStart"/>
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="textStart"
+                        android:layout_columnWeight="1" />
 
-                    <Button
+                    <include
+                        android:id="@+id/btnEvents"
+                        layout="@layout/item_custom_button"
+                        android:layout_height="60dp"
                         android:text="Мероприятия"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="4dp"
-                        android:textAlignment="textStart"/>
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="textStart"
+                        android:layout_columnWeight="1" />
 
-                    <Button
+                    <include
+                        android:id="@+id/btnCommunity"
+                        layout="@layout/item_custom_button"
+                        android:layout_height="60dp"
                         android:text="Сообщество"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="4dp"
-                        android:textAlignment="textStart"/>
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="textStart"
+                        android:layout_columnWeight="1" />
                 </GridLayout>
 
                 <TextView
@@ -119,7 +126,7 @@
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#1E2F7A"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="50dp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
 

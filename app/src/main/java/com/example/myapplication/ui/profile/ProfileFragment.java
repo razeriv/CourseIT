@@ -21,21 +21,21 @@ public class ProfileFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        // Кнопка "О себе"
-        binding.btnAbout.setOnClickListener(v ->
+        binding.btnAbout.buttonText.setText("О себе");
+        binding.btnProjects.buttonText.setText("Проекты");
+        binding.btnReviews.buttonText.setText("Отзывы");
+
+        binding.btnAbout.getRoot().setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.nav_text_edit));
 
-        // Кнопка "Портфолио"
-        binding.btnPortfolio.setOnClickListener(v ->
+        binding.btnProjects.getRoot().setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.nav_text_edit));
 
-        // Кнопка "Отзывы"
-        binding.btnReviews.setOnClickListener(v ->
+        binding.btnReviews.getRoot().setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.nav_text_edit));
 
-        return root;
+        return binding.getRoot();
     }
 
     @Override
