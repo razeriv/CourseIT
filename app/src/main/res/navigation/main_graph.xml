@@ -45,6 +45,11 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
+        android:id="@+id/nav_portfolio"
+        android:name="com.example.myapplication.ui.profile.PortfolioFragment"
+        android:label="Portfolio" />
+
+    <fragment
         android:id="@+id/nav_text_edit"
         android:name="com.example.myapplication.ui.text.TextEditFragment"
         android:label="Редактирование"

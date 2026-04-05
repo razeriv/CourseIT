@@ -30,7 +30,7 @@ public class ProfileFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.nav_text_edit));
 
         binding.btnProjects.getRoot().setOnClickListener(v ->
-                Navigation.findNavController(v).navigate(R.id.nav_text_edit));
+                Navigation.findNavController(v).navigate(R.id.nav_portfolio));
 
         binding.btnReviews.getRoot().setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.nav_text_edit));
