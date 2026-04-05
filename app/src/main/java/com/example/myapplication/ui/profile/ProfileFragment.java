@@ -23,7 +23,7 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         binding.btnAbout.buttonText.setText("О себе");
-        binding.btnProjects.buttonText.setText("Проекты");
+        binding.btnProjects.buttonText.setText("Портфолио");
         binding.btnReviews.buttonText.setText("Отзывы");
 
         binding.btnAbout.getRoot().setOnClickListener(v ->

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         TextView title = binding.appBarMain.toolbar.findViewById(R.id.toolbarTitle);
 
         btnBack.setOnClickListener(v ->
-                navController.navigate(R.id.nav_home)
+                navController.navigateUp()
         );
 
         navController.addOnDestinationChangedListener((controller, destination, args) -> {
@@ -73,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
                     title.setText("Профиль");
 
                 else if(id == R.id.ProjectDetailsFragment)
-                    title.setText("Проекты");
+                    title.setText("Детали проекта");
+
+                else if(id == R.id.nav_portfolio)
+                    title.setText("Портфолио");
             }
 
             bottomNav.setVisibility(View.VISIBLE);

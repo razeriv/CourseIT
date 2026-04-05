@@ -36,13 +36,23 @@
         android:id="@+id/nav_projects"
         android:name="com.example.myapplication.ui.projects.ProjectsFragment"
         android:label="Проекты"
-        tools:layout="@layout/fragment_projects" />
+        tools:layout="@layout/fragment_projects">
+
+        <action
+            android:id="@+id/action_projects_to_projects_details"
+            app:destination="@+id/ProjectDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.example.myapplication.ui.profile.ProfileFragment"
         android:label="Профиль"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profile_to_portfolio"
+            app:destination="@+id/nav_portfolio" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_portfolio"
