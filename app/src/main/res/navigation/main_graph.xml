@@ -52,6 +52,14 @@
         <action
             android:id="@+id/action_profile_to_portfolio"
             app:destination="@+id/nav_portfolio" />
+
+        <action
+            android:id="@+id/action_profile_to_reviews"
+            app:destination="@+id/nav_reviews" />
+
+        <action
+            android:id="@+id/action_profile_to_text_edit"
+            app:destination="@+id/nav_text_edit" />
     </fragment>
 
     <fragment
@@ -62,7 +70,7 @@
     <fragment
         android:id="@+id/nav_text_edit"
         android:name="com.example.myapplication.ui.text.TextEditFragment"
-        android:label="Редактирование"
+        android:label="О себе"
         tools:layout="@layout/fragment_text_edit" />
 
     <fragment
@@ -70,4 +78,8 @@
         android:name="com.example.myapplication.ui.projects.ProjectDetailsFragment"
         android:label="Project Details" />
 
+    <fragment
+        android:id="@+id/nav_reviews"
+        android:name="com.example.myapplication.ui.profile.ReviewsFragment"
+        android:label="Отзывы"/>
 </navigation>

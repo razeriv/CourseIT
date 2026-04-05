@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
                 else if(id == R.id.nav_portfolio)
                     title.setText("Портфолио");
+
+                else if(id == R.id.nav_reviews)
+                    title.setText("Отзывы");
             }
 
             bottomNav.setVisibility(View.VISIBLE);
