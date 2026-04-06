@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.R;
@@ -57,12 +57,7 @@ public class HomeFragment extends Fragment {
         binding.btnEvents.buttonText.setText("Мероприятия");
         binding.btnCommunity.buttonText.setText("Сообщество");
 
-        NavController navController =
-                Navigation.findNavController(requireActivity(),
-                        R.id.nav_host_fragment_content_main);
-
-        binding.btnProjects.getRoot().setOnClickListener(v ->
-                navController.navigate(R.id.nav_projects));
+        NavController navController = NavHostFragment.findNavController(this);
 
         ProjectsViewModel viewModelProjects = new ViewModelProvider(requireActivity())
                 .get(ProjectsViewModel.class);

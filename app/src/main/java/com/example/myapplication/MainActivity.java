@@ -37,13 +37,48 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
 
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        bottomNav.setOnItemSelectedListener(item -> {
+
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.nav_home) {
+                navController.navigate(R.id.nav_home, null,
+                        new androidx.navigation.NavOptions.Builder()
+                                .setPopUpTo(R.id.main_graph, false)
+                                .build());
+                return true;
+            }
+
+            if (itemId == R.id.nav_projects) {
+                navController.navigate(R.id.nav_projects);
+                return true;
+            }
+
+            if (itemId == R.id.nav_chats) {
+                navController.navigate(R.id.nav_chats);
+                return true;
+            }
+
+            if (itemId == R.id.nav_news) {
+                navController.navigate(R.id.nav_news);
+                return true;
+            }
+
+            if (itemId == R.id.nav_profile) {
+                navController.popBackStack(R.id.nav_profile, false);
+                navController.navigate(R.id.nav_profile);
+                return true;
+            }
+
+            return false;
+        });
 
         ImageView btnBack = findViewById(R.id.btnBack);
         TextView title = binding.appBarMain.toolbar.findViewById(R.id.toolbarTitle);
 
         btnBack.setOnClickListener(v ->
                 navController.navigateUp()
+
         );
 
         navController.addOnDestinationChangedListener((controller, destination, args) -> {

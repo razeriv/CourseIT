@@ -51,27 +51,35 @@
 
         <action
             android:id="@+id/action_profile_to_portfolio"
-            app:destination="@+id/nav_portfolio" />
+            app:destination="@id/nav_portfolio"
+            app:popUpTo="@id/nav_profile"
+            app:popUpToInclusive="false" />
 
         <action
             android:id="@+id/action_profile_to_reviews"
-            app:destination="@+id/nav_reviews" />
+            app:destination="@id/nav_reviews"
+            app:popUpTo="@id/nav_profile"
+            app:popUpToInclusive="false" />
 
         <action
             android:id="@+id/action_profile_to_text_edit"
-            app:destination="@+id/nav_text_edit" />
+            app:destination="@id/nav_text_edit"
+            app:popUpTo="@id/nav_profile"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_portfolio"
         android:name="com.example.myapplication.ui.profile.PortfolioFragment"
-        android:label="Portfolio" />
+        android:label="Portfolio" >
+    </fragment>
 
     <fragment
         android:id="@+id/nav_text_edit"
         android:name="com.example.myapplication.ui.text.TextEditFragment"
         android:label="О себе"
-        tools:layout="@layout/fragment_text_edit" />
+        tools:layout="@layout/fragment_text_edit" >
+    </fragment>
 
     <fragment
         android:id="@+id/ProjectDetailsFragment"
@@ -81,5 +89,6 @@
     <fragment
         android:id="@+id/nav_reviews"
         android:name="com.example.myapplication.ui.profile.ReviewsFragment"
-        android:label="Отзывы"/>
+        android:label="Отзывы">
+    </fragment>
 </navigation>
