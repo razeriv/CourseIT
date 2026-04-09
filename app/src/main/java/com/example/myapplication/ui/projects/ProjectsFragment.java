@@ -52,7 +52,7 @@ public class ProjectsFragment extends Fragment {
         View view = binding.getRoot();
         viewModel = new ViewModelProvider(requireActivity()).get(ProjectsViewModel.class);
 
-        this.adapter = new ProjectsAdapter();
+        adapter = new ProjectsAdapter(ProjectsAdapter.TYPE_VERTICAL);
         binding.recyclerViewProjects.setAdapter(adapter);
         this.editTextSearch = binding.editTextSearch;
 
@@ -90,9 +90,11 @@ public class ProjectsFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("title", project.getTitle());
             bundle.putString("details", project.getDetails());
+            bundle.putString("date", project.getDeadline());
             bundle.putString("instructor", project.getInstructor());
             bundle.putString("difficulty", project.getDifficulty());
             bundle.putString("deadline", project.getDeadline());
+            bundle.putString("requirements", project.getRequirements());
 
             NavController navController = NavHostFragment.findNavController(this);
             navController.navigate(R.id.ProjectDetailsFragment, bundle);

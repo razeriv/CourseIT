@@ -14,19 +14,34 @@ import java.util.List;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ProjectViewHolder> {
 
+    public static final int TYPE_HORIZONTAL = 0;
+    public static final int TYPE_VERTICAL = 1;
     private List<Project> projectList;
     private List<Project> projectListFull;
     private OnProjectClickListener listener;
 
-    public ProjectsAdapter() {
+    private int viewType;
+
+    public ProjectsAdapter(int viewType) {
+        this.viewType = viewType;
         this.projectList = new ArrayList<>();
         this.projectListFull = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_project, parent, false);
+    public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int ignored) {
+
+        View view;
+
+        if (viewType == TYPE_HORIZONTAL) {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_project_horizontal, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_project_vertical, parent, false);
+        }
+
         return new ProjectViewHolder(view);
     }
 

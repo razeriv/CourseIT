@@ -69,33 +69,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/project_difficulty"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:textColor="#AAB6E0"
                         android:text="лёгкий" />
 
                     <TextView
                         android:id="@+id/project_deadline"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="end"
                         android:textColor="#AAB6E0"
                         android:text="23.03 - 27.03" />
-                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/project_instructor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textColor="#AAB6E0"
-                    android:text="преподаватель: ..." />
+                    <TextView
+                        android:id="@+id/project_instructor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#AAB6E0"
+                        android:text="преподаватель: ..." />
+                </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRespond"

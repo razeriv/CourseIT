@@ -4,6 +4,7 @@ public class Project {
 
     private final String title;
     private final String description;
+    private final String requirements;
     private final String details;
     private final String instructor;
 
@@ -16,7 +17,7 @@ public class Project {
                    String instructor,
                    String topic,
                    String difficulty,
-                   String deadline) {
+                   String deadline, String requirements) {
 
         this.title = title;
         this.description = description;
@@ -25,6 +26,7 @@ public class Project {
         this.topic = topic;
         this.difficulty = difficulty;
         this.deadline = deadline;
+        this.requirements = requirements;
     }
 
     public String getTopic() { return topic; }
@@ -35,4 +37,5 @@ public class Project {
     public String getDescription() { return description; }
     public String getDetails() { return details; }
     public String getInstructor() { return instructor; }
+    public String getRequirements() { return requirements; }
 }

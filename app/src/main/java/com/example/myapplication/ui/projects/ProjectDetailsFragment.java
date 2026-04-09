@@ -18,7 +18,7 @@ import com.example.myapplication.R;
 
 public class ProjectDetailsFragment extends Fragment {
 
-    private TextView tvTitle, tvDetails, tvInstructor, tvDifficulty, tvDate;
+    private TextView tvTitle, tvDetails, tvInstructor, tvDifficulty, tvDate, tvRequirements;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -32,6 +32,7 @@ public class ProjectDetailsFragment extends Fragment {
         tvInstructor = view.findViewById(R.id.project_instructor);
         tvDifficulty = view.findViewById(R.id.project_difficulty);
         tvDate = view.findViewById(R.id.project_deadline);
+        tvRequirements = view.findViewById(R.id.project_requirement);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerSimilarProjects);
 
         Bundle args = getArguments();
@@ -41,9 +42,11 @@ public class ProjectDetailsFragment extends Fragment {
             tvDifficulty.setText("Сложность: " + args.getString("difficulty"));
             tvDate.setText(args.getString("date"));
             tvInstructor.setText("Преподаватель: " + args.getString("instructor"));
+            tvRequirements.setText(args.getString("requirements"));
         }
 
-        ProjectsAdapter adapter = new ProjectsAdapter();
+        ProjectsAdapter adapter =
+                new ProjectsAdapter(ProjectsAdapter.TYPE_HORIZONTAL);
         List<Project> similarProjects = new ArrayList<>();
 
         similarProjects.add(new Project(
@@ -53,7 +56,8 @@ public class ProjectDetailsFragment extends Fragment {
                 "Иванов И.И.",
                 "android",
                 "средний",
-                "01.04 - 15.05"
+                "01.04 - 15.05",
+                "Иметь 2 миллиона долларов и сумку гуччи"
         ));
 
         similarProjects.add(new Project(
@@ -63,7 +67,8 @@ public class ProjectDetailsFragment extends Fragment {
                 "Петров П.П.",
                 "web",
                 "лёгкий",
-                "10.03 - 01.04"
+                "10.03 - 01.04",
+                "Иметь полмиллиона долларов и сумку прада"
         ));
 
         similarProjects.add(new Project(
@@ -73,7 +78,8 @@ public class ProjectDetailsFragment extends Fragment {
                 "Сидоров С.С.",
                 "admin",
                 "сложный",
-                "15.05 - 30.06"
+                "15.05 - 30.06",
+                "Иметь 5 миллионов долларов и сумку версачи"
         ));
 
         adapter.setData(similarProjects);
@@ -92,6 +98,7 @@ public class ProjectDetailsFragment extends Fragment {
             bundle.putString("instructor", project.getInstructor());
             bundle.putString("difficulty", project.getDifficulty());
             bundle.putString("date", project.getDeadline());
+            bundle.putString("requirements", project.getRequirements());
 
             NavHostFragment.findNavController(this)
                     .navigate(R.id.ProjectDetailsFragment, bundle);

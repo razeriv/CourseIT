@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -115,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
                 else if(id == R.id.nav_reviews)
                     title.setText("Отзывы");
+
+                else if(id == R.id.nav_text_edit)
+                    title.setText("О себе");
             }
 
             bottomNav.setVisibility(View.VISIBLE);

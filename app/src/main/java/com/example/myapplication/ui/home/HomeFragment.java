@@ -34,7 +34,8 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        ProjectsAdapter projectAdapter = new ProjectsAdapter();
+        ProjectsAdapter projectAdapter =
+                new ProjectsAdapter(ProjectsAdapter.TYPE_HORIZONTAL);
         NewsAdapter newsAdapter = new NewsAdapter();
 
         binding.recyclerRecommendationProjects.setLayoutManager(
@@ -84,9 +85,11 @@ public class HomeFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("title", project.getTitle());
             bundle.putString("details", project.getDetails());
+            bundle.putString("date", project.getDeadline());
             bundle.putString("instructor", project.getInstructor());
             bundle.putString("difficulty", project.getDifficulty());
             bundle.putString("deadline", project.getDeadline());
+            bundle.putString("requirements", project.getRequirements());
 
             navController.navigate(R.id.ProjectDetailsFragment, bundle);
         });
