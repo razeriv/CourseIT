@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#243A8F">
@@ -23,7 +24,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="bottom"
-                android:background="@drawable/header_background"
                 android:padding="20dp">
 
                 <TextView
@@ -32,7 +32,8 @@
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:text="Находите проекты и работайте с преподавателями без лишних сложностей"
@@ -40,7 +41,8 @@
                     android:textSize="14sp"
                     android:layout_marginTop="6dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    tools:ignore="HardcodedText" />
 
                 <Button
                     android:text="Перейти к проектам"
@@ -48,7 +50,8 @@
                     android:backgroundTint="#F4B400"
                     android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -73,7 +76,8 @@
                     android:textColor="#1E2F7A"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    tools:ignore="HardcodedText" />
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -88,7 +92,8 @@
                         android:layout_width="wrap_content"
                         android:layout_marginTop="15dp"
                         android:textAlignment="textStart"
-                        android:layout_columnWeight="1" />
+                        android:layout_columnWeight="1"
+                        tools:ignore="HardcodedText" />
 
                     <include
                         android:id="@+id/btnInternShips"
@@ -98,7 +103,8 @@
                         android:layout_width="wrap_content"
                         android:layout_marginTop="10dp"
                         android:textAlignment="textStart"
-                        android:layout_columnWeight="1" />
+                        android:layout_columnWeight="1"
+                        tools:ignore="HardcodedText" />
 
                     <include
                         android:id="@+id/btnEvents"
@@ -108,7 +114,8 @@
                         android:layout_width="wrap_content"
                         android:layout_marginTop="10dp"
                         android:textAlignment="textStart"
-                        android:layout_columnWeight="1" />
+                        android:layout_columnWeight="1"
+                        tools:ignore="HardcodedText" />
 
                     <include
                         android:id="@+id/btnCommunity"
@@ -118,7 +125,8 @@
                         android:layout_width="wrap_content"
                         android:layout_marginTop="10dp"
                         android:textAlignment="textStart"
-                        android:layout_columnWeight="1" />
+                        android:layout_columnWeight="1"
+                        tools:ignore="HardcodedText" />
                 </GridLayout>
 
                 <TextView
@@ -128,13 +136,13 @@
                     android:textColor="#1E2F7A"
                     android:layout_marginTop="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    tools:ignore="HardcodedText" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerRecommendationProjects"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     android:layout_marginTop="8dp"
                     android:overScrollMode="never"/>
@@ -144,7 +152,8 @@
                     android:layout_height="wrap_content"
                     android:text="смотреть все"
                     android:textColor="@color/black"
-                    android:gravity="end"/>
+                    android:gravity="end"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -154,10 +163,12 @@
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"
             android:layout_marginTop="50dp"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            android:layout_width="wrap_content"
+            tools:ignore="HardcodedText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerRecommendationNews"
@@ -171,7 +182,8 @@
             android:layout_height="wrap_content"
             android:text="смотреть все"
             android:textColor="@color/black"
-            android:gravity="end"/>
+            android:gravity="end"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

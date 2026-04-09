@@ -1,5 +1,6 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,9 +24,11 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:contentDescription="student_avatar"
                 android:src="@drawable/avatar_1"
                 android:scaleType="centerCrop"
-                android:background="@drawable/bg_avatar"/>
+                android:background="@drawable/bg_avatar"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -35,20 +38,21 @@
 
 
                 <TextView
-                        android:id="@+id/reviewAuthor"
-                        android:text="Имя"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:id="@+id/reviewAuthor"
+                    android:text="Имя"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="HardcodedText" />
 
-                    <RatingBar
-                        android:id="@+id/reviewRating"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:numStars="5"
-                        android:stepSize="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                <RatingBar
+                    android:id="@+id/reviewRating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -60,7 +64,8 @@
             android:text="Работа с Иваном прошла продуктивно! Всегда был на связи..."
             android:textColor="#444"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout
             android:layout_marginTop="12dp"
@@ -74,7 +79,8 @@
                 android:textSize="12sp"
                 android:textColor="#777"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:ignore="HardcodedText" />
 
             <View
                 android:layout_width="0dp"
@@ -88,7 +94,8 @@
                 android:textStyle="bold"
                 android:textColor="#333"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

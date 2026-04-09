@@ -18,8 +18,10 @@
         android:id="@+id/editText"
         android:autofillHints="текст"
         android:hint="Введите текст..."
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:inputType="text"
         tools:ignore="HardcodedText" />
 
     </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="@drawable/bg_button_outline"
@@ -10,10 +11,10 @@
         android:id="@+id/buttonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="О себе"
         android:textSize="16sp"
         android:textColor="#2E4593"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        tools:ignore="HardcodedText,RelativeOverlap" />
 
     <FrameLayout
         android:layout_width="36dp"
@@ -26,8 +27,11 @@
             android:background="@drawable/bg_button_outline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="buttonback"
             android:src="@drawable/ic_arrow"
-            android:paddingLeft="-4dp"/>
+            android:paddingStart="-4dp"
+            android:paddingEnd="0dp"
+            tools:ignore="HardcodedText" />
     </FrameLayout>
 
 </RelativeLayout>
