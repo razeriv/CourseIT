@@ -42,7 +42,8 @@
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                android:fontFamily="@font/roboto_style"/>
 
             <TextView
                 android:text="Находите проекты и работайте с преподавателями без лишних сложностей"
@@ -51,7 +52,8 @@
                 android:layout_marginTop="6dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                android:fontFamily="@font/inter_medium"/>
 
             <Button
                 android:text="Перейти к проектам"
@@ -64,7 +66,8 @@
                 android:layout_gravity="end"
                 android:background="@drawable/btn_yellow"
                 android:paddingStart="24dp"
-                android:paddingEnd="24dp"/>
+                android:paddingEnd="24dp"
+                android:fontFamily="@font/inter_medium"/>
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -89,7 +92,8 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="20dp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"
+                    android:fontFamily="@font/roboto_style"/>
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -149,7 +153,8 @@
                     android:layout_marginTop="50dp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"
+                    android:fontFamily="@font/roboto_style"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerRecommendationProjects"
@@ -182,7 +187,8 @@
             android:layout_marginTop="60dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            android:fontFamily="@font/roboto_style"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerRecommendationNews"

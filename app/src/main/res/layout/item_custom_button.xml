@@ -20,18 +20,19 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/bg_circle">
+        android:layout_centerVertical="true">
 
         <ImageView
-            android:background="@drawable/bg_button_outline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="buttonback"
-            android:src="@drawable/ic_arrow"
-            android:paddingStart="-4dp"
-            android:paddingEnd="0dp"
+            android:src="@drawable/button_circle"
             tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_button_outline"/>
     </FrameLayout>
 
 </RelativeLayout>

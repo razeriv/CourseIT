@@ -124,6 +124,7 @@ public class ProjectsFragment extends Fragment {
 
     private void showFilterDialog() {
 
+        binding.btnFilter.setImageResource(R.drawable.ic_filter_open);
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         View view = getLayoutInflater().inflate(R.layout.dialog_filters, null);
 
@@ -191,9 +192,7 @@ public class ProjectsFragment extends Fragment {
             else if (selectedId == R.id.radioHard)
                 filterDifficulty = "сложный";
 
-
             applyFilters();
-
             dialog.dismiss();
         });
 
@@ -212,6 +211,10 @@ public class ProjectsFragment extends Fragment {
 
             applyFilters();
             dialog.dismiss();
+        });
+
+        dialog.setOnDismissListener(d -> {
+            binding.btnFilter.setImageResource(R.drawable.ic_filter_close);
         });
 
         dialog.show();

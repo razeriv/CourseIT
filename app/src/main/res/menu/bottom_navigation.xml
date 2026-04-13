@@ -4,7 +4,8 @@
     <item
         android:id="@+id/nav_home"
         android:title="Home"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        android:icon="@drawable/home"/>
 
     <item
         android:id="@+id/nav_news"
@@ -15,9 +16,7 @@
     <item
         android:id="@+id/nav_chats"
         android:title="Чаты"
-        android:iconTint="@color/black"
-        android:icon="@android:drawable/ic_menu_send"
-        tools:targetApi="26"
+        android:icon="@drawable/chats"
         tools:ignore="HardcodedText" />
 
     <item
@@ -29,7 +28,7 @@
     <item
         android:id="@+id/nav_profile"
         android:title="Профиль"
-        android:icon="@drawable/account_circle"
+        android:icon="@drawable/profile"
         tools:ignore="HardcodedText" />
 
 </menu>
