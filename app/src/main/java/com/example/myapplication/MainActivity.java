@@ -1,13 +1,13 @@
 package com.example.myapplication;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -124,17 +124,16 @@ public class MainActivity extends AppCompatActivity {
             bottomNav.setVisibility(View.VISIBLE);
         });
 
-        binding.appBarMain.toolbar.findViewById(R.id.btnMenu)
-                .setOnClickListener(v -> {
-                    openNavigate();
-                });
-    }
-    private void openNavigate(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.dialog_navigation, null);
+        DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        ImageView btnHide = findViewById(R.id.btnHide);
 
-        builder.setView(view);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        binding.appBarMain.toolbar.findViewById(R.id.btnMenu)
+                .setOnClickListener(v ->
+                        drawer.openDrawer(GravityCompat.END)
+                );
+
+        btnHide.setOnClickListener(v ->
+                drawer.closeDrawer(GravityCompat.END)
+        );
     }
 }

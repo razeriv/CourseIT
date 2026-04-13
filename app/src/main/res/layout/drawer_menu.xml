@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rightDrawer"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    android:orientation="vertical"
+    android:background="@drawable/bg_navigation"
+    android:padding="28dp">
+
+    <ImageView
+        android:id="@+id/btnHide"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
+        android:layout_gravity="end"
+        android:contentDescription="back"
+        android:src="@drawable/ic_arrow"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="01"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Главная"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2B4C9A"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuProfile"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="02"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Профиль"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2B4C9A"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuChats"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="03"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Чаты"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuProjects"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="04"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Проекты"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2B4C9A"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuInternships"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="05"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Стажировки"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2B4C9A"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuMeetings"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="06"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Мероприятия"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2B4C9A"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuCommunity"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="07"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Сообщество"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2B4C9A"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuNews"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="08"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Новости"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuSettings"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="09"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Настройки"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2B4C9A"
+        android:layout_marginVertical="12dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/menuHelp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="10"
+            android:textColor="#2B4C9A"
+            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Поддержка"
+            android:textSize="20sp"
+            android:textColor="#7A7A7A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginVertical="12dp"/>
+</LinearLayout>

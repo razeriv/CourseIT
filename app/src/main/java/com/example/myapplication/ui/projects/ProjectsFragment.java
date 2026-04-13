@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.app.AlertDialog;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
@@ -27,6 +26,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProjectsBinding;
 import com.example.myapplication.ui.data.ProjectsRepository;
 import com.example.myapplication.ui.data.ProjectsViewModel;
+import com.google.android.material.chip.Chip;
 
 public class ProjectsFragment extends Fragment {
 
@@ -36,7 +36,9 @@ public class ProjectsFragment extends Fragment {
     private boolean filterWeb = false;
     private boolean filterAdmin = false;
     private boolean filterAndroid = false;
-
+    private boolean filterAI = false;
+    private boolean filterAnalytics = false;
+    private boolean filterDB = false;
     private String filterDifficulty = "";
 
     private String filterDateFrom = "";
@@ -90,7 +92,6 @@ public class ProjectsFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("title", project.getTitle());
             bundle.putString("details", project.getDetails());
-            bundle.putString("date", project.getDeadline());
             bundle.putString("instructor", project.getInstructor());
             bundle.putString("difficulty", project.getDifficulty());
             bundle.putString("deadline", project.getDeadline());
@@ -103,13 +104,18 @@ public class ProjectsFragment extends Fragment {
         return view;
     }
     private void applyFilters() {
-        String query = editTextSearch.getText().toString().trim();
+        String query = editTextSearch.getText() == null
+                ? ""
+                : editTextSearch.getText().toString().trim();
 
         adapter.applyFilters(
                 query,
                 filterWeb,
                 filterAdmin,
                 filterAndroid,
+                filterAnalytics,
+                filterAI,
+                filterDB,
                 filterDifficulty,
                 filterDateFrom,
                 filterDateTo
@@ -123,9 +129,12 @@ public class ProjectsFragment extends Fragment {
 
         builder.setView(view);
 
-        CheckBox web = view.findViewById(R.id.checkboxWeb);
-        CheckBox admin = view.findViewById(R.id.checkboxAdmin);
-        CheckBox android = view.findViewById(R.id.checkboxAndroid);
+        Chip web = view.findViewById(R.id.chipWeb);
+        Chip admin = view.findViewById(R.id.chipAdmin);
+        Chip android = view.findViewById(R.id.chipAndroid);
+        Chip analytics = view.findViewById(R.id.chipAnalytics);
+        Chip ai = view.findViewById(R.id.chipAI);
+        Chip db = view.findViewById(R.id.chipDB);
 
         RadioGroup difficultyGroup = view.findViewById(R.id.radioGroupDifficulty);
 
@@ -133,7 +142,6 @@ public class ProjectsFragment extends Fragment {
         EditText dateTo = view.findViewById(R.id.editTextDateTo);
 
         Button apply = view.findViewById(R.id.btnApply);
-        Button cancel = view.findViewById(R.id.btnCancel);
         Button reset = view.findViewById(R.id.btnReset);
 
         AlertDialog dialog = builder.create();
@@ -141,6 +149,9 @@ public class ProjectsFragment extends Fragment {
         web.setChecked(filterWeb);
         admin.setChecked(filterAdmin);
         android.setChecked(filterAndroid);
+        analytics.setChecked(filterAnalytics);
+        ai.setChecked(filterAI);
+        db.setChecked(filterDB);
 
         dateFrom.setText(filterDateFrom);
         dateTo.setText(filterDateTo);
@@ -160,6 +171,9 @@ public class ProjectsFragment extends Fragment {
             filterWeb = web.isChecked();
             filterAdmin = admin.isChecked();
             filterAndroid = android.isChecked();
+            filterAnalytics = analytics.isChecked();
+            filterAI = ai.isChecked();
+            filterDB = db.isChecked();
 
             filterDateFrom = dateFrom.getText().toString();
             filterDateTo = dateTo.getText().toString();
@@ -183,12 +197,14 @@ public class ProjectsFragment extends Fragment {
             dialog.dismiss();
         });
 
-
         reset.setOnClickListener(v -> {
 
             filterWeb = false;
             filterAdmin = false;
             filterAndroid = false;
+            filterAnalytics = false;
+            filterAI = false;
+            filterDB = false;
 
             filterDifficulty = "";
             filterDateFrom = "";
@@ -197,9 +213,6 @@ public class ProjectsFragment extends Fragment {
             applyFilters();
             dialog.dismiss();
         });
-
-
-        cancel.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

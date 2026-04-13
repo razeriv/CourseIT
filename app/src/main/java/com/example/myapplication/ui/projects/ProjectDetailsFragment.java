@@ -54,7 +54,7 @@ public class ProjectDetailsFragment extends Fragment {
                 "Учет расходов",
                 "Интеграция API банка",
                 "Иванов И.И.",
-                "android",
+                Topic.ANDROID,
                 "средний",
                 "01.04 - 15.05",
                 "Иметь 2 миллиона долларов и сумку гуччи"
@@ -65,7 +65,7 @@ public class ProjectDetailsFragment extends Fragment {
                 "Редизайн",
                 "Figma + адаптив",
                 "Петров П.П.",
-                "web",
+                Topic.WEB,
                 "лёгкий",
                 "10.03 - 01.04",
                 "Иметь полмиллиона долларов и сумку прада"
@@ -76,7 +76,7 @@ public class ProjectDetailsFragment extends Fragment {
                 "Настройка Linux",
                 "Docker + nginx",
                 "Сидоров С.С.",
-                "admin",
+                Topic.ADMIN,
                 "сложный",
                 "15.05 - 30.06",
                 "Иметь 5 миллионов долларов и сумку версачи"

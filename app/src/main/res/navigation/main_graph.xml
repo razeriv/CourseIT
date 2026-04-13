@@ -91,9 +91,4 @@
         android:name="com.example.myapplication.ui.profile.ReviewsFragment"
         android:label="Отзывы">
     </fragment>
-
-    <dialog
-        android:id="@+id/dialog_navigation"
-        android:name="com.example.myapplication.ui.home.DialogNavigationFragment"
-        android:label="dialog_navigation"/>
 </navigation>

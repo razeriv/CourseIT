@@ -8,16 +8,12 @@ public class Project {
     private final String details;
     private final String instructor;
 
-    private final String topic;
+    private Topic topic;
     private final String difficulty;
     private final String deadline;
-    public Project(String title,
-                   String description,
-                   String details,
-                   String instructor,
-                   String topic,
-                   String difficulty,
-                   String deadline, String requirements) {
+    public Project(String title, String description, String details,
+                   String instructor, Topic topic,
+                   String difficulty, String deadline, String requirements) {
 
         this.title = title;
         this.description = description;
@@ -29,7 +25,7 @@ public class Project {
         this.requirements = requirements;
     }
 
-    public String getTopic() { return topic; }
+    public Topic getTopic() { return topic; }
     public String getDifficulty() { return difficulty; }
     public String getDeadline() { return deadline; }
 

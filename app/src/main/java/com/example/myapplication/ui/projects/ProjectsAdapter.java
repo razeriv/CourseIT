@@ -74,30 +74,42 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
             boolean web,
             boolean admin,
             boolean android,
+            boolean analytics,
+            boolean ai,
+            boolean db,
             String difficulty,
             String dateFrom,
             String dateTo
     ) {
 
         query = query.toLowerCase();
-
         projectList.clear();
 
         for (Project p : projectListFull) {
 
             boolean matchesSearch =
                     query.isEmpty()
-                        || p.getTitle().toLowerCase().contains(query);
+                            || p.getTitle().toLowerCase().contains(query)
+                            || p.getDescription().toLowerCase().contains(query)
+                            || p.getInstructor().toLowerCase().contains(query);
+
+            Topic topic = p.getTopic();
+
+            boolean noTopicSelected =
+                    !web && !admin && !android && !analytics && !ai && !db;
 
             boolean matchesTopic =
-                    (!web && !admin && !android)
-                        || (web && p.getTopic().equalsIgnoreCase("web"))
-                        || (admin && p.getTopic().equalsIgnoreCase("admin"))
-                        || (android && p.getTopic().equalsIgnoreCase("android"));
+                    noTopicSelected
+                            || (web && topic == Topic.WEB)
+                            || (admin && topic == Topic.ADMIN)
+                            || (android && topic == Topic.ANDROID)
+                            || (analytics && topic == Topic.ANALYTICS)
+                            || (ai && topic == Topic.AI)
+                            || (db && topic == Topic.DB);
 
             boolean matchesDifficulty =
                     difficulty.isEmpty()
-                        || p.getDifficulty().equalsIgnoreCase(difficulty);
+                            || p.getDifficulty().equalsIgnoreCase(difficulty);
 
             boolean matchesDate = true;
 
@@ -119,11 +131,14 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
                                 projectStart <= filterEnd;
             }
 
-            if (matchesSearch && matchesTopic && matchesDifficulty && matchesDate)
+            if (matchesSearch && matchesTopic && matchesDifficulty && matchesDate) {
                 projectList.add(p);
+            }
         }
+
         notifyDataSetChanged();
     }
+
     public class ProjectViewHolder extends RecyclerView.ViewHolder {
         TextView ProjectTitle;
         TextView ProjectDescription;
@@ -149,13 +164,19 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
     }
 
     private int convertDate(String date) {
-        date = date.trim();
-        String[] parts = date.split("\\.");
+        try {
+            date = date.trim();
+            String[] parts = date.split("\\.");
 
-        int day = Integer.parseInt(parts[0]);
-        int month = Integer.parseInt(parts[1]);
+            if (parts.length != 2) return 0;
 
-        return month * 100 + day;
+            int day = Integer.parseInt(parts[0]);
+            int month = Integer.parseInt(parts[1]);
+
+            return month * 100 + day;
+        } catch (Exception e) {
+            return 0;
+        }
     }
     public interface OnProjectClickListener {
         void onProjectClick(Project project);

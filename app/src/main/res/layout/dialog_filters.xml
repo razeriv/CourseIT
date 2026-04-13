@@ -1,9 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Фильтр"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp"
+        tools:ignore="HardcodedText"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -12,28 +24,58 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingBottom="8dp"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"/>
 
-    <CheckBox
-        android:id="@+id/checkboxWeb"
-        android:layout_width="wrap_content"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupTopic"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Web-разработка"
-        tools:ignore="HardcodedText" />
+        app:chipSpacing="8dp"
+        app:singleSelection="false">
 
-    <CheckBox
-        android:id="@+id/checkboxAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Администрирование"
-        tools:ignore="HardcodedText" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipWeb"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:text="Web-разработка"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
 
-    <CheckBox
-        android:id="@+id/checkboxAndroid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Android-разработка"
-        tools:ignore="HardcodedText" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAI"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:text="AI"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAdmin"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:text="Администрирование"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipDB"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:text="DataBase"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAnalytics"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:text="Аналитика"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAndroid"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:text="Android"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+    </com.google.android.material.chip.ChipGroup>
 
 
     <TextView
@@ -44,7 +86,7 @@
         android:textStyle="bold"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"/>
 
     <RadioGroup
         android:id="@+id/radioGroupDifficulty"
@@ -52,27 +94,27 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-            android:id="@+id/radioEasy"
+            android:id="@+id/radioHard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Легкий"
-            tools:ignore="HardcodedText" />
+            android:text="Сложный" />
 
         <RadioButton
             android:id="@+id/radioMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Средний"
-            tools:ignore="HardcodedText" />
+            android:text="Средний"/>
 
         <RadioButton
-            android:id="@+id/radioHard"
+            android:id="@+id/radioEasy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Сложный"
-            tools:ignore="HardcodedText" />
+            android:text="Легкий"/>
+
     </RadioGroup>
 
+
+    <!-- СРОК -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,7 +123,8 @@
         android:textStyle="bold"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -90,75 +133,76 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayoutDateFrom"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="От"
-            tools:ignore="HardcodedText">
+            android:hint="От">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextDateFrom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <View
-            android:layout_width="8dp"
-            android:layout_height="0dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="  —  "
+            android:gravity="center"
+            android:textSize="16sp"/>
+
+
+        <!-- Дата ДО -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayoutDateTo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="До"
-            tools:ignore="HardcodedText">
+            android:hint="До">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextDateTo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
+
+    <!-- КНОПКИ -->
     <LinearLayout
-        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="end"
-        android:paddingTop="16dp">
-
-        <Button
-            android:id="@+id/btnCancel"
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="Отмена"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            tools:ignore="HardcodedText" />
+        android:orientation="horizontal"
+        android:paddingTop="20dp">
 
         <Button
             android:id="@+id/btnReset"
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="Сбросить"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginStart="8dp"
-            tools:ignore="HardcodedText" />
+            android:layout_height="wrap_content"
+            android:text="Сбросить"
+            tools:ignore="HardcodedText"/>
 
         <Button
             android:id="@+id/btnApply"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Применить"
+            android:text="Сохранить"
             android:layout_marginStart="8dp"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"/>
 
     </LinearLayout>
+
 </LinearLayout>
