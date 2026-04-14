@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.data.ProjectsViewModel;
 
 public class ProjectDetailsFragment extends Fragment {
 
@@ -47,42 +49,11 @@ public class ProjectDetailsFragment extends Fragment {
 
         ProjectsAdapter adapter =
                 new ProjectsAdapter(ProjectsAdapter.TYPE_HORIZONTAL);
-        List<Project> similarProjects = new ArrayList<>();
 
-        similarProjects.add(new Project(
-                "Финансовое приложение",
-                "Учет расходов",
-                "Интеграция API банка",
-                "Иванов И.И.",
-                Topic.ANDROID,
-                "средний",
-                "01.04 - 15.05",
-                "Иметь 2 миллиона долларов и сумку гуччи"
-        ));
+        ProjectsViewModel viewModel = new ViewModelProvider(requireActivity())
+                .get(ProjectsViewModel.class);
 
-        similarProjects.add(new Project(
-                "Корпоративный сайт",
-                "Редизайн",
-                "Figma + адаптив",
-                "Петров П.П.",
-                Topic.WEB,
-                "лёгкий",
-                "10.03 - 01.04",
-                "Иметь полмиллиона долларов и сумку прада"
-        ));
-
-        similarProjects.add(new Project(
-                "Серверная инфраструктура",
-                "Настройка Linux",
-                "Docker + nginx",
-                "Сидоров С.С.",
-                Topic.ADMIN,
-                "сложный",
-                "15.05 - 30.06",
-                "Иметь 5 миллионов долларов и сумку версачи"
-        ));
-
-        adapter.setData(similarProjects);
+        viewModel.getProjects().observe(getViewLifecycleOwner(), adapter::setData);
 
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

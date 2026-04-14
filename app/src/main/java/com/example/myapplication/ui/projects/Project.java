@@ -2,36 +2,23 @@ package com.example.myapplication.ui.projects;
 
 public class Project {
 
-    private final String title;
-    private final String description;
-    private final String requirements;
-    private final String details;
-    private final String instructor;
+    private String title;
+    private String description;
+    private String requirements;
+    private String details;
+    private String instructor;
+    private String topic;
+    private String difficulty;
+    private String deadline;
 
-    private Topic topic;
-    private final String difficulty;
-    private final String deadline;
-    public Project(String title, String description, String details,
-                   String instructor, Topic topic,
-                   String difficulty, String deadline, String requirements) {
-
-        this.title = title;
-        this.description = description;
-        this.details = details;
-        this.instructor = instructor;
-        this.topic = topic;
-        this.difficulty = difficulty;
-        this.deadline = deadline;
-        this.requirements = requirements;
-    }
-
-    public Topic getTopic() { return topic; }
-    public String getDifficulty() { return difficulty; }
-    public String getDeadline() { return deadline; }
+    public Project() {}
 
     public String getTitle() { return title; }
     public String getDescription() { return description; }
     public String getDetails() { return details; }
     public String getInstructor() { return instructor; }
     public String getRequirements() { return requirements; }
+    public String getTopic() { return topic; }
+    public String getDifficulty() { return difficulty; }
+    public String getDeadline() { return deadline; }
 }

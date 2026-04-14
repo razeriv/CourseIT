@@ -93,19 +93,19 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
                             || p.getDescription().toLowerCase().contains(query)
                             || p.getInstructor().toLowerCase().contains(query);
 
-            Topic topic = p.getTopic();
+            String topic = p.getTopic();
 
             boolean noTopicSelected =
                     !web && !admin && !android && !analytics && !ai && !db;
 
             boolean matchesTopic =
                     noTopicSelected
-                            || (web && topic == Topic.WEB)
-                            || (admin && topic == Topic.ADMIN)
-                            || (android && topic == Topic.ANDROID)
-                            || (analytics && topic == Topic.ANALYTICS)
-                            || (ai && topic == Topic.AI)
-                            || (db && topic == Topic.DB);
+                            || (web && "web".equalsIgnoreCase(topic))
+                            || (admin && "admin".equalsIgnoreCase(topic))
+                            || (android && "android".equalsIgnoreCase(topic))
+                            || (analytics && "analytics".equalsIgnoreCase(topic))
+                            || (ai && "ai".equalsIgnoreCase(topic))
+                            || (db && "db".equalsIgnoreCase(topic));
 
             boolean matchesDifficulty =
                     difficulty.isEmpty()

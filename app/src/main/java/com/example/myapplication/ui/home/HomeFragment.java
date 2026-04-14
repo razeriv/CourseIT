@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
                 .get(NewsViewModel.class);
 
         if (viewModelProjects.getProjects().getValue() == null) {
-            viewModelProjects.setProjects(ProjectsRepository.getProjects());
+            viewModelProjects.loadProjects();
         }
 
         if (viewModelNews.getNews().getValue() == null) {

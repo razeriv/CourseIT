@@ -84,9 +84,13 @@ public class ProjectsFragment extends Fragment {
         btnFilter.setOnClickListener(v -> showFilterDialog());
 
         binding.recyclerViewProjects.setLayoutManager(new LinearLayoutManager(requireContext()));
-        List<Project> data = ProjectsRepository.getProjects();
-        adapter.setData(data);
-        viewModel.setProjects(data);
+        viewModel.loadProjects();
+
+        viewModel.getProjects().observe(getViewLifecycleOwner(), list -> {
+            if (list != null) {
+                adapter.setData(list);
+            }
+        });
 
         adapter.setOnProjectClickListener(project -> {
             Bundle bundle = new Bundle();
