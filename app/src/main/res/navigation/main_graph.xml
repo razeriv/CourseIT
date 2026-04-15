@@ -91,4 +91,22 @@
         android:name="com.example.myapplication.ui.profile.ReviewsFragment"
         android:label="Отзывы">
     </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.myapplication.ui.auth.LoginFragment"
+        android:label="Login">
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationNameFragment"
+        android:name="com.example.myapplication.ui.auth.RegistrationNameFragment" />
+
+    <fragment
+        android:id="@+id/registrationEmailFragment"
+        android:name="com.example.myapplication.ui.auth.RegistrationEmailFragment" />
+
+    <fragment
+        android:id="@+id/registrationPasswordFragment"
+        android:name="com.example.myapplication.ui.auth.RegistrationPasswordFragment" />
 </navigation>

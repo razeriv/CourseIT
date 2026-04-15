@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2E4A9E"
+    android:padding="24dp">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:text="Вход"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/labelEmail"
+        android:text="Почта"
+        android:textColor="#FFFFFF"
+        android:layout_below="@id/title"
+        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:hint="ivanovivan@yandex.ru"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/bg_card"
+        android:padding="12dp"
+        android:layout_below="@id/labelEmail"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/labelPassword"
+        android:text="Пароль"
+        android:textColor="#FFFFFF"
+        android:layout_below="@id/editEmail"
+        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/passwordContainer"
+        android:layout_below="@id/labelPassword"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:hint="********"
+            android:inputType="textPassword"
+            android:background="@drawable/bg_card"
+            android:padding="12dp"
+            android:paddingEnd="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/ivTogglePassword"
+            android:src="@android:drawable/ic_menu_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignEnd="@id/editPassword"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:text="Войти"
+        android:background="@drawable/btn_yellow"
+        android:textColor="#000000"
+        android:visibility="gone"
+        android:layout_below="@id/passwordContainer"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:text="Регистрация"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

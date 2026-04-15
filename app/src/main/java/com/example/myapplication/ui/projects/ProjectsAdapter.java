@@ -20,7 +20,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
     private List<Project> projectListFull;
     private OnProjectClickListener listener;
 
-    private int viewType;
+    private final int viewType;
 
     public ProjectsAdapter(int viewType) {
         this.viewType = viewType;

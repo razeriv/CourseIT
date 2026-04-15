@@ -38,8 +38,12 @@ public class NewsFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity())
                 .get(NewsViewModel.class);
 
+        viewModel.loadNews();
+
         viewModel.getNews().observe(getViewLifecycleOwner(), list -> {
-            adapter.setData(list);
+            if(list != null) {
+                adapter.setData(list);
+            }
         });
 
         return root;

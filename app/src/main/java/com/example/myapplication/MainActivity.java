@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
+import com.example.myapplication.ui.network.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        RetrofitClient.init(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -37,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+
+        SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
+        String token = prefs.getString("token", null);
+
+       // binding.getRoot().post(() -> {
+       //     if (token == null) {
+       //         navController.navigate(R.id.loginFragment, null,
+       //                 new androidx.navigation.NavOptions.Builder()
+       //                         .setPopUpTo(R.id.main_graph, true)
+       //                         .build());
+       //     }
+       // });
 
         bottomNav.setOnItemSelectedListener(item -> {
 
@@ -77,23 +93,25 @@ public class MainActivity extends AppCompatActivity {
         ImageView btnBack = findViewById(R.id.btnBack);
         TextView title = binding.appBarMain.toolbar.findViewById(R.id.toolbarTitle);
 
-        btnBack.setOnClickListener(v ->
-                navController.navigateUp()
-
-        );
+        btnBack.setOnClickListener(v -> navController.navigateUp());
 
         navController.addOnDestinationChangedListener((controller, destination, args) -> {
 
             int id = destination.getId();
 
-            if (id == R.id.nav_home) {
+            if (id == R.id.loginFragment || id == R.id.registrationNameFragment|| id == R.id.registrationEmailFragment || id == R.id.registrationPasswordFragment) {
+                bottomNav.setVisibility(View.GONE);
+                binding.appBarMain.toolbar.setVisibility(View.GONE);
+                return;
+            } else {
+                bottomNav.setVisibility(View.VISIBLE);
+                binding.appBarMain.toolbar.setVisibility(View.VISIBLE);
+            }
 
+            if (id == R.id.nav_home) {
                 btnBack.setVisibility(View.GONE);
                 title.setText("");
-
-            }
-            else {
-
+            } else {
                 btnBack.setVisibility(View.VISIBLE);
 
                 if (id == R.id.nav_news)
@@ -108,20 +126,18 @@ public class MainActivity extends AppCompatActivity {
                 else if (id == R.id.nav_profile)
                     title.setText("Профиль");
 
-                else if(id == R.id.ProjectDetailsFragment)
+                else if (id == R.id.ProjectDetailsFragment)
                     title.setText("Детали проекта");
 
-                else if(id == R.id.nav_portfolio)
+                else if (id == R.id.nav_portfolio)
                     title.setText("Портфолио");
 
-                else if(id == R.id.nav_reviews)
+                else if (id == R.id.nav_reviews)
                     title.setText("Отзывы");
 
-                else if(id == R.id.nav_text_edit)
+                else if (id == R.id.nav_text_edit)
                     title.setText("О себе");
             }
-
-            bottomNav.setVisibility(View.VISIBLE);
         });
 
         DrawerLayout drawer = findViewById(R.id.drawerLayout);

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import java.util.List;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProjectsBinding;
-import com.example.myapplication.ui.data.ProjectsRepository;
 import com.example.myapplication.ui.data.ProjectsViewModel;
 import com.google.android.material.chip.Chip;
 

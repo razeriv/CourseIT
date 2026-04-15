@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment {
         }
 
         if (viewModelNews.getNews().getValue() == null) {
-            viewModelNews.setNews(NewsRepository.getNews());
+            viewModelNews.loadNews();
         }
 
         viewModelProjects.getProjects().observe(getViewLifecycleOwner(),
