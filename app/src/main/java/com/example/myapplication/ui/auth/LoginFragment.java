@@ -24,6 +24,7 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.network.RetrofitClient;
 
 public class LoginFragment extends Fragment {
 
@@ -122,7 +123,8 @@ public class LoginFragment extends Fragment {
 
             if (token == null) return;
 
-            saveToken(token);
+            RetrofitClient.saveToken(token);
+            RetrofitClient.reset();
 
             Toast.makeText(requireContext(),
                     "Успешный вход", Toast.LENGTH_SHORT).show();

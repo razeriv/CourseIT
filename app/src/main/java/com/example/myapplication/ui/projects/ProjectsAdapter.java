@@ -49,11 +49,27 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         Project project = projectList.get(position);
-        holder.ProjectTitle.setText(project.getTitle());
-        holder.ProjectDescription.setText(project.getDescription());
-        holder.ProjectInstructor.setText("Преподаватель: " + project.getInstructor());
-        holder.ProjectDeadline.setText(project.getDeadline());
-        holder.ProjectDifficulty.setText(project.getDifficulty());
+
+        holder.ProjectTitle.setText(
+                project.getTitle() != null ? project.getTitle() : "Без названия"
+        );
+
+        holder.ProjectDescription.setText(
+                project.getDescription() != null ? project.getDescription() : "Нет описания"
+        );
+
+        holder.ProjectInstructor.setText(
+                "Преподаватель: " +
+                        (project.getInstructor() != null ? project.getInstructor() : "Не указан")
+        );
+
+        holder.ProjectDeadline.setText(
+                project.getDeadline() != null ? project.getDeadline() : "Нет дедлайна"
+        );
+
+        holder.ProjectDifficulty.setText(
+                project.getDifficulty() != null ? project.getDifficulty() : "-"
+        );
     }
 
     @Override
@@ -63,9 +79,24 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 
     @SuppressLint("NotifyDataSetChanged")
     public void setData(List<Project> newList) {
-        this.projectList = new ArrayList<>(newList);
-        this.projectListFull = new ArrayList<>(newList);
+        if (newList == null) newList = new ArrayList<>();
+
+        List<Project> filtered = new ArrayList<>();
+
+        for (Project p : newList) {
+            if (p.getTitle() != null && !p.getTitle().trim().isEmpty()) {
+                filtered.add(p);
+            }
+        }
+
+        this.projectList = filtered;
+        this.projectListFull = new ArrayList<>(filtered);
+
         notifyDataSetChanged();
+    }
+
+    private String safe(String s) {
+        return s == null ? "" : s;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -89,9 +120,9 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 
             boolean matchesSearch =
                     query.isEmpty()
-                            || p.getTitle().toLowerCase().contains(query)
-                            || p.getDescription().toLowerCase().contains(query)
-                            || p.getInstructor().toLowerCase().contains(query);
+                            || safe(p.getTitle()).toLowerCase().contains(query)
+                            || safe(p.getDescription()).toLowerCase().contains(query)
+                            || safe(p.getInstructor()).toLowerCase().contains(query);
 
             String topic = p.getTopic();
 
@@ -100,12 +131,12 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 
             boolean matchesTopic =
                     noTopicSelected
-                            || (web && "web".equalsIgnoreCase(topic))
-                            || (admin && "admin".equalsIgnoreCase(topic))
-                            || (android && "android".equalsIgnoreCase(topic))
-                            || (analytics && "analytics".equalsIgnoreCase(topic))
-                            || (ai && "ai".equalsIgnoreCase(topic))
-                            || (db && "db".equalsIgnoreCase(topic));
+                            || (web && "Веб-разработка".equalsIgnoreCase(topic))
+                            || (admin && "Администрирование".equalsIgnoreCase(topic))
+                            || (android && "Мобильная разработка".equalsIgnoreCase(topic))
+                            || (analytics && "Data Science".equalsIgnoreCase(topic))
+                            || (ai && "AI".equalsIgnoreCase(topic))
+                            || (db && "Базы данных".equalsIgnoreCase(topic));
 
             boolean matchesDifficulty =
                     difficulty.isEmpty()
@@ -115,7 +146,10 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 
             if (!dateFrom.isEmpty() || !dateTo.isEmpty()) {
 
-                String[] dates = p.getDeadline().split(" - ");
+                String deadline = p.getDeadline();
+                if (deadline == null || !deadline.contains(" - ")) continue;
+
+                String[] dates = deadline.split(" - ");
 
                 if (dates.length != 2)
                     continue;

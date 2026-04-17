@@ -2,6 +2,7 @@ package com.example.myapplication.ui.network;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -10,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://10.0.2.2:5000/";
+    private static final String BASE_URL = "http://82.202.143.69:5000/";
     private static Retrofit retrofit;
     private static Context context;
 
@@ -34,8 +35,11 @@ public class RetrofitClient {
                                     .build();
                         }
 
+                        android.util.Log.d("API", "Token: " + token);
+
                         return chain.proceed(request);
                     })
+                    .retryOnConnectionFailure(true)
                     .build();
 
             retrofit = new Retrofit.Builder()
@@ -54,7 +58,15 @@ public class RetrofitClient {
         SharedPreferences prefs =
                 context.getSharedPreferences("auth", Context.MODE_PRIVATE);
 
-        return prefs.getString("token", null);
+        String token = prefs.getString("token", null);
+
+        Log.d("API", "Token: " + token);
+
+        return token;
+    }
+
+    public static void reset() {
+        retrofit = null;
     }
 
     public static void saveToken(String token) {
