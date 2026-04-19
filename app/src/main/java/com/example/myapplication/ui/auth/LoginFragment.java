@@ -1,5 +1,8 @@
 package com.example.myapplication.ui.auth;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -84,7 +87,7 @@ public class LoginFragment extends Fragment {
 
         NavController navController = NavHostFragment.findNavController(this);
 
-        btnLogin.setVisibility(View.GONE);
+        btnLogin.setVisibility(GONE);
 
         TextWatcher watcher = new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -103,14 +106,6 @@ public class LoginFragment extends Fragment {
 
             String email = editEmail.getText().toString().trim();
             String password = editPassword.getText().toString().trim();
-
-            if (TextUtils.isEmpty(email) ||
-                    TextUtils.isEmpty(password)) {
-
-                Toast.makeText(requireContext(),
-                        "Заполни все поля", Toast.LENGTH_SHORT).show();
-                return;
-            }
 
             viewModel.login(email, password);
         });
@@ -137,6 +132,11 @@ public class LoginFragment extends Fragment {
             viewModel.clearToken();
         });
 
+        if (!editEmail.getText().toString().isEmpty() && !editPassword.getText().toString().isEmpty()){
+            btnLogin.setVisibility(VISIBLE);
+        }
+        else btnLogin.setVisibility(GONE);
+
         return view;
     }
     private void checkFields() {
@@ -144,7 +144,7 @@ public class LoginFragment extends Fragment {
                 !editEmail.getText().toString().trim().isEmpty() &&
                         !editPassword.getText().toString().trim().isEmpty();
 
-        btnLogin.setVisibility(isFilled ? View.VISIBLE : View.GONE);
+        btnLogin.setVisibility(isFilled ? VISIBLE : GONE);
     }
 
     private void saveToken(String token) {
