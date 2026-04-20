@@ -12,13 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.R;
 
 public class RegistrationPasswordFragment extends Fragment {
 
     private EditText editPassword;
-    private Button btnFinish;
 
     private AuthViewModel viewModel;
 
@@ -30,7 +30,7 @@ public class RegistrationPasswordFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_registration_password, container, false);
 
         editPassword = view.findViewById(R.id.editPassword);
-        btnFinish = view.findViewById(R.id.btnFinish);
+        Button btnFinish = view.findViewById(R.id.btnFinish);
 
         viewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
@@ -44,16 +44,26 @@ public class RegistrationPasswordFragment extends Fragment {
                 return;
             }
 
-            viewModel.password = password;
+            viewModel.setPassword(password);
+            viewModel.register();
+        });
 
-            viewModel.register(
-                    viewModel.name,
-                    viewModel.surname,
-                    viewModel.email,
-                    viewModel.faculty,
-                    viewModel.group,
-                    viewModel.password
-            );
+        viewModel.getRegisterResult().observe(getViewLifecycleOwner(), success -> {
+
+            if (success == null) return;
+
+            if (success) {
+                Toast.makeText(requireContext(),
+                        "Регистрация успешна", Toast.LENGTH_SHORT).show();
+
+                NavHostFragment.findNavController(this)
+                        .navigate(R.id.loginFragment);
+            } else {
+                Toast.makeText(requireContext(),
+                        "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+            }
+
+            viewModel.clearRegisterResult();
         });
 
         return view;

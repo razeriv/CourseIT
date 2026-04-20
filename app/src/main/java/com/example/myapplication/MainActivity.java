@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -49,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         String token = prefs.getString("token", null);
 
-        //binding.getRoot().post(() -> {
-        //    if (token == null) {
-        //        navController.navigate(R.id.loginFragment, null,
-        //                new androidx.navigation.NavOptions.Builder()
-        //                        .setPopUpTo(R.id.main_graph, true)
-        //                        .build());
-        //    }
-        //});
+        binding.getRoot().post(() -> {
+            if (token == null) {
+                navController.navigate(R.id.loginFragment, null,
+                        new androidx.navigation.NavOptions.Builder()
+                                .setPopUpTo(R.id.main_graph, true)
+                                .build());
+            }
+        });
 
         bottomNav.setOnItemSelectedListener(item -> {
 

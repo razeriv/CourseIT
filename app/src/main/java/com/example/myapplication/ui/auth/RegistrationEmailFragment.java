@@ -19,7 +19,6 @@ import com.example.myapplication.R;
 public class RegistrationEmailFragment extends Fragment {
 
     private EditText editEmail, editFaculty, editGroup;
-    private Button btnNext;
 
     private AuthViewModel viewModel;
 
@@ -33,7 +32,7 @@ public class RegistrationEmailFragment extends Fragment {
         editEmail = view.findViewById(R.id.editEmail);
         editFaculty = view.findViewById(R.id.editFaculty);
         editGroup = view.findViewById(R.id.editGroup);
-        btnNext = view.findViewById(R.id.btnNext);
+        Button btnNext = view.findViewById(R.id.btnNext);
 
         viewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
@@ -52,9 +51,7 @@ public class RegistrationEmailFragment extends Fragment {
                 return;
             }
 
-            viewModel.email = email;
-            viewModel.faculty = faculty;
-            viewModel.group = group;
+            viewModel.setEmailData(email, faculty, group);
 
             NavHostFragment.findNavController(this)
                     .navigate(R.id.registrationPasswordFragment);

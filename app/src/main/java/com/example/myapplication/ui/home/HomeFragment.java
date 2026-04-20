@@ -15,9 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
-import com.example.myapplication.ui.data.NewsRepository;
 import com.example.myapplication.ui.data.NewsViewModel;
-import com.example.myapplication.ui.data.ProjectsRepository;
 import com.example.myapplication.ui.data.ProjectsViewModel;
 import com.example.myapplication.ui.news.NewsAdapter;
 import com.example.myapplication.ui.projects.ProjectsAdapter;
