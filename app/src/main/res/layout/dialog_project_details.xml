@@ -69,37 +69,66 @@
                     android:textSize="14sp"
                     android:layout_marginTop="4dp" />
 
-                <LinearLayout
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical">
+                    android:columnCount="2"
+                    android:rowCount="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_column="0"
+                        android:layout_marginTop="12dp"
+                        android:text="Сложность:"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_column="1"
+                        android:layout_marginTop="12dp"
+                        android:text="Сроки:"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/project_difficulty"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
                         android:textColor="#AAB6E0"
-                        android:text="лёгкий"
                         tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/project_deadline"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
+                        android:layout_columnWeight="1"
                         android:textColor="#AAB6E0"
-                        android:text="23.03 - 27.03"
                         tools:ignore="HardcodedText" />
+                </GridLayout>
 
-                    <TextView
-                        android:id="@+id/project_instructor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="#AAB6E0"
-                        android:text="преподаватель: ..."
-                        tools:ignore="HardcodedText" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Преподаватель:"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/project_instructor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#AAB6E0"
+                    tools:ignore="HardcodedText" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRespond"

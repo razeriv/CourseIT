@@ -1,15 +1,19 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
@@ -20,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         RetrofitClient.init(this);
+        RetrofitClient.init(getApplicationContext());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -45,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         String token = prefs.getString("token", null);
 
-       // binding.getRoot().post(() -> {
-       //     if (token == null) {
-       //         navController.navigate(R.id.loginFragment, null,
-       //                 new androidx.navigation.NavOptions.Builder()
-       //                         .setPopUpTo(R.id.main_graph, true)
-       //                         .build());
-       //     }
-       // });
+        //binding.getRoot().post(() -> {
+        //    if (token == null) {
+        //        navController.navigate(R.id.loginFragment, null,
+        //                new androidx.navigation.NavOptions.Builder()
+        //                        .setPopUpTo(R.id.main_graph, true)
+        //                        .build());
+        //    }
+        //});
 
         bottomNav.setOnItemSelectedListener(item -> {
 
@@ -93,7 +97,37 @@ public class MainActivity extends AppCompatActivity {
         ImageView btnBack = findViewById(R.id.btnBack);
         TextView title = binding.appBarMain.toolbar.findViewById(R.id.toolbarTitle);
 
-        btnBack.setOnClickListener(v -> navController.navigateUp());
+        btnBack.setOnClickListener(v -> {
+            NavDestination currentDestination = navController.getCurrentDestination();
+
+            if (currentDestination != null) {
+                int currentId = currentDestination.getId();
+
+                int[] mainScreens = {
+                        R.id.nav_news,
+                        R.id.nav_projects,
+                        R.id.nav_chats,
+                        R.id.nav_profile
+                };
+
+                boolean isMainScreen = false;
+                for (int id : mainScreens) {
+                    if (currentId == id) {
+                        isMainScreen = true;
+                        break;
+                    }
+                }
+
+                if (isMainScreen) {
+                    navController.navigate(R.id.nav_home, null,
+                            new NavOptions.Builder()
+                                    .setPopUpTo(R.id.nav_home, true)
+                                    .build());
+                } else {
+                    navController.navigateUp();
+                }
+            }
+        });
 
         navController.addOnDestinationChangedListener((controller, destination, args) -> {
 
@@ -110,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (id == R.id.nav_home) {
                 btnBack.setVisibility(View.GONE);
-                title.setText("");
+                title.setText("Главная");
             } else {
                 btnBack.setVisibility(View.VISIBLE);
 
@@ -143,10 +177,46 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawerLayout);
         ImageView btnHide = findViewById(R.id.btnHide);
 
+        LinearLayout menuHome = findViewById(R.id.menuHome);
+        LinearLayout menuProfile = findViewById(R.id.menuProfile);
+        LinearLayout menuChats = findViewById(R.id.menuChats);
+        LinearLayout menuProjects = findViewById(R.id.menuProjects);
+        LinearLayout menuInternships = findViewById(R.id.menuInternships);
+        LinearLayout menuMeetings = findViewById(R.id.menuMeetings);
+        LinearLayout menuCommunity = findViewById(R.id.menuCommunity);
+        LinearLayout menuNews = findViewById(R.id.menuNews);
+        LinearLayout menuSettings = findViewById(R.id.menuSettings);
+        LinearLayout menuHelp = findViewById(R.id.menuHelp);
+
         binding.appBarMain.toolbar.findViewById(R.id.btnMenu)
                 .setOnClickListener(v ->
                         drawer.openDrawer(GravityCompat.END)
                 );
+
+        menuHome.setOnClickListener(view -> {
+            navController.navigate(R.id.nav_home);
+            drawer.closeDrawer(GravityCompat.END);}
+        );
+
+        menuProfile.setOnClickListener(view -> {
+                navController.navigate(R.id.nav_profile);
+                drawer.closeDrawer(GravityCompat.END);}
+        );
+
+        menuChats.setOnClickListener(view -> {
+            navController.navigate(R.id.nav_chats);
+            drawer.closeDrawer(GravityCompat.END);}
+        );
+
+        menuProjects.setOnClickListener(view -> {
+            navController.navigate(R.id.nav_projects);
+            drawer.closeDrawer(GravityCompat.END);}
+        );
+
+        menuNews.setOnClickListener(view -> {
+            navController.navigate(R.id.nav_news);
+            drawer.closeDrawer(GravityCompat.END);}
+        );
 
         btnHide.setOnClickListener(v ->
                 drawer.closeDrawer(GravityCompat.END)

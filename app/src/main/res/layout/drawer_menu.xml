@@ -19,6 +19,7 @@
         tools:ignore="HardcodedText" />
 
     <LinearLayout
+        android:id="@+id/menuHome"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
