@@ -12,4 +12,9 @@ public class RegisterResponse {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return "RegisterResponse{success=" + success + ", message='" + message + "'}";
+    }
 }

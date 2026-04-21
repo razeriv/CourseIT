@@ -23,10 +23,22 @@ public class RegisterRequest {
         this.password = password;
     }
 
+    // Getters
     public String getName() { return name; }
     public String getSurname() { return surname; }
     public String getEmail() { return email; }
     public String getFaculty() { return faculty; }
     public String getGroup() { return group; }
     public String getPassword() { return password; }
+
+    @Override
+    public String toString() {
+        return "RegisterRequest{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", faculty='" + faculty + '\'' +
+                ", group='" + group + '\'' +
+                '}';
+    }
 }

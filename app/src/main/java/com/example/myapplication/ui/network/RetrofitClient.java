@@ -2,10 +2,12 @@ package com.example.myapplication.ui.network;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -20,25 +22,26 @@ public class RetrofitClient {
     }
 
     public static ApiService getApi() {
-
         if (retrofit == null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
                     .addInterceptor(chain -> {
-
                         Request request = chain.request();
                         String token = getTokenFromPrefs();
 
-                        if (token != null) {
+                        if (token != null && !token.isEmpty()) {
                             request = request.newBuilder()
                                     .addHeader("Authorization", "Bearer " + token)
                                     .build();
                         }
-
-                        android.util.Log.d("API", "Token: " + token);
-
                         return chain.proceed(request);
                     })
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .writeTimeout(30, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true)
                     .build();
 
@@ -48,42 +51,32 @@ public class RetrofitClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-
         return retrofit.create(ApiService.class);
     }
 
     private static String getTokenFromPrefs() {
         if (context == null) return null;
-
-        SharedPreferences prefs =
-                context.getSharedPreferences("auth", Context.MODE_PRIVATE);
-
-        String token = prefs.getString("token", null);
-
-        Log.d("API", "Token: " + token);
-
-        return token;
-    }
-
-    public static void reset() {
-        retrofit = null;
+        SharedPreferences prefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
+        return prefs.getString("token", null);
     }
 
     public static void saveToken(String token) {
         if (context == null) return;
-
-        SharedPreferences prefs =
-                context.getSharedPreferences("auth", Context.MODE_PRIVATE);
-
-        prefs.edit().putString("token", token).apply();
+        context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+                .edit()
+                .putString("token", token)
+                .apply();
     }
 
     public static void clearToken() {
         if (context == null) return;
+        context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+                .edit()
+                .remove("token")
+                .apply();
+    }
 
-        SharedPreferences prefs =
-                context.getSharedPreferences("auth", Context.MODE_PRIVATE);
-
-        prefs.edit().remove("token").apply();
+    public static void reset() {
+        retrofit = null;
     }
 }

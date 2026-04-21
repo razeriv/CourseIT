@@ -7,9 +7,7 @@ import retrofit2.Callback;
 
 public class AuthRepository {
 
-    public void login(String email, String password,
-                      Callback<AuthResponse> callback) {
-
+    public void login(String email, String password, Callback<AuthResponse> callback) {
         AuthRequest request = new AuthRequest(email, password);
         RetrofitClient.getApi().login(request).enqueue(callback);
     }
@@ -22,13 +20,7 @@ public class AuthRepository {
                          String password,
                          Callback<Void> callback) {
 
-        RetrofitClient.getApi().register(new RegisterRequest(
-                name,
-                surname,
-                email,
-                faculty,
-                group,
-                password
-        )).enqueue(callback);
+        RegisterRequest request = new RegisterRequest(name, surname, email, faculty, group, password);
+        RetrofitClient.getApi().register(request).enqueue(callback);
     }
 }

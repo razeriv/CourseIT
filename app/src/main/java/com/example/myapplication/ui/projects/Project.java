@@ -10,7 +10,6 @@ public class Project {
     private String topic;
     private String difficulty;
     private String deadline;
-    // private String status;
 
     public Project() {}
 
@@ -22,5 +21,14 @@ public class Project {
     public String getTopic() { return topic; }
     public String getDifficulty() { return difficulty; }
     public String getDeadline() { return deadline; }
-    // public String getStatus() { return status; }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "title='" + title + '\'' +
+                ", instructor='" + instructor + '\'' +
+                ", difficulty='" + difficulty + '\'' +
+                ", deadline='" + deadline + '\'' +
+                '}';
+    }
 }

@@ -19,7 +19,7 @@ import com.example.myapplication.R;
 public class RegistrationEmailFragment extends Fragment {
 
     private EditText editEmail, editFaculty, editGroup;
-
+    private Button btnNext;
     private AuthViewModel viewModel;
 
     @Override
@@ -32,27 +32,21 @@ public class RegistrationEmailFragment extends Fragment {
         editEmail = view.findViewById(R.id.editEmail);
         editFaculty = view.findViewById(R.id.editFaculty);
         editGroup = view.findViewById(R.id.editGroup);
-        Button btnNext = view.findViewById(R.id.btnNext);
+        btnNext = view.findViewById(R.id.btnNext);
 
         viewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
         btnNext.setOnClickListener(v -> {
-
             String email = editEmail.getText().toString().trim();
             String faculty = editFaculty.getText().toString().trim();
             String group = editGroup.getText().toString().trim();
 
-            if (TextUtils.isEmpty(email) ||
-                    TextUtils.isEmpty(faculty) ||
-                    TextUtils.isEmpty(group)) {
-
-                Toast.makeText(requireContext(),
-                        "Заполните все поля", Toast.LENGTH_SHORT).show();
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(faculty) || TextUtils.isEmpty(group)) {
+                Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             viewModel.setEmailData(email, faculty, group);
-
             NavHostFragment.findNavController(this)
                     .navigate(R.id.registrationPasswordFragment);
         });

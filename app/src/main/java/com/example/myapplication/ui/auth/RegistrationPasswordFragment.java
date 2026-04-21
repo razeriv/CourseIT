@@ -19,7 +19,7 @@ import com.example.myapplication.R;
 public class RegistrationPasswordFragment extends Fragment {
 
     private EditText editPassword;
-
+    private Button btnFinish;
     private AuthViewModel viewModel;
 
     @Override
@@ -30,42 +30,50 @@ public class RegistrationPasswordFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_registration_password, container, false);
 
         editPassword = view.findViewById(R.id.editPassword);
-        Button btnFinish = view.findViewById(R.id.btnFinish);
+        btnFinish = view.findViewById(R.id.btnFinish);
 
         viewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
-        btnFinish.setOnClickListener(v -> {
+        setupButton();
+        observeViewModel();
 
+        return view;
+    }
+
+    private void setupButton() {
+        btnFinish.setOnClickListener(v -> {
             String password = editPassword.getText().toString().trim();
 
             if (TextUtils.isEmpty(password)) {
-                Toast.makeText(requireContext(),
-                        "Введите пароль", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Введите пароль", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             viewModel.setPassword(password);
             viewModel.register();
         });
+    }
 
+    private void observeViewModel() {
         viewModel.getRegisterResult().observe(getViewLifecycleOwner(), success -> {
-
             if (success == null) return;
 
             if (success) {
-                Toast.makeText(requireContext(),
-                        "Регистрация успешна", Toast.LENGTH_SHORT).show();
-
-                NavHostFragment.findNavController(this)
-                        .navigate(R.id.loginFragment);
+                Toast.makeText(requireContext(), "Регистрация прошла успешно!", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(this).navigate(R.id.loginFragment);
+                viewModel.clearRegistrationData();
             } else {
-                Toast.makeText(requireContext(),
-                        "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Ошибка регистрации. Попробуйте ещё раз.", Toast.LENGTH_SHORT).show();
             }
 
             viewModel.clearRegisterResult();
         });
 
-        return view;
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading != null) {
+                btnFinish.setEnabled(!isLoading);
+                btnFinish.setText(isLoading ? "Регистрация..." : "Завершить регистрацию");
+            }
+        });
     }
 }

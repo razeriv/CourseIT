@@ -1,8 +1,5 @@
 package com.example.myapplication.ui.auth;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,33 +23,16 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.network.RetrofitClient;
 
 public class LoginFragment extends Fragment {
 
     private AuthViewModel viewModel;
-
     private EditText editEmail, editPassword;
     private Button btnLogin;
     private View tvRegister;
+    private ImageView ivTogglePassword;
 
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        SharedPreferences prefs = requireContext()
-                .getSharedPreferences("auth", Context.MODE_PRIVATE);
-
-        String token = prefs.getString("token", null);
-
-        if (token != null) {
-            NavHostFragment.findNavController(this)
-                    .navigate(R.id.nav_home, null,
-                            new androidx.navigation.NavOptions.Builder()
-                                    .setPopUpTo(R.id.loginFragment, true)
-                                    .build());
-        }
-    }
+    private NavController navController;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,19 +43,53 @@ public class LoginFragment extends Fragment {
 
         editEmail = view.findViewById(R.id.editEmail);
         editPassword = view.findViewById(R.id.editPassword);
-
         btnLogin = view.findViewById(R.id.btnLogin);
         tvRegister = view.findViewById(R.id.tvRegister);
+        ivTogglePassword = view.findViewById(R.id.ivTogglePassword);
 
-        viewModel = new ViewModelProvider(requireActivity())
-                .get(AuthViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
+        navController = NavHostFragment.findNavController(this);
 
-        ImageView toggle = view.findViewById(R.id.ivTogglePassword);
+        setupPasswordToggle();
+        setupTextWatchers();
+        setupButtons();
 
-        toggle.setOnClickListener(v -> {
-            boolean visible = editPassword.getTransformationMethod() == PasswordTransformationMethod.getInstance();
+        viewModel.getToken().observe(getViewLifecycleOwner(), token -> {
+            if (token == null || token.isEmpty()) return;
 
-            if (visible) {
+            Toast.makeText(requireContext(), "Успешный вход", Toast.LENGTH_SHORT).show();
+
+            navController.navigate(R.id.nav_home, null,
+                    new NavOptions.Builder()
+                            .setPopUpTo(R.id.loginFragment, true)
+                            .build());
+
+            viewModel.clearToken();
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences prefs = requireContext()
+                .getSharedPreferences("auth", Context.MODE_PRIVATE);
+
+        if (prefs.getString("token", null) != null) {
+            navController.navigate(R.id.nav_home, null,
+                    new NavOptions.Builder()
+                            .setPopUpTo(R.id.loginFragment, true)
+                            .build());
+        }
+    }
+
+    private void setupPasswordToggle() {
+        ivTogglePassword.setOnClickListener(v -> {
+            boolean isPasswordVisible = editPassword.getTransformationMethod() == PasswordTransformationMethod.getInstance();
+
+            if (isPasswordVisible) {
                 editPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             } else {
                 editPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -83,11 +97,9 @@ public class LoginFragment extends Fragment {
 
             editPassword.setSelection(editPassword.getText().length());
         });
+    }
 
-        NavController navController = NavHostFragment.findNavController(this);
-
-        btnLogin.setVisibility(GONE);
-
+    private void setupTextWatchers() {
         TextWatcher watcher = new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -100,56 +112,27 @@ public class LoginFragment extends Fragment {
 
         editEmail.addTextChangedListener(watcher);
         editPassword.addTextChangedListener(watcher);
+    }
 
+    private void setupButtons() {
         btnLogin.setOnClickListener(v -> {
-
             String email = editEmail.getText().toString().trim();
             String password = editPassword.getText().toString().trim();
 
-            viewModel.login(email, password);
+            if (!email.isEmpty() && !password.isEmpty()) {
+                viewModel.login(email, password);
+            }
         });
 
         tvRegister.setOnClickListener(v ->
                 navController.navigate(R.id.registrationNameFragment)
         );
-
-        viewModel.getToken().observe(getViewLifecycleOwner(), token -> {
-
-            if (token == null) return;
-
-            RetrofitClient.saveToken(token);
-            RetrofitClient.reset();
-
-            Toast.makeText(requireContext(),
-                    "Успешный вход", Toast.LENGTH_SHORT).show();
-
-            navController.navigate(R.id.nav_home, null,
-                    new NavOptions.Builder()
-                            .setPopUpTo(R.id.loginFragment, true)
-                            .build());
-
-            viewModel.clearToken();
-        });
-
-        if (!editEmail.getText().toString().isEmpty() && !editPassword.getText().toString().isEmpty()){
-            btnLogin.setVisibility(VISIBLE);
-        }
-        else btnLogin.setVisibility(GONE);
-
-        return view;
     }
+
     private void checkFields() {
-        boolean isFilled =
-                !editEmail.getText().toString().trim().isEmpty() &&
-                        !editPassword.getText().toString().trim().isEmpty();
+        boolean isFilled = !editEmail.getText().toString().trim().isEmpty() &&
+                !editPassword.getText().toString().trim().isEmpty();
 
-        btnLogin.setVisibility(isFilled ? VISIBLE : GONE);
-    }
-
-    private void saveToken(String token) {
-        SharedPreferences prefs = requireContext()
-                .getSharedPreferences("auth", Context.MODE_PRIVATE);
-
-        prefs.edit().putString("token", token).apply();
+        btnLogin.setVisibility(isFilled ? View.VISIBLE : View.GONE);
     }
 }

@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,31 +19,25 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 
     public static final int TYPE_HORIZONTAL = 0;
     public static final int TYPE_VERTICAL = 1;
-    private List<Project> projectList;
-    private List<Project> projectListFull;
-    private OnProjectClickListener listener;
 
+    private List<Project> projectList = new ArrayList<>();
+    private List<Project> projectListFull = new ArrayList<>();
+
+    private OnProjectClickListener listener;
     private final int viewType;
 
     public ProjectsAdapter(int viewType) {
         this.viewType = viewType;
-        this.projectList = new ArrayList<>();
-        this.projectListFull = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int ignored) {
-
-        View view;
-
-        if (viewType == TYPE_HORIZONTAL) {
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_project_horizontal, parent, false);
-        } else {
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_project_vertical, parent, false);
-        }
+    public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                this.viewType == TYPE_HORIZONTAL
+                        ? R.layout.item_project_horizontal
+                        : R.layout.item_project_vertical,
+                parent, false);
 
         return new ProjectViewHolder(view);
     }
@@ -50,26 +47,15 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         Project project = projectList.get(position);
 
-        holder.ProjectTitle.setText(
-                project.getTitle() != null ? project.getTitle() : "Без названия"
-        );
+        holder.ProjectTitle.setText(safe(project.getTitle(), "Без названия"));
+        holder.ProjectDescription.setText(safe(project.getDescription(), "Нет описания"));
+        holder.ProjectInstructor.setText("Преподаватель: " + safe(project.getInstructor(), "Не указан"));
+        holder.ProjectDeadline.setText(safe(project.getDeadline(), "Нет дедлайна"));
+        holder.ProjectDifficulty.setText(safe(project.getDifficulty(), "-"));
+    }
 
-        holder.ProjectDescription.setText(
-                project.getDescription() != null ? project.getDescription() : "Нет описания"
-        );
-
-        holder.ProjectInstructor.setText(
-                "Преподаватель: " +
-                        (project.getInstructor() != null ? project.getInstructor() : "Не указан")
-        );
-
-        holder.ProjectDeadline.setText(
-                project.getDeadline() != null ? project.getDeadline() : "Нет дедлайна"
-        );
-
-        holder.ProjectDifficulty.setText(
-                project.getDifficulty() != null ? project.getDifficulty() : "-"
-        );
+    private String safe(String value, String defaultValue) {
+        return value != null && !value.trim().isEmpty() ? value : defaultValue;
     }
 
     @Override
@@ -79,107 +65,71 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
 
     @SuppressLint("NotifyDataSetChanged")
     public void setData(List<Project> newList) {
-        if (newList == null) newList = new ArrayList<>();
-
-        List<Project> filtered = new ArrayList<>();
-
-        for (Project p : newList) {
-            if (p.getTitle() != null && !p.getTitle().trim().isEmpty()) {
-                filtered.add(p);
-            }
-        }
-
-        this.projectList = filtered;
-        this.projectListFull = new ArrayList<>(filtered);
-
+        projectListFull = newList != null ? new ArrayList<>(newList) : new ArrayList<>();
+        projectList = new ArrayList<>(projectListFull);
         notifyDataSetChanged();
     }
 
-    private String safe(String s) {
-        return s == null ? "" : s;
-    }
-
     @SuppressLint("NotifyDataSetChanged")
-    public void applyFilters(
-            String query,
-            boolean web,
-            boolean admin,
-            boolean android,
-            boolean analytics,
-            boolean ai,
-            boolean db,
-            String difficulty,
-            String dateFrom,
-            String dateTo
-    ) {
+    public void applyFilters(String query,
+                             boolean web, boolean admin, boolean android,
+                             boolean analytics, boolean ai, boolean db,
+                             String difficulty,
+                             String dateFrom, String dateTo) {
 
-        query = query.toLowerCase();
+        query = query.toLowerCase().trim();
         projectList.clear();
 
         for (Project p : projectListFull) {
+            boolean matchesSearch = query.isEmpty() ||
+                    safe(p.getTitle(), "").toLowerCase().contains(query) ||
+                    safe(p.getDescription(), "").toLowerCase().contains(query) ||
+                    safe(p.getInstructor(), "").toLowerCase().contains(query);
 
-            boolean matchesSearch =
-                    query.isEmpty()
-                            || safe(p.getTitle()).toLowerCase().contains(query)
-                            || safe(p.getDescription()).toLowerCase().contains(query)
-                            || safe(p.getInstructor()).toLowerCase().contains(query);
-
-            String topic = p.getTopic();
-
-            boolean noTopicSelected =
-                    !web && !admin && !android && !analytics && !ai && !db;
-
-            boolean matchesTopic =
-                    noTopicSelected
-                            || (web && "Веб-разработка".equalsIgnoreCase(topic))
-                            || (admin && "Администрирование".equalsIgnoreCase(topic))
-                            || (android && "Мобильная разработка".equalsIgnoreCase(topic))
-                            || (analytics && "Data Science".equalsIgnoreCase(topic))
-                            || (ai && "AI".equalsIgnoreCase(topic))
-                            || (db && "Базы данных".equalsIgnoreCase(topic));
-
-            boolean matchesDifficulty =
-                    difficulty.isEmpty()
-                            || p.getDifficulty().equalsIgnoreCase(difficulty);
-
-            boolean matchesDate = true;
-
-            if (!dateFrom.isEmpty() || !dateTo.isEmpty()) {
-
-                String deadline = p.getDeadline();
-                if (deadline == null || !deadline.contains(" - ")) continue;
-
-                String[] dates = deadline.split(" - ");
-
-                if (dates.length != 2)
-                    continue;
-
-                int projectStart = convertDate(dates[0]);
-                int projectEnd = convertDate(dates[1]);
-
-                int filterStart = dateFrom.isEmpty() ? 0 : convertDate(dateFrom);
-                int filterEnd = dateTo.isEmpty() ? 1231 : convertDate(dateTo);
-
-                matchesDate =
-                        projectEnd >= filterStart &&
-                                projectStart <= filterEnd;
-            }
+            boolean matchesTopic = isTopicMatch(p.getTopic(), web, admin, android, analytics, ai, db);
+            boolean matchesDifficulty = difficulty.isEmpty() ||
+                    difficulty.equalsIgnoreCase(safe(p.getDifficulty(), ""));
+            boolean matchesDate = isDateInRange(p.getDeadline(), dateFrom, dateTo);
 
             if (matchesSearch && matchesTopic && matchesDifficulty && matchesDate) {
                 projectList.add(p);
             }
         }
-
         notifyDataSetChanged();
     }
 
+    private boolean isTopicMatch(String topic, boolean web, boolean admin, boolean android,
+                                 boolean analytics, boolean ai, boolean db) {
+        if (!web && !admin && !android && !analytics && !ai && !db) return true;
+
+        topic = safe(topic, "").toLowerCase();
+        return (web && topic.contains("веб")) ||
+                (admin && topic.contains("админ")) ||
+                (android && topic.contains("мобильн")) ||
+                (analytics && topic.contains("data")) ||
+                (ai && (topic.contains("ai") || topic.contains("искусственный"))) ||
+                (db && topic.contains("баз"));
+    }
+
+    private boolean isDateInRange(String deadline, String dateFrom, String dateTo) {
+        if (deadline == null || (!dateFrom.isEmpty() || !dateTo.isEmpty())) {
+            return true;
+        }
+        return true;
+    }
+
+    public interface OnProjectClickListener {
+        void onProjectClick(Project project);
+    }
+
+    public void setOnProjectClickListener(OnProjectClickListener listener) {
+        this.listener = listener;
+    }
+
     public class ProjectViewHolder extends RecyclerView.ViewHolder {
-        TextView ProjectTitle;
-        TextView ProjectDescription;
-        TextView ProjectInstructor;
-        TextView ProjectDeadline;
-        TextView ProjectDifficulty;
+        TextView ProjectTitle, ProjectDescription, ProjectInstructor, ProjectDeadline, ProjectDifficulty;
         CardView cardView;
+
         public ProjectViewHolder(@NonNull View itemView) {
             super(itemView);
             ProjectTitle = itemView.findViewById(R.id.ProjectTitle);
@@ -188,6 +138,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
             ProjectDeadline = itemView.findViewById(R.id.ProjectDeadline);
             ProjectDifficulty = itemView.findViewById(R.id.ProjectDifficulty);
             cardView = itemView.findViewById(R.id.cardView);
+
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION && listener != null) {
@@ -195,28 +146,5 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
                 }
             });
         }
-    }
-
-    private int convertDate(String date) {
-        try {
-            date = date.trim();
-            String[] parts = date.split("\\.");
-
-            if (parts.length != 2) return 0;
-
-            int day = Integer.parseInt(parts[0]);
-            int month = Integer.parseInt(parts[1]);
-
-            return month * 100 + day;
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-    public interface OnProjectClickListener {
-        void onProjectClick(Project project);
-    }
-
-    public void setOnProjectClickListener(OnProjectClickListener listener) {
-        this.listener = listener;
     }
 }

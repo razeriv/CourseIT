@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,11 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
+    private BottomNavigationView bottomNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RetrofitClient.init(this);
         RetrofitClient.init(getApplicationContext());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -35,111 +35,104 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.nav_host_fragment_content_main);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment_content_main);
 
         if (navHostFragment == null) return;
-
         navController = navHostFragment.getNavController();
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+        bottomNav = findViewById(R.id.bottom_nav_view);
 
+        setupBottomNavigation();
+        setupDrawer();
+        setupToolbar();
+        observeDestinationChanges();
+
+        checkAuthAndRedirect();
+    }
+
+    private void checkAuthAndRedirect() {
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         String token = prefs.getString("token", null);
 
-        binding.getRoot().post(() -> {
-            if (token == null) {
-                navController.navigate(R.id.loginFragment, null,
-                        new androidx.navigation.NavOptions.Builder()
-                                .setPopUpTo(R.id.main_graph, true)
-                                .build());
-            }
-        });
+        if (token == null || token.isEmpty()) {
+            navController.navigate(R.id.loginFragment, null,
+                    new NavOptions.Builder()
+                            .setPopUpTo(R.id.main_graph, true)
+                            .build());
+        }
+    }
 
+    private void setupBottomNavigation() {
         bottomNav.setOnItemSelectedListener(item -> {
-
             int itemId = item.getItemId();
 
             if (itemId == R.id.nav_home) {
-                navController.navigate(R.id.nav_home, null,
-                        new androidx.navigation.NavOptions.Builder()
-                                .setPopUpTo(R.id.main_graph, false)
-                                .build());
-                return true;
-            }
-
-            if (itemId == R.id.nav_projects) {
+                navController.navigate(R.id.nav_home);
+            } else if (itemId == R.id.nav_projects) {
                 navController.navigate(R.id.nav_projects);
-                return true;
-            }
-
-            if (itemId == R.id.nav_chats) {
+            } else if (itemId == R.id.nav_chats) {
                 navController.navigate(R.id.nav_chats);
-                return true;
-            }
-
-            if (itemId == R.id.nav_news) {
+            } else if (itemId == R.id.nav_news) {
                 navController.navigate(R.id.nav_news);
-                return true;
-            }
-
-            if (itemId == R.id.nav_profile) {
-                navController.popBackStack(R.id.nav_profile, false);
+            } else if (itemId == R.id.nav_profile) {
                 navController.navigate(R.id.nav_profile);
-                return true;
             }
-
-            return false;
+            return true;
         });
+    }
 
+    private void setupDrawer() {
+        DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        ImageView btnMenu = binding.appBarMain.toolbar.findViewById(R.id.btnMenu);
+
+        btnMenu.setOnClickListener(v -> drawer.openDrawer(GravityCompat.END));
+
+        findViewById(R.id.menuHome).setOnClickListener(v -> navigateAndClose(R.id.nav_home, drawer));
+        findViewById(R.id.menuProfile).setOnClickListener(v -> navigateAndClose(R.id.nav_profile, drawer));
+        findViewById(R.id.menuChats).setOnClickListener(v -> navigateAndClose(R.id.nav_chats, drawer));
+        findViewById(R.id.menuProjects).setOnClickListener(v -> navigateAndClose(R.id.nav_projects, drawer));
+        findViewById(R.id.menuNews).setOnClickListener(v -> navigateAndClose(R.id.nav_news, drawer));
+
+        findViewById(R.id.btnHide).setOnClickListener(v -> drawer.closeDrawer(GravityCompat.END));
+    }
+
+    private void navigateAndClose(int destination, DrawerLayout drawer) {
+        navController.navigate(destination);
+        drawer.closeDrawer(GravityCompat.END);
+    }
+
+    private void setupToolbar() {
         ImageView btnBack = findViewById(R.id.btnBack);
-        TextView title = binding.appBarMain.toolbar.findViewById(R.id.toolbarTitle);
 
         btnBack.setOnClickListener(v -> {
-            NavDestination currentDestination = navController.getCurrentDestination();
+            NavDestination current = navController.getCurrentDestination();
+            if (current == null) return;
 
-            if (currentDestination != null) {
-                int currentId = currentDestination.getId();
-
-                int[] mainScreens = {
-                        R.id.nav_news,
-                        R.id.nav_projects,
-                        R.id.nav_chats,
-                        R.id.nav_profile
-                };
-
-                boolean isMainScreen = false;
-                for (int id : mainScreens) {
-                    if (currentId == id) {
-                        isMainScreen = true;
-                        break;
-                    }
-                }
-
-                if (isMainScreen) {
-                    navController.navigate(R.id.nav_home, null,
-                            new NavOptions.Builder()
-                                    .setPopUpTo(R.id.nav_home, true)
-                                    .build());
-                } else {
-                    navController.navigateUp();
-                }
+            int id = current.getId();
+            if (id == R.id.nav_news || id == R.id.nav_projects ||
+                    id == R.id.nav_chats || id == R.id.nav_profile) {
+                navController.navigate(R.id.nav_home);
+            } else {
+                navController.navigateUp();
             }
         });
+    }
 
-        navController.addOnDestinationChangedListener((controller, destination, args) -> {
-
+    private void observeDestinationChanges() {
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             int id = destination.getId();
 
-            if (id == R.id.loginFragment || id == R.id.registrationNameFragment|| id == R.id.registrationEmailFragment || id == R.id.registrationPasswordFragment) {
-                bottomNav.setVisibility(View.GONE);
-                binding.appBarMain.toolbar.setVisibility(View.GONE);
-                return;
-            } else {
-                bottomNav.setVisibility(View.VISIBLE);
-                binding.appBarMain.toolbar.setVisibility(View.VISIBLE);
-            }
+            boolean isAuthScreen = id == R.id.loginFragment ||
+                    id == R.id.registrationNameFragment ||
+                    id == R.id.registrationEmailFragment ||
+                    id == R.id.registrationPasswordFragment;
+
+            bottomNav.setVisibility(isAuthScreen ? View.GONE : View.VISIBLE);
+            binding.appBarMain.toolbar.setVisibility(isAuthScreen ? View.GONE : View.VISIBLE);
+
+            ImageView btnBack = findViewById(R.id.btnBack);
+            TextView title = binding.appBarMain.toolbar.findViewById(R.id.toolbarTitle);
 
             if (id == R.id.nav_home) {
                 btnBack.setVisibility(View.GONE);
@@ -147,78 +140,16 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 btnBack.setVisibility(View.VISIBLE);
 
-                if (id == R.id.nav_news)
-                    title.setText("Новости");
-
-                else if (id == R.id.nav_projects)
-                    title.setText("Проекты");
-
-                else if (id == R.id.nav_chats)
-                    title.setText("Чаты");
-
-                else if (id == R.id.nav_profile)
-                    title.setText("Профиль");
-
-                else if (id == R.id.ProjectDetailsFragment)
-                    title.setText("Детали проекта");
-
-                else if (id == R.id.nav_portfolio)
-                    title.setText("Портфолио");
-
-                else if (id == R.id.nav_reviews)
-                    title.setText("Отзывы");
-
-                else if (id == R.id.nav_text_edit)
-                    title.setText("О себе");
+                if (id == R.id.nav_news) title.setText("Новости");
+                else if (id == R.id.nav_projects) title.setText("Проекты");
+                else if (id == R.id.nav_chats) title.setText("Чаты");
+                else if (id == R.id.nav_profile) title.setText("Профиль");
+                else if (id == R.id.ProjectDetailsFragment) title.setText("Детали проекта");
+                else if (id == R.id.nav_portfolio) title.setText("Портфолио");
+                else if (id == R.id.nav_reviews) title.setText("Отзывы");
+                else if (id == R.id.nav_text_edit) title.setText("О себе");
+                else title.setText("CourseIT");
             }
         });
-
-        DrawerLayout drawer = findViewById(R.id.drawerLayout);
-        ImageView btnHide = findViewById(R.id.btnHide);
-
-        LinearLayout menuHome = findViewById(R.id.menuHome);
-        LinearLayout menuProfile = findViewById(R.id.menuProfile);
-        LinearLayout menuChats = findViewById(R.id.menuChats);
-        LinearLayout menuProjects = findViewById(R.id.menuProjects);
-        LinearLayout menuInternships = findViewById(R.id.menuInternships);
-        LinearLayout menuMeetings = findViewById(R.id.menuMeetings);
-        LinearLayout menuCommunity = findViewById(R.id.menuCommunity);
-        LinearLayout menuNews = findViewById(R.id.menuNews);
-        LinearLayout menuSettings = findViewById(R.id.menuSettings);
-        LinearLayout menuHelp = findViewById(R.id.menuHelp);
-
-        binding.appBarMain.toolbar.findViewById(R.id.btnMenu)
-                .setOnClickListener(v ->
-                        drawer.openDrawer(GravityCompat.END)
-                );
-
-        menuHome.setOnClickListener(view -> {
-            navController.navigate(R.id.nav_home);
-            drawer.closeDrawer(GravityCompat.END);}
-        );
-
-        menuProfile.setOnClickListener(view -> {
-                navController.navigate(R.id.nav_profile);
-                drawer.closeDrawer(GravityCompat.END);}
-        );
-
-        menuChats.setOnClickListener(view -> {
-            navController.navigate(R.id.nav_chats);
-            drawer.closeDrawer(GravityCompat.END);}
-        );
-
-        menuProjects.setOnClickListener(view -> {
-            navController.navigate(R.id.nav_projects);
-            drawer.closeDrawer(GravityCompat.END);}
-        );
-
-        menuNews.setOnClickListener(view -> {
-            navController.navigate(R.id.nav_news);
-            drawer.closeDrawer(GravityCompat.END);}
-        );
-
-        btnHide.setOnClickListener(v ->
-                drawer.closeDrawer(GravityCompat.END)
-        );
     }
 }

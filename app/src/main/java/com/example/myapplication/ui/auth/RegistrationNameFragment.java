@@ -19,7 +19,7 @@ import com.example.myapplication.R;
 public class RegistrationNameFragment extends Fragment {
 
     private EditText editName, editSurname;
-
+    private Button btnNext;
     private AuthViewModel viewModel;
 
     @Override
@@ -31,23 +31,20 @@ public class RegistrationNameFragment extends Fragment {
 
         editName = view.findViewById(R.id.editName);
         editSurname = view.findViewById(R.id.editSurname);
-        Button btnNext = view.findViewById(R.id.btnNext);
+        btnNext = view.findViewById(R.id.btnNext);
 
         viewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
 
         btnNext.setOnClickListener(v -> {
-
             String name = editName.getText().toString().trim();
             String surname = editSurname.getText().toString().trim();
 
             if (TextUtils.isEmpty(name) || TextUtils.isEmpty(surname)) {
-                Toast.makeText(requireContext(),
-                        "Заполните все поля", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             viewModel.setNameData(name, surname);
-
             NavHostFragment.findNavController(this)
                     .navigate(R.id.registrationEmailFragment);
         });
