@@ -2,12 +2,9 @@ package com.example.myapplication.ui.network;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,25 +20,26 @@ public class RetrofitClient {
 
     public static ApiService getApi() {
         if (retrofit == null) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(logging)
                     .addInterceptor(chain -> {
-                        Request request = chain.request();
-                        String token = getTokenFromPrefs();
+                        Request original = chain.request();
 
+                        Request.Builder builder = original.newBuilder()
+                                .header("Connection", "close")
+                                .header("Accept-Encoding", "identity");
+
+                        String token = getTokenFromPrefs();
                         if (token != null && !token.isEmpty()) {
-                            request = request.newBuilder()
-                                    .addHeader("Authorization", "Bearer " + token)
-                                    .build();
+                            builder.addHeader("Authorization", "Bearer " + token);
                         }
-                        return chain.proceed(request);
+
+                        return chain.proceed(builder.build());
                     })
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
+
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .writeTimeout(60, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true)
                     .build();
 

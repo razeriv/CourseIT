@@ -19,15 +19,13 @@ import com.example.myapplication.ui.data.NewsViewModel;
 import com.example.myapplication.ui.data.ProjectsViewModel;
 import com.example.myapplication.ui.news.NewsAdapter;
 import com.example.myapplication.ui.projects.ProjectsAdapter;
+import com.example.myapplication.ui.projects.Project;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private ProjectsAdapter projectsAdapter;
     private NewsAdapter newsAdapter;
-
-    private ProjectsViewModel projectsViewModel;
-    private NewsViewModel newsViewModel;
 
     @Nullable
     @Override
@@ -41,13 +39,16 @@ public class HomeFragment extends Fragment {
         setupRecyclerViews();
         setupButtons();
         setupViewModels();
-        setupProjectClickListener();
 
         return binding.getRoot();
     }
 
     private void setupAdapters() {
-        projectsAdapter = new ProjectsAdapter(ProjectsAdapter.TYPE_HORIZONTAL);
+        projectsAdapter = new ProjectsAdapter(
+                ProjectsAdapter.TYPE_HORIZONTAL,
+                this::onProjectClicked
+        );
+
         newsAdapter = new NewsAdapter();
     }
 
@@ -69,33 +70,34 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupViewModels() {
-        projectsViewModel = new ViewModelProvider(requireActivity()).get(ProjectsViewModel.class);
-        newsViewModel = new ViewModelProvider(requireActivity()).get(NewsViewModel.class);
+        ProjectsViewModel projectsViewModel = new ViewModelProvider(requireActivity()).get(ProjectsViewModel.class);
+        NewsViewModel newsViewModel = new ViewModelProvider(requireActivity()).get(NewsViewModel.class);
 
-        if (projectsViewModel.getProjects().getValue() == null) {
+        if (projectsViewModel.getProjects().getValue() == null ||
+                projectsViewModel.getProjects().getValue().isEmpty()) {
             projectsViewModel.loadProjects();
         }
-        if (newsViewModel.getNews().getValue() == null) {
+
+        if (newsViewModel.getNews().getValue() == null ||
+                newsViewModel.getNews().getValue().isEmpty()) {
             newsViewModel.loadNews();
         }
 
-        projectsViewModel.getProjects().observe(getViewLifecycleOwner(), projectsAdapter::setData);
+        projectsViewModel.getProjects().observe(getViewLifecycleOwner(), projectsAdapter::submitList);
         newsViewModel.getNews().observe(getViewLifecycleOwner(), newsAdapter::setData);
     }
 
-    private void setupProjectClickListener() {
-        projectsAdapter.setOnProjectClickListener(project -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("title", project.getTitle());
-            bundle.putString("details", project.getDetails());
-            bundle.putString("instructor", project.getInstructor());
-            bundle.putString("difficulty", project.getDifficulty());
-            bundle.putString("deadline", project.getDeadline());
-            bundle.putString("requirements", project.getRequirements());
+    private void onProjectClicked(Project project) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", project.getTitle());
+        bundle.putString("details", project.getDetails());
+        bundle.putString("instructor", project.getInstructor());
+        bundle.putString("difficulty", project.getDifficulty());
+        bundle.putString("deadline", project.getDeadline());
+        bundle.putString("requirements", project.getRequirements());
 
-            NavController navController = NavHostFragment.findNavController(this);
-            navController.navigate(R.id.ProjectDetailsFragment, bundle);
-        });
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(R.id.ProjectDetailsFragment, bundle);
     }
 
     @Override

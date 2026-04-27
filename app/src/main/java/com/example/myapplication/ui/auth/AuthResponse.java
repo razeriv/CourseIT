@@ -1,8 +1,13 @@
 package com.example.myapplication.ui.auth;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AuthResponse {
 
+    @SerializedName("token")
     private String token;
+
+    @SerializedName("message")
     private String message;
 
     public String getToken() {
@@ -15,6 +20,6 @@ public class AuthResponse {
 
     @Override
     public String toString() {
-        return "AuthResponse{token='" + token + "'}";
+        return "AuthResponse{token='" + token + "', message='" + message + "'}";
     }
 }

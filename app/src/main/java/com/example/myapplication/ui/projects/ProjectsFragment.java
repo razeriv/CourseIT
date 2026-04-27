@@ -14,7 +14,6 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -30,6 +29,8 @@ public class ProjectsFragment extends Fragment {
     private FragmentProjectsBinding binding;
     private ProjectsAdapter adapter;
     private ProjectsViewModel viewModel;
+
+    // Фильтры
     private boolean filterWeb = false;
     private boolean filterAdmin = false;
     private boolean filterAndroid = false;
@@ -48,7 +49,6 @@ public class ProjectsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentProjectsBinding.inflate(inflater, container, false);
-
         viewModel = new ViewModelProvider(requireActivity()).get(ProjectsViewModel.class);
 
         setupRecyclerView();
@@ -62,31 +62,38 @@ public class ProjectsFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        adapter = new ProjectsAdapter(ProjectsAdapter.TYPE_VERTICAL);
+        adapter = new ProjectsAdapter(
+                ProjectsAdapter.TYPE_VERTICAL,
+                project -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title", project.getTitle());
+                    bundle.putString("details", project.getDetails());
+                    bundle.putString("instructor", project.getInstructor());
+                    bundle.putString("difficulty", project.getDifficulty());
+                    bundle.putString("deadline", project.getDeadline());
+                    bundle.putString("requirements", project.getRequirements());
+
+                    NavHostFragment.findNavController(this)
+                            .navigate(R.id.ProjectDetailsFragment, bundle);
+                }
+        );
+
         binding.recyclerViewProjects.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerViewProjects.setAdapter(adapter);
-
-        adapter.setOnProjectClickListener(project -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("title", project.getTitle());
-            bundle.putString("details", project.getDetails());
-            bundle.putString("instructor", project.getInstructor());
-            bundle.putString("difficulty", project.getDifficulty());
-            bundle.putString("deadline", project.getDeadline());
-            bundle.putString("requirements", project.getRequirements());
-
-            NavController navController = NavHostFragment.findNavController(this);
-            navController.navigate(R.id.ProjectDetailsFragment, bundle);
-        });
     }
 
     private void setupSearch() {
         editTextSearch = binding.editTextSearch;
 
         editTextSearch.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override public void afterTextChanged(Editable s) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 applyFilters();
             }
         });
@@ -98,19 +105,19 @@ public class ProjectsFragment extends Fragment {
     }
 
     private void observeViewModel() {
-        viewModel.getProjects().observe(getViewLifecycleOwner(), list -> {
-            if (list != null) {
-                adapter.setData(list);
+        viewModel.getProjects().observe(getViewLifecycleOwner(), projects -> {
+            if (projects != null) {
+                adapter.submitList(projects);
             }
         });
     }
 
     private void applyFilters() {
-        String query = editTextSearch.getText() == null
+        String query = (editTextSearch.getText() == null)
                 ? ""
                 : editTextSearch.getText().toString().trim();
 
-        adapter.applyFilters(
+        viewModel.applyFilters(
                 query,
                 filterWeb, filterAdmin, filterAndroid,
                 filterAnalytics, filterAI, filterDB,
@@ -134,7 +141,6 @@ public class ProjectsFragment extends Fragment {
         Chip chipDB = dialogView.findViewById(R.id.chipDB);
 
         RadioGroup difficultyGroup = dialogView.findViewById(R.id.radioGroupDifficulty);
-
         EditText etDateFrom = dialogView.findViewById(R.id.editTextDateFrom);
         EditText etDateTo = dialogView.findViewById(R.id.editTextDateTo);
 

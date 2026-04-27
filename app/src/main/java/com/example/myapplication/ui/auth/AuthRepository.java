@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.auth;
 
-import com.example.myapplication.ui.network.RegisterRequest;
 import com.example.myapplication.ui.network.RetrofitClient;
 
 import retrofit2.Callback;
@@ -12,15 +11,23 @@ public class AuthRepository {
         RetrofitClient.getApi().login(request).enqueue(callback);
     }
 
-    public void register(String name,
-                         String surname,
+    public void register(String firstName,
+                         String lastName,
                          String email,
-                         String faculty,
-                         String group,
+                         String course,
+                         String groupNumber,
                          String password,
-                         Callback<Void> callback) {
+                         Callback<AuthResponse> callback) {
 
-        RegisterRequest request = new RegisterRequest(name, surname, email, faculty, group, password);
+        RegisterRequest request = new RegisterRequest(
+                firstName,
+                lastName,
+                email,
+                course,
+                groupNumber,
+                password
+        );
+
         RetrofitClient.getApi().register(request).enqueue(callback);
     }
 }

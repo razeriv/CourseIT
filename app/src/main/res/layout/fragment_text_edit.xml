@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#2E4593"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#2E4593"
+    android:orientation="vertical"
+    android:padding="24dp">
 
+    <!-- Белая карточка -->
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:background="@drawable/bg_card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <EditText
-        android:id="@+id/editText"
-        android:autofillHints="текст"
-        android:hint="Введите текст..."
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:inputType="text"
-        tools:ignore="HardcodedText" />
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_button_outline"
+            android:text="Сохранить"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editAbout"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:gravity="top|start"
+            android:hint="Расскажите коротко о себе. Например: какую должность вы занимаете, ваша область специализации, сколько лет опыта?"
+            android:inputType="textMultiLine|textCapSentences"
+            android:minHeight="200dp"
+            android:padding="8dp"
+            android:textColor="#1E1E1E"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
-
 </LinearLayout>
