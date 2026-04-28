@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.projects;
 
+import androidx.annotation.NonNull;
+
 public class Project {
 
     private String title;
@@ -22,6 +24,7 @@ public class Project {
     public String getDifficulty() { return difficulty; }
     public String getDeadline() { return deadline; }
 
+    @NonNull
     @Override
     public String toString() {
         return "Project{" +

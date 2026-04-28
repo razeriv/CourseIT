@@ -22,7 +22,6 @@ public class RegisterRequest {
     @SerializedName("password")
     private String password;
 
-    // Конструктор
     public RegisterRequest(String firstName, String lastName, String email,
                            String course, String groupNumber, String password) {
         this.firstName = firstName;

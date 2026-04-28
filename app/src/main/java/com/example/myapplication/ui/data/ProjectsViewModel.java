@@ -18,7 +18,6 @@ public class ProjectsViewModel extends ViewModel {
 
     private final ProjectsRepository repository = new ProjectsRepository();
 
-    // Публичные LiveData
     public LiveData<List<Project>> getProjects() {
         return filteredProjects;
     }
@@ -38,7 +37,7 @@ public class ProjectsViewModel extends ViewModel {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Project> projectsList = response.body();
                     allProjects.setValue(projectsList);
-                    filteredProjects.setValue(projectsList); // изначально показываем все
+                    filteredProjects.setValue(projectsList);
                 } else {
                     List<Project> empty = new ArrayList<>();
                     allProjects.setValue(empty);

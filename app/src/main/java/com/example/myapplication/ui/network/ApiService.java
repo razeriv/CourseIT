@@ -4,6 +4,8 @@ import com.example.myapplication.ui.auth.AuthRequest;
 import com.example.myapplication.ui.auth.AuthResponse;
 import com.example.myapplication.ui.auth.RegisterRequest;
 import com.example.myapplication.ui.news.Headline;
+import com.example.myapplication.ui.profile.Profile;
+import com.example.myapplication.ui.projects.CreateProjectRequest;
 import com.example.myapplication.ui.projects.Project;
 import java.util.List;
 import retrofit2.Call;
@@ -25,6 +27,9 @@ public interface ApiService {
     @GET("/projects")
     Call<List<Project>> getProjects();
 
-    // @GET("/profile")
-    // Call<ProfileResponse> getProfile();
+    @GET("/profile")
+    Call<Profile> getProfile();
+
+    @POST("/projects")
+    Call<Project> createProject(@Body CreateProjectRequest request);
 }

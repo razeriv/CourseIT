@@ -48,7 +48,6 @@ public class ProjectsAdapter extends ListAdapter<Project, ProjectsAdapter.Projec
         holder.bind(project);
     }
 
-    // ====================== ViewHolder ======================
     public class ProjectViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
@@ -66,7 +65,6 @@ public class ProjectsAdapter extends ListAdapter<Project, ProjectsAdapter.Projec
             tvDeadline = itemView.findViewById(R.id.ProjectDeadline);
             tvDifficulty = itemView.findViewById(R.id.ProjectDifficulty);
 
-            // Надёжный обработчик клика
             itemView.setOnClickListener(v -> {
                 int position = getBindingAdapterPosition();
                 if (position != RecyclerView.NO_POSITION && listener != null) {
@@ -89,7 +87,6 @@ public class ProjectsAdapter extends ListAdapter<Project, ProjectsAdapter.Projec
         }
     }
 
-    // ====================== DiffUtil ======================
     private static class ProjectDiffCallback extends DiffUtil.ItemCallback<Project> {
 
         @Override
@@ -109,7 +106,6 @@ public class ProjectsAdapter extends ListAdapter<Project, ProjectsAdapter.Projec
         }
     }
 
-    // ====================== Интерфейс клика ======================
     public interface OnProjectClickListener {
         void onProjectClick(Project project);
     }
