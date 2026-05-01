@@ -35,7 +35,7 @@
     <fragment
         android:id="@+id/nav_projects"
         android:name="com.example.myapplication.ui.projects.ProjectsFragment"
-        android:label="Проекты"
+        android:label="Список проектов"
         tools:layout="@layout/fragment_projects">
 
         <action
@@ -114,5 +114,11 @@
         android:id="@+id/nav_create_project"
         android:name="com.example.myapplication.ui.projects.CreateProjectFragment"
         android:label="Создать проект">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.myapplication.ui.text.SettingsFragment"
+        android:label="Настройки">
     </fragment>
 </navigation>

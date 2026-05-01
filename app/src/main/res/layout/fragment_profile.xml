@@ -2,24 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#2E4593"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#2E4593"
+    android:orientation="horizontal"
+    android:padding="20dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:background="@drawable/bg_card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:cardCornerRadius="25dp"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="25dp">
 
             <ImageView
                 android:id="@+id/profileImage"
@@ -33,43 +33,43 @@
 
         <TextView
             android:id="@+id/profileName"
-            android:text="Иванов Иван Иванович"
-            android:textSize="20sp"
-            android:textColor="#1E1E1E"
-            android:layout_marginBottom="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="Иванов Иван Иванович"
+            android:textColor="#1E1E1E"
+            android:textSize="20sp"
             tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/profileInfo"
-            android:text="4.8 рейтинг | 12 проектов"
-            android:textSize="14sp"
-            android:textColor="#444"
-            android:layout_marginBottom="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="4.8 рейтинг | 12 проектов"
+            android:textColor="#444"
+            android:textSize="14sp"
             tools:ignore="HardcodedText" />
 
         <include
             android:id="@+id/btnAbout"
             layout="@layout/item_custom_button"
-            android:layout_height="60dp"
             android:layout_width="wrap_content"
-            android:layout_marginTop="40dp"/>
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp" />
 
         <include
             android:id="@+id/btnProjects"
             layout="@layout/item_custom_button"
-            android:layout_height="60dp"
             android:layout_width="wrap_content"
-            android:layout_marginTop="20dp"/>
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp" />
 
         <include
             android:id="@+id/btnReviews"
             layout="@layout/item_custom_button"
-            android:layout_height="60dp"
             android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginTop="20dp" />
 
     </LinearLayout>

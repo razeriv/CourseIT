@@ -1,36 +1,61 @@
 package com.example.myapplication.ui.profile;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Profile {
 
-    private final String name;
-    private final String surname;
-    private final String email;
-    private final String faculty;
-    private final String group_number;
-    private final String about;
-    private final String role;
-    private final boolean is_active;
+    @SerializedName("first_name")
+    private String name;
 
-    public Profile(String name, String surname, String email, String faculty,
-                   String group_number, String about, String role, boolean is_active) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.faculty = faculty;
-        this.group_number = group_number;
-        this.about = about;
-        this.role = role;
-        this.is_active = is_active;
+    @SerializedName("last_name")
+    private String surname;
+
+    private String email;
+    private String faculty;
+
+    @SerializedName("group_number")
+    private String group_number;
+
+    private String about;
+    private String role;
+
+    @SerializedName("is_active")
+    private boolean is_active;
+
+    public Profile() {}
+
+    // Геттеры
+    public String getName() {
+        return name != null ? name : "";
     }
 
-    public String getName() { return name; }
-    public String getSurname() { return surname; }
-    public String getEmail() { return email; }
-    public String getFaculty() { return faculty; }
-    public String getGroup_number() { return group_number; }
-    public String getAbout() { return about; }
-    public String getRole() { return role; }
-    public boolean isActive() { return is_active; }
+    public String getSurname() {
+        return surname != null ? surname : "";
+    }
+
+    public String getEmail() {
+        return email != null ? email : "";
+    }
+
+    public String getFaculty() {
+        return faculty != null ? faculty : "";
+    }
+
+    public String getGroup_number() {
+        return group_number != null ? group_number : "";
+    }
+
+    public String getAbout() {
+        return about != null ? about : "";
+    }
+
+    public String getRole() {
+        return role != null ? role : "";
+    }
+
+    public boolean isActive() {
+        return is_active;
+    }
 
     public boolean isTeacher() {
         return "teacher".equalsIgnoreCase(role);

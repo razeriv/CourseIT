@@ -65,13 +65,19 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateUI(Profile profile) {
+        if (profile == null) return;
+
         String fullName = profile.getName() + " " + profile.getSurname();
+        if (fullName.trim().isEmpty()) {
+            fullName = "Пользователь";
+        }
         binding.profileName.setText(fullName);
 
-        String info = profile.getFaculty() + " • " + profile.getGroup_number();
-        binding.profileInfo.setText(info);
+        String info = (profile.getFaculty() != null ? profile.getFaculty() : "")
+                + " • "
+                + (profile.getGroup_number() != null ? profile.getGroup_number() : "");
 
-        // TODO: Загрузка аватарки по URL (Glide / Coil)
+        binding.profileInfo.setText(info.trim().isEmpty() ? "Информация не указана" : info);
     }
 
     @Override

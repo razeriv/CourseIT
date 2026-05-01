@@ -1,5 +1,8 @@
 package com.example.myapplication.ui.profile;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -41,6 +44,7 @@ public class ProfileViewModel extends ViewModel {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 isLoading.setValue(false);
+                Log.d("Profile", "Получен профиль: " + response.body());
 
                 if (response.isSuccessful() && response.body() != null) {
                     Profile profile = response.body();
@@ -48,6 +52,41 @@ public class ProfileViewModel extends ViewModel {
                     currentProfile.setValue(profile);
                 } else {
                     error.setValue("Не удалось загрузить профиль. Код: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+                isLoading.setValue(false);
+                error.setValue("Ошибка подключения: " + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void updateAbout(String aboutText) {
+        if (aboutText == null || aboutText.trim().isEmpty()) {
+            error.setValue("Текст не может быть пустым");
+            return;
+        }
+
+        isLoading.setValue(true);
+        error.setValue(null);
+
+        repository.updateAbout(aboutText, new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                isLoading.setValue(false);
+
+                new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                }, 300);
+
+                if (response.isSuccessful() && response.body() != null) {
+                    Profile updated = response.body();
+                    profileLiveData.setValue(updated);
+                    currentProfile.setValue(updated);
+                } else {
+                    error.setValue("Не удалось сохранить. Код: " + response.code());
                 }
             }
 

@@ -2,19 +2,23 @@ package com.example.myapplication;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
+import com.example.myapplication.ui.auth.AuthViewModel;
 import com.example.myapplication.ui.network.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -52,15 +56,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkAuthAndRedirect() {
-        SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
-        String token = prefs.getString("token", null);
+        String token = RetrofitClient.getTokenFromPrefs();
+
+        Log.d("MainActivity", "checkAuthAndRedirect - Token: " + (token != null ? "exists" : "null"));
 
         if (token == null || token.isEmpty()) {
             navController.navigate(R.id.loginFragment, null,
                     new NavOptions.Builder()
                             .setPopUpTo(R.id.main_graph, true)
                             .build());
+            Log.d("MainActivity", "No token → redirected to Login");
+        } else {
+            Log.d("MainActivity", "Token exists → opening Home");
+            navController.navigate(R.id.nav_home);
         }
+    }
+
+    public void logout() {
+        RetrofitClient.clearToken();
+
+        AuthViewModel authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        authViewModel.clearToken();
+
+        navController.navigate(R.id.loginFragment, null,
+                new NavOptions.Builder()
+                        .setPopUpTo(R.id.main_graph, true)
+                        .build());
+
+        Toast.makeText(this, "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show();
     }
 
     private void setupBottomNavigation() {
@@ -93,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.menuChats).setOnClickListener(v -> navigateAndClose(R.id.nav_chats, drawer));
         findViewById(R.id.menuProjects).setOnClickListener(v -> navigateAndClose(R.id.nav_projects, drawer));
         findViewById(R.id.menuNews).setOnClickListener(v -> navigateAndClose(R.id.nav_news, drawer));
+        findViewById(R.id.menuSettings).setOnClickListener(v -> navigateAndClose(R.id.nav_settings, drawer));
 
         findViewById(R.id.btnHide).setOnClickListener(v -> drawer.closeDrawer(GravityCompat.END));
     }

@@ -60,7 +60,7 @@ public class RetrofitClient {
                 .build();
     }
 
-    private static String getTokenFromPrefs() {
+    public static String getTokenFromPrefs() {
         if (appContext == null) return null;
         SharedPreferences prefs = appContext.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
         return prefs.getString("token", null);

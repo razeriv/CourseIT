@@ -7,10 +7,13 @@ import com.example.myapplication.ui.news.Headline;
 import com.example.myapplication.ui.profile.Profile;
 import com.example.myapplication.ui.projects.CreateProjectRequest;
 import com.example.myapplication.ui.projects.Project;
+import com.example.myapplication.ui.text.UpdateAboutRequest;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
 public interface ApiService {
@@ -32,4 +35,7 @@ public interface ApiService {
 
     @POST("/projects")
     Call<Project> createProject(@Body CreateProjectRequest request);
+
+    @PATCH("/profile")
+    Call<Profile> updateProfile(@Body UpdateAboutRequest request);
 }

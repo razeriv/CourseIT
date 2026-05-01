@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.databinding.FragmentTextEditBinding;
-import com.example.myapplication.ui.profile.Profile;
 import com.example.myapplication.ui.profile.ProfileViewModel;
 
 public class TextEditFragment extends Fragment {
@@ -29,52 +28,61 @@ public class TextEditFragment extends Fragment {
         binding = FragmentTextEditBinding.inflate(inflater, container, false);
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
 
-        setupUI();
-        observeViewModel();
         loadCurrentAboutText();
+        setupSaveButton();
 
         return binding.getRoot();
     }
 
-    private void setupUI() {
-        binding.btnSave.setOnClickListener(v -> saveAboutText());
-    }
-
-    private void observeViewModel() {
+    private void loadCurrentAboutText() {
         profileViewModel.getProfile().observe(getViewLifecycleOwner(), profile -> {
             if (profile != null && profile.getAbout() != null) {
                 binding.editAbout.setText(profile.getAbout());
             }
         });
+    }
+
+    private void setupSaveButton() {
+        binding.btnSave.setOnClickListener(v -> {
+            String aboutText = binding.editAbout.getText().toString().trim();
+
+            if (aboutText.isEmpty()) {
+                Toast.makeText(requireContext(), "Введите информацию о себе", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            binding.btnSave.setEnabled(false);
+            binding.btnSave.setText("Сохранение...");
+
+            profileViewModel.updateAbout(aboutText);
+        });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         profileViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            binding.btnSave.setEnabled(!isLoading);
-        });
-
-        profileViewModel.getError().observe(getViewLifecycleOwner(), error -> {
-            if (error != null) {
-                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
+            if (isLoading != null) {
+                binding.btnSave.setEnabled(!isLoading);
+                binding.btnSave.setText(isLoading ? "Сохранение..." : "Сохранить");
             }
         });
+
+        profileViewModel.getError().observe(getViewLifecycleOwner(), errorMsg -> {
+            if (errorMsg != null) {
+                Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_LONG).show();
+                binding.btnSave.setEnabled(true);
+                binding.btnSave.setText("Сохранить");
+            }
+        });
+
+        profileViewModel.getProfile().observe(getViewLifecycleOwner(), profile -> {
+        });
     }
 
-    private void loadCurrentAboutText() {
-        Profile currentProfile = profileViewModel.getProfile().getValue();
-        if (currentProfile != null && currentProfile.getAbout() != null) {
-            binding.editAbout.setText(currentProfile.getAbout());
-        }
-    }
-
-    private void saveAboutText() {
-        String newAbout = binding.editAbout.getText().toString().trim();
-
-        if (newAbout.isEmpty()) {
-            Toast.makeText(requireContext(), "Введите информацию о себе", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Toast.makeText(requireContext(), "Сохранение...", Toast.LENGTH_SHORT).show();
-
+    public void onAboutUpdatedSuccessfully() {
+        Toast.makeText(requireContext(), "Информация успешно сохранена", Toast.LENGTH_SHORT).show();
         requireActivity().onBackPressed();
     }
 

@@ -14,7 +14,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp">
+            android:layout_height="240dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -24,57 +24,56 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#66000000"/>
+                android:background="#243A8F" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="bottom"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="TECHINSTHUB"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto_style"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Находите проекты и работайте с преподавателями без лишних сложностей"
+                    android:textColor="#DDFFFFFF"
+                    android:textSize="15sp"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="4dp"
+                    android:fontFamily="@font/inter_medium"
+                    tools:ignore="HardcodedText" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGoToProjects"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="end"
+                    android:text="Перейти к проектам"
+                    android:textColor="#1E2F7A"
+                    android:backgroundTint="#FFCC00"
+                    app:cornerRadius="24dp"
+                    style="@style/Widget.MaterialComponents.Button" />
+
+            </LinearLayout>
         </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom"
-            android:padding="20dp">
-
-            <TextView
-                android:text="TECHINSTHUB"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                tools:ignore="HardcodedText"
-                android:fontFamily="@font/roboto_style"/>
-
-            <TextView
-                android:text="Находите проекты и работайте с преподавателями без лишних сложностей"
-                android:textColor="#DDFFFFFF"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                tools:ignore="HardcodedText"
-                android:fontFamily="@font/inter_medium"/>
-
-            <Button
-                android:text="Перейти к проектам"
-                android:layout_marginTop="12dp"
-                android:textColor="@android:color/black"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                tools:ignore="HardcodedText"
-                app:backgroundTint="@null"
-                android:layout_gravity="end"
-                android:background="@drawable/btn_yellow"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:fontFamily="@font/inter_medium"/>
-        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="40dp"
             app:cardElevation="4dp">
 
             <LinearLayout

@@ -15,6 +15,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentPortfolioBinding;
 import com.example.myapplication.ui.data.PortfolioViewModel;
 
+import java.util.List;
+
 public class PortfolioFragment extends Fragment {
 
     private FragmentPortfolioBinding binding;
@@ -32,7 +34,6 @@ public class PortfolioFragment extends Fragment {
 
         setupRecyclerView();
         setupAddButton();
-        initViewModels();
         observeViewModels();
 
         portfolioViewModel.loadPortfolio();
@@ -53,24 +54,30 @@ public class PortfolioFragment extends Fragment {
         });
     }
 
-    private void initViewModels() {
+    private void observeViewModels() {
         portfolioViewModel = new ViewModelProvider(this).get(PortfolioViewModel.class);
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
-    }
 
-    private void observeViewModels() {
-        portfolioViewModel.getPortfolio().observe(getViewLifecycleOwner(), portfolioList -> {
-            if (portfolioList != null) {
-                adapter.setData(portfolioList);
-            }
-        });
+        portfolioViewModel.getPortfolio().observe(getViewLifecycleOwner(), this::updatePortfolioUI);
 
         profileViewModel.getProfile().observe(getViewLifecycleOwner(), profile -> {
             if (profile != null) {
-                boolean isTeacher = "teacher".equalsIgnoreCase(profile.getRole());
+                boolean isTeacher = profile.isTeacher();
                 binding.addButton.setVisibility(isTeacher ? View.VISIBLE : View.GONE);
             }
         });
+    }
+
+    private void updatePortfolioUI(List<Portfolio> portfolioList) { 
+        if (portfolioList == null || portfolioList.isEmpty()) {
+            adapter.setData(null);
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.emptyView.setVisibility(View.VISIBLE);
+        } else {
+            adapter.setData(portfolioList);
+            binding.recyclerView.setVisibility(View.VISIBLE);
+            binding.emptyView.setVisibility(View.GONE);
+        }
     }
 
     @Override
