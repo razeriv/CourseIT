@@ -35,15 +35,16 @@ public class RetrofitClient {
 
     private static OkHttpClient buildOkHttpClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         Interceptor authInterceptor = chain -> {
             Request original = chain.request();
+            String url = original.url().toString();
             String token = getTokenFromPrefs();
 
             Request.Builder builder = original.newBuilder();
 
-            if (token != null && !token.isEmpty()) {
+            if (token != null && !token.isEmpty() && shouldAttachToken(url)) {
                 builder.header("Authorization", "Bearer " + token);
             }
 
@@ -60,6 +61,17 @@ public class RetrofitClient {
                 .build();
     }
 
+    private static boolean shouldAttachToken(String url) {
+        if (url.contains("/register") ||
+                url.contains("/login") ||
+                url.contains("/news")) {
+            return false;
+        }
+
+        return url.contains("/api/v1/") ||
+                url.contains("/profile");
+    }
+
     public static String getTokenFromPrefs() {
         if (appContext == null) return null;
         SharedPreferences prefs = appContext.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
@@ -72,7 +84,6 @@ public class RetrofitClient {
                 .edit()
                 .putString("token", token)
                 .apply();
-
         reset();
     }
 

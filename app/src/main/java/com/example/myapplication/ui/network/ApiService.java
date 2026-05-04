@@ -10,6 +10,7 @@ import com.example.myapplication.ui.projects.Project;
 import com.example.myapplication.ui.text.UpdateAboutRequest;
 
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -30,11 +31,11 @@ public interface ApiService {
     @GET("/api/v1/projects")
     Call<List<Project>> getProjects();
 
-    @GET("/api/v1/profile")
-    Call<Profile> getProfile();
-
     @POST("/api/v1/projects")
     Call<Project> createProject(@Body CreateProjectRequest request);
+
+    @GET("/api/v1/profile")
+    Call<Profile> getProfile();
 
     @PATCH("/profile")
     Call<Profile> updateProfile(@Body UpdateAboutRequest request);
