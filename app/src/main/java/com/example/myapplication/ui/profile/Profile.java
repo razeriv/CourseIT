@@ -11,15 +11,13 @@ public class Profile {
     private String surname;
 
     private String email;
+
+    @SerializedName("course")
     private String faculty;
 
-    @SerializedName("group_number")
     private String group_number;
-
     private String about;
     private String role;
-
-    @SerializedName("is_active")
     private boolean is_active;
 
     public Profile() {}

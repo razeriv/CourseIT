@@ -18,22 +18,22 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    @POST("/register")
+    @POST("/api/v1/register")
     Call<AuthResponse> register(@Body RegisterRequest request);
 
-    @POST("/login")
+    @POST("/api/v1/login")
     Call<AuthResponse> login(@Body AuthRequest request);
 
     @GET("/news")
     Call<List<Headline>> getNews();
 
-    @GET("/projects")
+    @GET("/api/v1/projects")
     Call<List<Project>> getProjects();
 
-    @GET("/profile")
+    @GET("/api/v1/profile")
     Call<Profile> getProfile();
 
-    @POST("/projects")
+    @POST("/api/v1/projects")
     Call<Project> createProject(@Body CreateProjectRequest request);
 
     @PATCH("/profile")

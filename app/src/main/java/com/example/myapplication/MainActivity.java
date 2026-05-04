@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -88,19 +87,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupBottomNavigation() {
         bottomNav.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
+            int currentId = navController.getCurrentDestination() != null
+                    ? navController.getCurrentDestination().getId() : -1;
 
-            if (itemId == R.id.nav_home) {
+            if (item.getItemId() == currentId) {
+                return true;
+            }
+
+            if (item.getItemId() == R.id.nav_home) {
                 navController.navigate(R.id.nav_home);
-            } else if (itemId == R.id.nav_projects) {
-                navController.navigate(R.id.nav_projects);
-            } else if (itemId == R.id.nav_chats) {
-                navController.navigate(R.id.nav_chats);
-            } else if (itemId == R.id.nav_news) {
+            } else if (item.getItemId() == R.id.nav_news) {
                 navController.navigate(R.id.nav_news);
-            } else if (itemId == R.id.nav_profile) {
+            } else if (item.getItemId() == R.id.nav_chats) {
+                navController.navigate(R.id.nav_chats);
+            } else if (item.getItemId() == R.id.nav_projects || item.getItemId() == R.id.nav_create_project || item.getItemId() == R.id.ProjectDetailsFragment) {
+                navController.navigate(R.id.nav_projects);
+            } else if (item.getItemId() == R.id.nav_profile || item.getItemId() == R.id.nav_text_edit || item.getItemId() == R.id.nav_portfolio || item.getItemId() == R.id.nav_reviews) {
                 navController.navigate(R.id.nav_profile);
             }
+
             return true;
         });
     }
@@ -147,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             int id = destination.getId();
 
+            updateBottomNavSelection(id);
+
             boolean isAuthScreen = id == R.id.loginFragment ||
                     id == R.id.registrationNameFragment ||
                     id == R.id.registrationEmailFragment ||
@@ -175,5 +182,25 @@ public class MainActivity extends AppCompatActivity {
                 else title.setText("CourseIT");
             }
         });
+    }
+
+    private void updateBottomNavSelection(int destinationId) {
+        int menuItemId = -1;
+
+        if (destinationId == R.id.nav_home) {
+            menuItemId = R.id.nav_home;
+        } else if (destinationId == R.id.nav_projects) {
+            menuItemId = R.id.nav_projects;
+        } else if (destinationId == R.id.nav_chats) {
+            menuItemId = R.id.nav_chats;
+        } else if (destinationId == R.id.nav_news) {
+            menuItemId = R.id.nav_news;
+        } else if (destinationId == R.id.nav_profile) {
+            menuItemId = R.id.nav_profile;
+        }
+
+        if (menuItemId != -1) {
+            bottomNav.setSelectedItemId(menuItemId);
+        }
     }
 }
