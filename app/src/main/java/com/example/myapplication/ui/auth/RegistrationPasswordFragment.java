@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class RegistrationPasswordFragment extends Fragment {
     private EditText editPassword;
     private Button btnFinish;
     private AuthViewModel viewModel;
+    TextView login;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -29,6 +31,7 @@ public class RegistrationPasswordFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_registration_password, container, false);
 
+        login = view.findViewById(R.id.login);
         editPassword = view.findViewById(R.id.editPassword);
         btnFinish = view.findViewById(R.id.btnFinish);
 
@@ -36,6 +39,11 @@ public class RegistrationPasswordFragment extends Fragment {
 
         setupButton();
         observeViewModel();
+
+        login.setOnClickListener(v ->
+                NavHostFragment.findNavController(this)
+                        .navigate(R.id.loginFragment)
+        );
 
         return view;
     }
