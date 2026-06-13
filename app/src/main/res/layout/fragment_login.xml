@@ -86,7 +86,7 @@
         <ImageView
             android:id="@+id/ivTogglePassword"
             android:importantForAccessibility="no"
-            android:src="@android:drawable/ic_menu_view"
+            android:src="@drawable/eye_open"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignEnd="@id/editPassword"

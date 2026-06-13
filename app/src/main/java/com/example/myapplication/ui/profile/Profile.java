@@ -19,6 +19,7 @@ public class Profile {
     private String about;
     private String role;
     private boolean is_active;
+    private String avatar_url;
 
     public Profile() {}
 
@@ -61,5 +62,8 @@ public class Profile {
 
     public boolean isStudent() {
         return "student".equalsIgnoreCase(role) || role == null;
+    }
+    public String getAvatar_url() {
+        return avatar_url != null ? avatar_url : "";
     }
 }

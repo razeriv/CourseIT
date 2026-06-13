@@ -37,6 +37,6 @@ public interface ApiService {
     @GET("/api/v1/profile")
     Call<Profile> getProfile();
 
-    @PATCH("/profile")
+    @PATCH("/api/v1/profile")
     Call<Profile> updateProfile(@Body UpdateAboutRequest request);
 }

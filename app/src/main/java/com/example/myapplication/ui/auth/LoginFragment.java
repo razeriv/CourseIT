@@ -91,8 +91,10 @@ public class LoginFragment extends Fragment {
 
             if (isPasswordVisible) {
                 editPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                ivTogglePassword.setImageResource(R.drawable.eye_open);
             } else {
                 editPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                ivTogglePassword.setImageResource(R.drawable.eye_close);
             }
 
             editPassword.setSelection(editPassword.getText().length());
