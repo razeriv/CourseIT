@@ -63,8 +63,7 @@ public class RetrofitClient {
 
     private static boolean shouldAttachToken(String url) {
         if (url.contains("/register") ||
-                url.contains("/login") ||
-                url.contains("/news")) {
+                url.contains("/login")) {
             return false;
         }
 

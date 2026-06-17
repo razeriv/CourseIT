@@ -13,10 +13,19 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.databinding.FragmentSettingsBinding;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.ui.profile.ProfileViewModel;
 
 public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
+    private ProfileViewModel profileViewModel;
+    private String email;
+    private String first_name;
+    private String last_name;
+    private String group_number;
+    private String course;
+    private String avatar_url;
+    private String password_hash;
 
     @Nullable
     @Override
@@ -33,7 +42,7 @@ public class SettingsFragment extends Fragment {
 
     private void setupClickListeners() {
         binding.btnEditProfile.setOnClickListener(v ->
-                Toast.makeText(requireContext(), "Редактирование профиля (в разработке)", Toast.LENGTH_SHORT).show());
+                profileViewModel.updateProfile(email, first_name, last_name, group_number, course, avatar_url, password_hash));
 
         binding.btnAccessibility.setOnClickListener(v ->
                 Toast.makeText(requireContext(), "Версия для слабовидящих включена", Toast.LENGTH_SHORT).show());

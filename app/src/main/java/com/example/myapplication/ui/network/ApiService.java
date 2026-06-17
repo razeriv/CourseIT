@@ -7,6 +7,7 @@ import com.example.myapplication.ui.news.Headline;
 import com.example.myapplication.ui.profile.Profile;
 import com.example.myapplication.ui.projects.CreateProjectRequest;
 import com.example.myapplication.ui.projects.Project;
+import com.example.myapplication.ui.projects.UpdateProfileRequest;
 import com.example.myapplication.ui.text.UpdateAboutRequest;
 
 import java.util.List;
@@ -38,5 +39,8 @@ public interface ApiService {
     Call<Profile> getProfile();
 
     @PATCH("/api/v1/profile")
-    Call<Profile> updateProfile(@Body UpdateAboutRequest request);
+    Call<Profile> updateAbout(@Body UpdateAboutRequest request);
+
+    @PATCH("/api/v1/profile")
+    Call<Profile> updateProfile(@Body UpdateProfileRequest request);
 }
