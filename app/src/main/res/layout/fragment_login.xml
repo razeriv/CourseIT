@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/labelEmail"
-        android:text="Почта"
+        android:text="@string/email"
         android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
 
     <TextView
         android:id="@+id/labelPassword"
-        android:text="Пароль"
+        android:text="@string/password"
         android:textColor="#FFFFFF"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
 
     <TextView
         android:id="@+id/tvRegister"
-        android:text="Регистрация"
+        android:text="@string/registration"
         android:textColor="#FFFFFF"
         android:layout_margin="40dp"
         android:textAlignment="center"

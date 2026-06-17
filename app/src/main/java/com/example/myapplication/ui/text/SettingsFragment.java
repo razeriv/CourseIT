@@ -54,12 +54,21 @@ public class SettingsFragment extends Fragment {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
             }
         });
+
+        profileViewModel.getProfileUpdated().observe(getViewLifecycleOwner(), updated -> {
+            if (updated != null && updated) {
+                Toast.makeText(requireContext(), "Профиль сохранён", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void populateFields(Profile profile) {
         if (profile == null) return;
 
-        if (binding.etEmail != null) binding.etEmail.setText(profile.getEmail());
+        if (binding.etEmail != null) {
+            binding.etEmail.setText(profile.getEmail());
+            binding.etEmail.setEnabled(false); // email — логин, менять нельзя
+        }
         if (binding.etFirstName != null) binding.etFirstName.setText(profile.getName());
         if (binding.etLastName != null) binding.etLastName.setText(profile.getSurname());
         if (binding.etCourse != null) binding.etCourse.setText(profile.getFaculty());
@@ -76,20 +85,25 @@ public class SettingsFragment extends Fragment {
     }
 
     private void saveProfile() {
-        String email = binding.etEmail != null ? binding.etEmail.getText().toString().trim() : "";
         String firstName = binding.etFirstName != null ? binding.etFirstName.getText().toString().trim() : "";
         String lastName = binding.etLastName != null ? binding.etLastName.getText().toString().trim() : "";
         String course = binding.etCourse != null ? binding.etCourse.getText().toString().trim() : "";
         String group = binding.etGroup != null ? binding.etGroup.getText().toString().trim() : "";
 
+        if (firstName.isEmpty() || lastName.isEmpty()) {
+            Toast.makeText(requireContext(), "Имя и фамилия не могут быть пустыми", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Email менять нельзя (это логин). Сохраняем только реально редактируемые поля.
+        // Сигнатура: updateProfile(firstName, lastName, course, groupNumber, avatarUrl, about)
         profileViewModel.updateProfile(
-                email.isEmpty() ? null : email,
-                firstName.isEmpty() ? null : firstName,
-                lastName.isEmpty() ? null : lastName,
-                group.isEmpty() ? null : group,
+                firstName,
+                lastName,
                 course.isEmpty() ? null : course,
+                group.isEmpty() ? null : group,
                 null, // avatar_url
-                null  // password_hash
+                null  // about здесь не трогаем — оно редактируется на отдельном экране
         );
     }
 

@@ -105,9 +105,23 @@ public class ProjectsFragment extends Fragment {
     }
 
     private void observeViewModel() {
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            binding.progressBar.setVisibility(isLoading != null && isLoading
+                    ? android.view.View.VISIBLE : android.view.View.GONE);
+        });
+
+        viewModel.getError().observe(getViewLifecycleOwner(), err -> {
+            if (err != null) {
+                android.widget.Toast.makeText(requireContext(), err, android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
+
         viewModel.getProjects().observe(getViewLifecycleOwner(), projects -> {
             if (projects != null) {
                 adapter.submitList(projects);
+                boolean isEmpty = projects.isEmpty();
+                binding.emptyStateProjects.setVisibility(isEmpty ? android.view.View.VISIBLE : android.view.View.GONE);
+                binding.bottomLayout2.setVisibility(isEmpty ? android.view.View.GONE : android.view.View.VISIBLE);
             }
         });
     }

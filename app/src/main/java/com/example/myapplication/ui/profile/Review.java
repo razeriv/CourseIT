@@ -1,32 +1,29 @@
 package com.example.myapplication.ui.profile;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Review {
 
-    private final String author;
-    private final int rating;
-    private final String text;
-    private final String date;
+    private String id;
 
-    public Review(String author, int rating, String text, String date) {
-        this.author = author;
-        this.rating = rating;
-        this.text = text;
-        this.date = date;
-    }
+    @SerializedName("author_name")
+    private String author;
 
-    public String getAuthor() {
-        return author;
-    }
+    private int rating;
+    private String text;
 
-    public int getRating() {
-        return rating;
-    }
+    @SerializedName("created_at")
+    private String date;
 
-    public String getText() {
-        return text;
-    }
+    @SerializedName("author_id")
+    private String authorId;
 
-    public String getDate() {
-        return date;
-    }
+    public Review() {}
+
+    public String getId()       { return id; }
+    public String getAuthor()   { return author != null ? author : "Аноним"; }
+    public int getRating()      { return rating; }
+    public String getText()     { return text; }
+    public String getDate()     { return date; }
+    public String getAuthorId() { return authorId; }
 }

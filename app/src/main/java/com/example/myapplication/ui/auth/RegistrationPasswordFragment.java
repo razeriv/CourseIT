@@ -34,7 +34,6 @@ public class RegistrationPasswordFragment extends Fragment {
     private TextView password_symbol;
     private TextView password_specialsymbol;
     private ImageView ivTogglePassword;
-    private boolean isPasswordVisible = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -129,6 +128,21 @@ public class RegistrationPasswordFragment extends Fragment {
 
             if (TextUtils.isEmpty(password)) {
                 Toast.makeText(requireContext(), "Введите пароль", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (password.length() < 8 || password.length() > 14) {
+                Toast.makeText(requireContext(), "Пароль должен содержать от 8 до 14 символов", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!containsUpperAndLowerCase(password)) {
+                Toast.makeText(requireContext(), "Пароль должен содержать заглавные и строчные буквы", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!containsSpecialSymbol(password)) {
+                Toast.makeText(requireContext(), "Пароль должен содержать хотя бы один спецсимвол", Toast.LENGTH_SHORT).show();
                 return;
             }
 

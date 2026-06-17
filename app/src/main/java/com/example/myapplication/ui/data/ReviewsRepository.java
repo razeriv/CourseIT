@@ -1,37 +1,25 @@
 package com.example.myapplication.ui.data;
 
+import com.example.myapplication.ui.network.RetrofitClient;
 import com.example.myapplication.ui.profile.Review;
+import com.example.myapplication.ui.profile.ReviewRequest;
+import com.example.myapplication.ui.profile.UserListItem;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Callback;
 
 public class ReviewsRepository {
 
-    public List<Review> getReviews() {
+    public void getReviews(String userId, Callback<List<Review>> callback) {
+        RetrofitClient.getApi().getReviews(userId).enqueue(callback);
+    }
 
-        List<Review> reviews = new ArrayList<>();
+    public void createReview(String userId, int rating, String text, Callback<Review> callback) {
+        RetrofitClient.getApi().createReview(userId, new ReviewRequest(rating, text)).enqueue(callback);
+    }
 
-        reviews.add(new Review(
-                "Мусаев А. А.",
-                5,
-                "Работа с Иваном прошла продуктивно! Всегда был на связи, смогли обсудить ключевые аспекты задачи.",
-                "26.03.2026"
-        ));
-
-        reviews.add(new Review(
-                "Мусаев А. А.",
-                2,
-                "Работа прошла нормально.",
-                "26.03.2026"
-        ));
-
-        reviews.add(new Review(
-                "Мусаев А. А.",
-                4,
-                "Работа с Иваном прошла продуктивно.",
-                "26.03.2026"
-        ));
-
-        return reviews;
+    public void getUsers(String role, Callback<List<UserListItem>> callback) {
+        RetrofitClient.getApi().getUsers(role).enqueue(callback);
     }
 }

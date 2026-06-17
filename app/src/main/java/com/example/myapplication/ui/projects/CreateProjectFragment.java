@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentCreateProjectBinding;
@@ -87,7 +88,7 @@ public class CreateProjectFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.d("CreateProject", "Проект успешно создан: " + response.body().getTitle());
                     Toast.makeText(requireContext(), "Проект успешно создан!", Toast.LENGTH_LONG).show();
-                    requireActivity().onBackPressed();
+                    NavHostFragment.findNavController(CreateProjectFragment.this).navigateUp();
                 } else {
                     Log.e("CreateProject", "Ошибка сервера. Код: " + response.code());
                     try {

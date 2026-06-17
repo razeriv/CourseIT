@@ -15,6 +15,8 @@ import com.example.myapplication.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
 
+    private String currentUserId = "";
+
     private FragmentProfileBinding binding;
     private ProfileViewModel viewModel;
 
@@ -44,22 +46,30 @@ public class ProfileFragment extends Fragment {
         binding.btnProjects.getRoot().setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.nav_portfolio));
 
-        binding.btnReviews.getRoot().setOnClickListener(v ->
-                Navigation.findNavController(v).navigate(R.id.nav_reviews));
+        binding.btnReviews.getRoot().setOnClickListener(v -> {
+            android.os.Bundle args = new android.os.Bundle();
+            args.putString("userId", currentUserId);
+            Navigation.findNavController(v).navigate(R.id.nav_reviews, args);
+        });
     }
 
     private void observeViewModel() {
         viewModel.getProfile().observe(getViewLifecycleOwner(), profile -> {
+            if (profile != null) currentUserId = profile.getId();
             if (profile != null) {
                 updateUI(profile);
             }
         });
 
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading != null) {
+                binding.progressBar.setVisibility(isLoading ? android.view.View.VISIBLE : android.view.View.GONE);
+            }
         });
 
         viewModel.getError().observe(getViewLifecycleOwner(), error -> {
             if (error != null) {
+                android.widget.Toast.makeText(requireContext(), error, android.widget.Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.databinding.FragmentMessagesBinding;
@@ -38,7 +39,7 @@ public class MessagesFragment extends Fragment {
         binding.recyclerMessages.scrollToPosition(0);
 
         binding.backButton.setOnClickListener(v -> {
-            requireActivity().onBackPressed();
+            NavHostFragment.findNavController(this).navigateUp();
         });
 
         adapter.notifyDataSetChanged();

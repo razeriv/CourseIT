@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.databinding.FragmentNewsBinding;
@@ -26,23 +27,31 @@ public class NewsFragment extends Fragment {
         View root = binding.getRoot();
 
         RecyclerView recyclerView = binding.recyclerView;
-
         NewsAdapter adapter = new NewsAdapter();
-
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(requireContext())
-        );
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
 
-        viewModel = new ViewModelProvider(requireActivity())
-                .get(NewsViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(NewsViewModel.class);
 
-        viewModel.loadNews();
+        if (viewModel.getNews().getValue() == null || viewModel.getNews().getValue().isEmpty()) {
+            viewModel.loadNews();
+        }
+
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            binding.progressBar.setVisibility(isLoading != null && isLoading ? android.view.View.VISIBLE : android.view.View.GONE);
+        });
+
+        viewModel.getError().observe(getViewLifecycleOwner(), err -> {
+            if (err != null) {
+                android.widget.Toast.makeText(requireContext(), err, android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
 
         viewModel.getNews().observe(getViewLifecycleOwner(), list -> {
-            if(list != null) {
+            if (list != null) {
                 adapter.setData(list);
+                binding.emptyState.setVisibility(list.isEmpty() ? android.view.View.VISIBLE : android.view.View.GONE);
+                binding.bottomLayout.setVisibility(list.isEmpty() ? android.view.View.GONE : android.view.View.VISIBLE);
             }
         });
 

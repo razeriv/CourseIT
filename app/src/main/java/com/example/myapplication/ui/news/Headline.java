@@ -1,36 +1,22 @@
 package com.example.myapplication.ui.news;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Headline {
 
-    private final String title;
-    private final String description;
-    private final String date;
-    private final int imageRes;
+    private String title;
+    private String description;
 
-    public Headline(String title,
-                    String description,
-                    String date,
-                    int imageRes) {
+    @SerializedName("published_at")
+    private String date;
 
-        this.title = title;
-        this.description = description;
-        this.date = date;
-        this.imageRes = imageRes;
-    }
+    @SerializedName("image_url")
+    private String imageUrl;
 
-    public String getTitle() {
-        return title;
-    }
+    public Headline() {}
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public int getImageRes() {
-        return imageRes;
-    }
+    public String getTitle()    { return title; }
+    public String getDescription() { return description; }
+    public String getDate()     { return date; }
+    public String getImageUrl() { return imageUrl; }
 }

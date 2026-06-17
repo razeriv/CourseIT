@@ -44,43 +44,43 @@
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Web-разработка"
+                android:text="@string/topic_web"
                 style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AI"
+                android:text="@string/topic_ml"
                 style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Администрирование"
+                android:text="@string/topic_system_administration"
                 style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DataBase"
+                android:text="@string/topic_database"
                 style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Аналитика"
+                android:text="@string/topic_analytics"
                 style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Android"
+                android:text="@string/topic_android"
                 style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Другое"
+                android:text="@string/topic_other"
                 style="@style/Widget.MaterialComponents.Chip.Choice"/>
         </com.google.android.material.chip.ChipGroup>
 
@@ -94,7 +94,7 @@
                 android:id="@+id/etShortDescription"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:hint="Короткое описание (1-2 предложения)"
+                android:hint="@string/short_description"
                 android:gravity="top"
                 android:inputType="textMultiLine"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -102,7 +102,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Статус"
+            android:text="@string/status"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
@@ -114,9 +114,24 @@
             android:orientation="horizontal"
             android:layout_marginBottom="32dp">
 
-            <RadioButton android:id="@+id/rbCompleted" android:text="завершен" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-            <RadioButton android:id="@+id/rbOpen" android:text="открыт" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true"/>
-            <RadioButton android:id="@+id/rbInProgress" android:text="в процессе" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rbCompleted"
+                android:text="@string/status_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/rbOpen"
+                android:text="@string/status_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rbInProgress"
+                android:text="@string/status_in_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </RadioGroup>
 
         <com.google.android.material.button.MaterialButton
@@ -126,7 +141,7 @@
             app:backgroundTint="@null"
             android:textColor="@color/black"
             android:background="@drawable/btn_yellow"
-            android:text="Добавить"
+            android:text="@string/add"
             app:cornerRadius="28dp"
             style="@style/Widget.MaterialComponents.Button" />
 

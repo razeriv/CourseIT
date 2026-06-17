@@ -20,6 +20,11 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> error = new MutableLiveData<>();
     private final MutableLiveData<Profile> currentProfile = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> profileUpdated = new MutableLiveData<>();
+
+    public LiveData<Boolean> getProfileUpdated() {
+        return profileUpdated;
+    }
 
     public LiveData<Profile> getProfile() {
         return profileLiveData;
@@ -73,6 +78,7 @@ public class ProfileViewModel extends ViewModel {
 
         isLoading.setValue(true);
         error.setValue(null);
+        profileUpdated.setValue(false);
 
         UpdateProfileRequest request = new UpdateProfileRequest(aboutText);
 
@@ -94,6 +100,7 @@ public class ProfileViewModel extends ViewModel {
 
         isLoading.setValue(true);
         error.setValue(null);
+        profileUpdated.setValue(false);
 
         UpdateProfileRequest request = new UpdateProfileRequest(
                 firstName, lastName, course, groupNumber, avatarUrl, about);
@@ -117,6 +124,7 @@ public class ProfileViewModel extends ViewModel {
             Profile updated = response.body();
             profileLiveData.setValue(updated);
             currentProfile.setValue(updated);
+            profileUpdated.setValue(true);
         } else {
             error.setValue("Не удалось сохранить. Код: " + response.code());
         }

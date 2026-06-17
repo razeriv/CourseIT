@@ -27,11 +27,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://82.202.143.69:5000/\"")
+            buildConfigField("String", "BASE_URL", "\"http://82.202.143.69:5000/\"")
         }
 
         release {
             isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"https://82.202.143.69:5000/\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -63,4 +64,5 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

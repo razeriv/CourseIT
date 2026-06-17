@@ -2,6 +2,7 @@ package com.example.myapplication.ui.auth;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,11 @@ public class RegistrationEmailFragment extends Fragment {
 
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(faculty) || TextUtils.isEmpty(group)) {
                 Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(requireContext(), "Введите корректный email", Toast.LENGTH_SHORT).show();
                 return;
             }
 

@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Profile {
 
+    private String id;
+
     @SerializedName("first_name")
     private String name;
 
@@ -24,6 +26,8 @@ public class Profile {
     public Profile() {}
 
     // Геттеры
+    public String getId() { return id != null ? id : ""; }
+
     public String getName() {
         return name != null ? name : "";
     }

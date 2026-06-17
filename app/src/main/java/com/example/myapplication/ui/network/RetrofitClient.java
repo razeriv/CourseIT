@@ -1,6 +1,8 @@
 package com.example.myapplication.ui.network;
 
 import android.content.Context;
+
+import com.example.myapplication.BuildConfig;
 import android.content.SharedPreferences;
 
 import java.util.concurrent.TimeUnit;
@@ -8,13 +10,24 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://82.202.143.69:5000/";
+    public interface UnauthorizedListener {
+        void onUnauthorized();
+    }
+
+    private static volatile UnauthorizedListener unauthorizedListener;
+
+    public static void setUnauthorizedListener(UnauthorizedListener listener) {
+        unauthorizedListener = listener;
+    }
+
+    private static final String BASE_URL = BuildConfig.BASE_URL;
     private static Retrofit retrofit;
     private static Context appContext;
 
@@ -23,6 +36,9 @@ public class RetrofitClient {
     }
 
     public static ApiService getApi() {
+        if (appContext == null) {
+            throw new IllegalStateException("RetrofitClient не инициализирован. Убедитесь, что App.onCreate() вызван.");
+        }
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -51,9 +67,19 @@ public class RetrofitClient {
             return chain.proceed(builder.build());
         };
 
+        Interceptor unauthorizedInterceptor = chain -> {
+            Response response = chain.proceed(chain.request());
+            if (response.code() == 401 && unauthorizedListener != null) {
+                clearToken();
+                unauthorizedListener.onUnauthorized();
+            }
+            return response;
+        };
+
         return new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .addInterceptor(authInterceptor)
+                .addInterceptor(unauthorizedInterceptor)
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)

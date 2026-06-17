@@ -32,6 +32,7 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.View
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Portfolio item = data.get(position);

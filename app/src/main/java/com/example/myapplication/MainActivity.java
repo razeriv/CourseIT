@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RetrofitClient.init(getApplicationContext());
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -51,7 +49,18 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         observeDestinationChanges();
 
+        setupUnauthorizedHandler();
         checkAuthAndRedirect();
+    }
+
+    private void setupUnauthorizedHandler() {
+        RetrofitClient.setUnauthorizedListener(() -> runOnUiThread(() -> {
+            Toast.makeText(this, "Сессия истекла. Войдите снова.", Toast.LENGTH_SHORT).show();
+            navController.navigate(R.id.loginFragment, null,
+                    new NavOptions.Builder()
+                            .setPopUpTo(R.id.main_graph, true)
+                            .build());
+        }));
     }
 
     private void checkAuthAndRedirect() {

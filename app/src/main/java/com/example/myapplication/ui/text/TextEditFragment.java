@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.databinding.FragmentTextEditBinding;
@@ -79,11 +80,17 @@ public class TextEditFragment extends Fragment {
 
         profileViewModel.getProfile().observe(getViewLifecycleOwner(), profile -> {
         });
+
+        profileViewModel.getProfileUpdated().observe(getViewLifecycleOwner(), updated -> {
+            if (updated != null && updated) {
+                onAboutUpdatedSuccessfully();
+            }
+        });
     }
 
     public void onAboutUpdatedSuccessfully() {
         Toast.makeText(requireContext(), "Информация успешно сохранена", Toast.LENGTH_SHORT).show();
-        requireActivity().onBackPressed();
+        NavHostFragment.findNavController(this).navigateUp();
     }
 
     @Override

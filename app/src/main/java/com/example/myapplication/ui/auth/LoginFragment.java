@@ -75,7 +75,7 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SharedPreferences prefs = requireContext()
-                .getSharedPreferences("auth", Context.MODE_PRIVATE);
+                .getSharedPreferences("auth_prefs", Context.MODE_PRIVATE);
 
         if (prefs.getString("token", null) != null) {
             navController.navigate(R.id.nav_home, null,

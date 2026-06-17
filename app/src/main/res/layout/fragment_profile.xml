@@ -36,7 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
-            android:text="Иванов Иван Иванович"
             android:textColor="#1E1E1E"
             android:textSize="20sp"
             tools:ignore="HardcodedText" />
@@ -50,6 +49,13 @@
             android:textColor="#444"
             android:textSize="14sp"
             tools:ignore="HardcodedText" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
         <include
             android:id="@+id/btnAbout"

@@ -43,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
 
         chatStatus.setText("в сети • сейчас");
 
-        backButton.setOnClickListener(v -> onBackPressed());
+        backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         recyclerView = findViewById(R.id.recyclerMessages);
         editMessage = findViewById(R.id.editMessage);

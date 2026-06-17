@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Главная"
+            android:text="@string/home"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Профиль"
+            android:text="@string/profile"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Чаты"
+            android:text="@string/chats"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Проекты"
+            android:text="@string/projects"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Стажировки"
+            android:text="@string/intern"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Мероприятия"
+            android:text="@string/meetings"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -207,7 +207,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Сообщество"
+            android:text="@string/community"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -236,7 +236,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Новости"
+            android:text="@string/news"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -264,7 +264,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Настройки"
+            android:text="@string/settings"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
@@ -293,7 +293,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="Поддержка"
+            android:text="@string/help"
             android:textSize="20sp"
             android:textColor="#7A7A7A"
             android:layout_width="wrap_content"
