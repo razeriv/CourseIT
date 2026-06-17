@@ -1,42 +1,51 @@
-package com.example.myapplication.ui.projects;
+package com.example.myapplication.ui.projects;  // или лучше переместить в ui/profile
+
+import com.google.gson.annotations.SerializedName;
 
 public class UpdateProfileRequest {
-    public String email;
-    public String first_name;
-    public String last_name;
-    public String group_number;
-    public String course;
-    public String avatar_url;
-    public String password_hash;
-    public UpdateProfileRequest(String email, String first_name, String last_name, String group_number, String course, String avatar_url, String password_hash){
-        this.email = email;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.group_number = group_number;
-        this.course = course;
-        this.avatar_url = avatar_url;
-        this.password_hash = password_hash;
+
+    @SerializedName("about")
+    private String about;
+
+    @SerializedName("first_name")
+    private String firstName;
+
+    @SerializedName("last_name")
+    private String lastName;
+
+    @SerializedName("course")
+    private String course;
+
+    @SerializedName("group_number")
+    private String groupNumber;
+
+    @SerializedName("avatar_url")
+    private String avatarUrl;
+
+    // Конструкторы
+    public UpdateProfileRequest() {}
+
+    // Для обновления "О себе"
+    public UpdateProfileRequest(String about) {
+        this.about = about;
     }
 
-    public String getEmail() {
-        return email;
+    // Для полного обновления профиля
+    public UpdateProfileRequest(String firstName, String lastName, String course,
+                                String groupNumber, String avatarUrl, String about) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.course = course;
+        this.groupNumber = groupNumber;
+        this.avatarUrl = avatarUrl;
+        this.about = about;
     }
-    public String getFirst_name(){
-        return first_name;
-    }
-    public String getLast_name(){
-        return last_name;
-    }
-    public String getGroup_number(){
-        return group_number;
-    }
-    public String getCourse(){
-        return course;
-    }
-    public String getAvatar_url(){
-        return avatar_url;
-    }
-    public String getPassword_hash(){
-        return password_hash;
-    }
+
+    // Геттеры
+    public String getAbout() { return about; }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getCourse() { return course; }
+    public String getGroupNumber() { return groupNumber; }
+    public String getAvatarUrl() { return avatarUrl; }
 }

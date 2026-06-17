@@ -2,12 +2,15 @@ package com.example.myapplication.ui.projects;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Project {
 
     private String title;
     private String description;
     private String requirements;
     private String details;
+    @SerializedName("tutor_name")
     private String instructor;
     private String topic;
     private String difficulty;

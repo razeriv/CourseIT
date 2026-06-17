@@ -57,49 +57,6 @@ public class ProjectsViewModel extends ViewModel {
         });
     }
 
-    public void applyFilters(String query,
-                             boolean web,
-                             boolean admin,
-                             boolean android,
-                             boolean analytics,
-                             boolean ai,
-                             boolean db,
-                             String difficulty,
-                             String dateFrom,
-                             String dateTo) {
-
-        List<Project> source = allProjects.getValue();
-        if (source == null || source.isEmpty()) {
-            filteredProjects.setValue(new ArrayList<>());
-            return;
-        }
-
-        query = (query == null ? "" : query.trim().toLowerCase());
-
-        List<Project> result = new ArrayList<>();
-
-        for (Project p : source) {
-            if (p == null) continue;
-
-            boolean matchesSearch = query.isEmpty() ||
-                    containsIgnoreCase(p.getTitle(), query) ||
-                    containsIgnoreCase(p.getDescription(), query) ||
-                    containsIgnoreCase(p.getInstructor(), query);
-
-            boolean matchesTopic = isTopicMatch(p.getTopic(), web, admin, android, analytics, ai, db);
-
-            boolean matchesDifficulty = difficulty.isEmpty() ||
-                    difficulty.equalsIgnoreCase(p.getDifficulty());
-
-            boolean matchesDate = isDateInRange(p.getDeadline(), dateFrom, dateTo);
-
-            if (matchesSearch && matchesTopic && matchesDifficulty && matchesDate) {
-                result.add(p);
-            }
-        }
-
-        filteredProjects.setValue(result);
-    }
 
     private boolean containsIgnoreCase(String text, String query) {
         if (text == null) return false;
